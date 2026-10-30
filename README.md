@@ -11,13 +11,17 @@ label sets across 19 dataset families. The source tables and audit are in
 attributed to the evaluating paper, not to an independent rerun or the
 baseline's original publication.
 
-Overall ranking uses the equal-weight mean Accuracy on the exact shared
-UCI-HAR 6-class and RealWorld 8-class targets for every method. A complete
+Overall ranking uses the equal-weight mean Accuracy on UCI-HAR, RealWorld,
+PAMAP2 and USC-HAD for every method (25% each). PAMAP2 uses 9 classes in
+oneHAR and 12 in MOSAIC; USC-HAD uses 7 and 12 respectively. These variants
+share dataset columns in the overall reference ranking and are marked `*`.
+Each model contributes exactly one score per dataset, with its original label
+set retained in Details. A complete
 setting is selected using a fixed, score-independent order: oneHAR supervised,
 MOSAIC full-shot, MOSAIC few-shot, oneHAR LODO, MOSAIC zero-shot. Training and
 split differences are visible and marked `*`; matching targets do not imply
 a controlled common-protocol comparison. Other targets and all original
-settings remain in per-dataset rankings. Class variants are never merged.
+settings remain in per-dataset rankings. Per-dataset rankings keep class variants separate.
 
 Only the IMU board is currently displayed. Sensor QA data are retained for future restoration. Historical run snapshots remain available as evidence files outside the scoped IMU ranking.
 

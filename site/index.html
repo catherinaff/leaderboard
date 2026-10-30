@@ -4,11 +4,11 @@
   <script src="app-path.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Paper-reported IMU comparisons from MOSAIC and One Model to Fit Them All, with shared-dataset rankings and source tables.">
+  <meta name="description" content="Paper-reported IMU comparisons from MOSAIC and One Model to Fit Them All, with four-dataset reference rankings and source tables.">
   <title>IoTBench · Sensor Intelligence Leaderboard</title>
-  <link rel="stylesheet" href="ranking.css?v=20261030-paper-scope">
-  <script defer src="ranking-model.js?v=20261030-paper-scope"></script>
-  <script defer src="ranking.js?v=20261030-imu-only"></script>
+  <link rel="stylesheet" href="ranking.css?v=20261030-four-datasets">
+  <script defer src="ranking-model.js?v=20261030-four-datasets"></script>
+  <script defer src="ranking.js?v=20261030-four-datasets"></script>
 </head>
 <body class="lb-page">
   <header><div class="lb-header">
@@ -34,13 +34,13 @@
       <div class="results-heading"><div><h3 id="dataset-heading">UCI-HAR</h3><p id="result-summary" role="status" aria-live="polite">Loading results…</p></div><button type="button" id="sort-results" class="sort-button" aria-label="Reverse score sorting">Score ↓</button></div>
       <p class="context-note" id="context-note">Ranked within the same protocol and metric.</p>
       <div id="leaderboard-wrap"><div class="empty-state">Loading leaderboard…</div></div>
-      <div class="panel-bottom"><div class="source-legend"><span class="source-badge source-paper">Paper</span><span>Original table and setting in Details.</span></div><details class="score-policy"><summary>How scores are selected</summary><p>The IMU board includes the methods and target label sets in MOSAIC Tables 2–4 and oneHAR Tables 2–3. Overall Accuracy is recalculated over the same UCI-HAR (6 classes) and RealWorld (8 classes) tasks for every method, with equal weights.</p><p>One complete setting is selected per method using a fixed order: oneHAR supervised comparison, MOSAIC full-shot, MOSAIC few-shot, oneHAR leave-one-dataset-out, then MOSAIC zero-shot. The rule does not select the highest score. Training sources, label budgets and splits can differ; * and the visible setting identify these differences. Dataset rankings retain all original settings.</p></details></div>
+      <div class="panel-bottom"><div class="source-legend"><span class="source-badge source-paper">Paper</span><span>Original table and setting in Details.</span></div><details class="score-policy"><summary>How scores are selected</summary><p>The IMU board includes the methods and target label sets in MOSAIC Tables 2–4 and oneHAR Tables 2–3. Overall Accuracy is the equal-weight mean on UCI-HAR, RealWorld, PAMAP2* and USC-HAD*, with one result per dataset per method. PAMAP2 and USC-HAD retain each paper’s class version; see * below.</p><p>One complete setting is selected per method using a fixed order: oneHAR supervised comparison, MOSAIC full-shot, MOSAIC few-shot, oneHAR leave-one-dataset-out, then MOSAIC zero-shot. The rule does not select the highest score. Training sources, label budgets and splits can differ; * and the visible setting identify these differences. Dataset rankings retain all original settings.</p></details></div>
     </section>
     <footer class="lb-footer"><span id="last-updated">Paper-reported results</span><div class="lb-footer-links"><a href="tasks.html">Tasks ↗</a><a href="data/paper_transfer_evidence.json" target="_blank" rel="noopener">Score sources &amp; audit ↗</a><a href="datasets.html">Download datasets ↗</a></div></footer>
     <aside id="reference-footnote" class="reference-footnote" hidden aria-label="Ranking notes">
-      <p><strong>* 排名口径：</strong>19 个方法均使用 UCI-HAR（6 类）与 RealWorld（8 类）的论文 Accuracy，各占 50%。PAMAP2 的 9/12 类、USC-HAD 的 7/12 类等不同类别版本分别展示，不混入总榜平均。其余论文数据集可在 Dataset rankings 中查看。</p>
-      <p>各行保留原论文训练设置：oneHAR 及其监督基线采用 Table 2（LIMU-BERT 为单数据集训练）；MOSAIC 及对应基线优先采用 Table 4 full-shot。仅有 LODO 或 zero-shot 分数的方法也保留，并标注具体设置。共同数据集不意味着划分、训练来源或标注预算相同，因此 * 排名用于文献参考，不代表统一协议实测排名。</p>
-      <p>分数来自 <a href="https://dl.acm.org/doi/10.1145/3831643" target="_blank" rel="noopener">MOSAIC（2026），Tables 2–4</a> 与 <a href="https://dl.acm.org/doi/10.1145/3749509" target="_blank" rel="noopener">One Model to Fit Them All（2025），Tables 2–3</a>。总榜均值按上述两项重新计算，不采用各论文不同数据集范围的原表 Avg。每项数值与表号见 Details。</p>
+      <p><strong>* 排名口径：</strong>19 个方法均按 UCI-HAR、RealWorld、PAMAP2*、USC-HAD* 四个数据集的论文 Accuracy 等权平均，各占 25%；每个方法在每个数据集上只计一项结果。PAMAP2 与 USC-HAD 的不同类别版本一并计入总榜，并标注 *。其余论文数据集可在 Dataset rankings 中查看。</p>
+      <p><strong>* 类别差异：</strong>PAMAP2 在 oneHAR 论文中为 9 类、MOSAIC 论文中为 12 类；USC-HAD 分别为 7 类与 12 类。表中对应分数沿用各自来源论文的类别版本，Details 保留具体类别数。<br>各行保留原论文训练设置：oneHAR 及其监督基线采用 Table 2（LIMU-BERT 为单数据集训练）；MOSAIC 及对应基线优先采用 Table 4 full-shot。仅有 LODO 或 zero-shot 分数的方法也保留，并标注具体设置。同名数据集不意味着类别集合、划分、训练来源或标注预算相同，因此 * 排名用于文献参考，不代表统一协议实测排名。</p>
+      <p>分数来自 <a href="https://dl.acm.org/doi/10.1145/3831643" target="_blank" rel="noopener">MOSAIC（2026），Tables 2–4</a> 与 <a href="https://dl.acm.org/doi/10.1145/3749509" target="_blank" rel="noopener">One Model to Fit Them All（2025），Tables 2–3</a>。总榜均值按上述四项重新计算，不采用各论文不同数据集范围的原表 Avg。每项数值与表号见 Details。</p>
     </aside>
   </main>
   <dialog id="result-dialog" class="result-dialog" aria-labelledby="detail-title"><div class="dialog-heading"><div><h2 id="detail-title"></h2><p id="detail-context"></p></div><button id="close-dialog" type="button" class="dialog-close" aria-label="Close result details">×</button></div><div id="detail-body"></div></dialog>

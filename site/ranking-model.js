@@ -258,20 +258,36 @@
       observations: transferObservations(data) };
   }
   function paperBenchmark(data, datasetIds = null, order = 'best') {
-    const scope = paperScope(data), ids = datasetIds || scope.common;
+    const scope = paperScope(data);
+    // The reference ranking groups the two requested class variants by dataset.
+    // Original label-set IDs and scores remain attached to every selected value.
+    const families = {
+      uci_har: { label: 'UCI-HAR · 6 classes', variants: ['uci_har_6c'] },
+      realworld: { label: 'RealWorld · 8 classes', variants: ['realworld_8c'] },
+      pamap2: { label: 'PAMAP2', variants: ['pamap2_9c', 'pamap2_12c'] },
+      usc_had: { label: 'USC-HAD', variants: ['usc_had_7c', 'usc_had_12c'] }
+    };
+    const ids = datasetIds || Object.keys(families);
+    const columns = ids.map(id => {
+      const definition = families[id] || { label: scope.catalog.find(d => d.id === id)?.label || id, variants: [id] };
+      const classCounts = [...new Set(definition.variants.map(v => scope.catalog.find(d => d.id === v)?.classes).filter(Number.isFinite))];
+      return { id, ...definition, classCounts, classMismatch: classCounts.length > 1 };
+    });
     // Choose one complete, documented setting per method, independent of score.
     const preference = ['onehar-joint', 'mosaic-full-shot', 'mosaic-few-shot', 'onehar-lodo', 'mosaic-zero-shot'];
     const entries = [];
     for (const method of scope.methods) {
       const candidates = preference.map(protocol => {
-        const values = ids.map(id => scope.observations.find(r => r.method.id === method.id && r.protocol === protocol && r.dataset === id));
+        const values = columns.map(column => column.variants.map(id => scope.observations.find(r => r.method.id === method.id && r.protocol === protocol && r.dataset === id)).find(Boolean));
         return values.length && values.every(r => r && finite(r.value)) ? { protocol, values } : null;
       }).filter(Boolean);
       if (!candidates.length) continue;
       const selected = candidates[0], group = data.groups.find(g => g.id === selected.protocol);
       const allValues = scope.observations.filter(r => r.method.id === method.id && r.protocol === selected.protocol);
+      const values = selected.values.map((r, i) => ({ ...r, comparisonDataset: columns[i].id, classMismatch: columns[i].classMismatch }));
       entries.push({ method: { ...selected.values[0].method, name: method.id === 'onehar' ? 'oneHAR' : method.name },
-        values: selected.values, allValues, coverage: ids.length, datasetIds: ids,
+        values, allValues, coverage: ids.length, datasetIds: ids,
+        labelSets: values.map(r => r.dataset),
         mean: selected.values.reduce((sum, r) => sum + r.value, 0) / ids.length,
         metric: 'accuracy', unit: 'percent', protocol: selected.protocol,
         protocolLabel: selected.values[0].settingLabel, paperId: group.paper_id, sourceTable: group.provenance,
@@ -281,7 +297,7 @@
     let previous = null, rank = 0;
     entries.forEach((e, i) => { if (previous === null || Math.abs(e.mean - previous) > 1e-12) rank = i + 1; e.rank = rank; previous = e.mean; });
     if (order === 'reverse') entries.sort((a, b) => a.mean - b.mean || a.method.name.localeCompare(b.method.name));
-    return { ...scope, datasetIds: ids, entries };
+    return { ...scope, datasetIds: ids, columns, entries };
   }
   root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows, referenceRanking, paperScope, paperBenchmark });
 })(globalThis);

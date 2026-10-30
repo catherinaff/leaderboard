@@ -43,7 +43,7 @@ test('all scoped rankings and data requests work at root and arbitrary subpaths'
   for(const prefix of ['', '/leaderboard','/research/leaderboard']) {
     const app=await boot(prefix);
     const html=app.get('leaderboard-wrap').innerHTML;
-    assert.match(html,/93\.50/);
+    assert.match(html,/92\.05/);
     assert.match(html,/One Model to Fit Them All \(oneHAR\)/);
     for(const id of expectedMethods) assert.ok(html.includes('data-method="'+id+'"'),id);
     for(const id of ['robusthar','tinyhar','attend_and_discriminate','deepsense']) assert.ok(!html.includes('data-method="'+id+'"'),id);
@@ -54,19 +54,22 @@ test('all scoped rankings and data requests work at root and arbitrary subpaths'
     assert.equal(app.env.IoTBenchPath('https://paper.example/paper'),'https://paper.example/paper');
   }
 });
-test('every legacy overall route resolves to the same two-dataset paper ranking',async()=>{
+test('every legacy overall route resolves to the same four-dataset paper ranking',async()=>{
   for(const query of ['', '?board=imu&view=overall', '?board=imu&tab=cross-dataset&view=overall&aggregate=onehar-lodo', '?board=imu&view=overall&tab=standard', '?board=imu&view=overview']) {
     const app=await boot('/leaderboard',query);
-    assert.match(app.get('result-summary').textContent,/19 ranked models · 2 shared label sets/);
+    assert.match(app.get('result-summary').textContent,/19 ranked models · 4 datasets/);
     const html=app.get('leaderboard-wrap').innerHTML;
     assert.match(html,/UCI-HAR · 6 classes/);assert.match(html,/RealWorld · 8 classes/);
-    assert.match(html,/69\.70/);assert.match(html,/comparison-asterisk/);
+    assert.match(html,/68\.43/);assert.match(html,/comparison-asterisk/);
+    assert.match(html,/PAMAP2<sup/);assert.match(html,/USC-HAD<sup/);
+    assert.match(html,/pamap2_9c/);assert.match(html,/pamap2_12c/);
+    assert.match(html,/usc_had_7c/);assert.match(html,/usc_had_12c/);
     assert.doesNotMatch(html,/Partial coverage|unranked|available-only/);
     assert.equal(app.get('reference-footnote').hidden,false);
     assert.equal(app.get('mode-controls').hidden,true);
     assert.equal(app.get('protocol-field').hidden,true);
   }
-  assert.match(read('index.html'),/各占 50%/);
+  assert.match(read('index.html'),/各占 25%/);
   assert.match(read('index.html'),/训练来源或标注预算/);
   assert.doesNotMatch(read('index.html'),/各方法按其可用数据集|Paper-reported averages/);
   assert.equal(read('index.html'),read('leaderboard.html'));
@@ -87,18 +90,22 @@ test('overall means share a fixed denominator and use one documented setting per
   const b=M.paperBenchmark(d);
   assert.equal(b.entries.length,19);
   for(const e of b.entries){
-    assert.equal(e.coverage,2);
-    assert.deepEqual([...e.datasetIds],['uci_har_6c','realworld_8c']);
-    assert.deepEqual([...e.values].map(v=>v.dataset),['uci_har_6c','realworld_8c']);
+    assert.equal(e.coverage,4);
+    assert.deepEqual([...e.datasetIds],['uci_har','realworld','pamap2','usc_had']);
+    assert.deepEqual([...e.values].map(v=>v.comparisonDataset),['uci_har','realworld','pamap2','usc_had']);
+    assert.equal(new Set(e.labelSets).size,4);
+    assert.deepEqual([...e.values].map(v=>v.classMismatch),[false,false,true,true]);
     assert.ok(e.values.every(v=>v.protocol===e.protocol&&v.source==='paper'));
-    assert.equal(e.mean,(e.values[0].value+e.values[1].value)/2);
+    assert.equal(e.mean,e.values.reduce((sum,v)=>sum+v.value,0)/4);
     assert.equal(e.sourceRuns,0);
   }
   const one=b.entries.find(e=>e.method.id==='onehar'),mosaic=b.entries.find(e=>e.method.id==='mosaic');
-  assert.ok(Math.abs(one.mean-.935)<1e-12);assert.ok(Math.abs(mosaic.mean-.697)<1e-12);
+  assert.ok(Math.abs(one.mean-.9205)<1e-12);assert.ok(Math.abs(mosaic.mean-.68425)<1e-12);
   assert.equal(one.protocol,'onehar-joint');assert.equal(mosaic.protocol,'mosaic-full-shot');
   assert.equal(b.entries.find(e=>e.method.id==='sensorllm').protocol,'mosaic-full-shot');
   assert.match(b.entries.find(e=>e.method.id==='limu_bert').protocolLabel,/per-dataset/);
+  assert.deepEqual([...one.labelSets],['uci_har_6c','realworld_8c','pamap2_9c','usc_had_7c']);
+  assert.deepEqual([...mosaic.labelSets],['uci_har_6c','realworld_8c','pamap2_12c','usc_had_12c']);
   assert.equal(JSON.stringify(d),before);
   assert.ok(b.entries.every((e,i)=>i===0||b.entries[i-1].mean>=e.mean));
 });
@@ -108,7 +115,7 @@ test('selection is independent of score magnitude, retains zeros, and never fill
   const zero=d.comparisons['mosaic-zero-shot'].find(e=>e.method_id==='sensorllm');
   full.results.forEach(r=>r.accuracy=0);zero.results.forEach(r=>r.accuracy=100);
   const b=M.paperBenchmark(d),e=b.entries.find(e=>e.method.id==='sensorllm');
-  assert.equal(e.protocol,'mosaic-full-shot');assert.equal(e.mean,0);assert.equal(e.coverage,2);
+  assert.equal(e.protocol,'mosaic-full-shot');assert.equal(e.mean,0);assert.equal(e.coverage,4);
   assert.equal(M.paperScope(d).observations.find(r=>r.id==='transfer:mosaic-zero-shot:gpt4ts:uci_har_6c').value,0);
   for(const g of d.groups)g.results=g.results.filter(r=>r.target_id!=='realworld_8c'||g.method_id!=='onehar');
   // Removing one method's target cannot create a missing=zero result.
@@ -125,8 +132,8 @@ test('reversing display order retains true ranks',async()=>{
 test('overall Details separate the shared targets from other reported targets',async()=>{
   const app=await boot('/leaderboard');
   app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-summary]'?{dataset:{summary:'onehar'}}:null}});
-  assert.match(app.get('detail-context').textContent,/2 shared datasets/);
-  assert.match(app.get('detail-body').innerHTML,/Other reported datasets \(3\) · excluded/);
+  assert.match(app.get('detail-context').textContent,/4 datasets/);
+  assert.match(app.get('detail-body').innerHTML,/Other reported datasets \(1\) · excluded/);
   assert.match(app.get('detail-body').innerHTML,/91\.90/);
   app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:onehar-joint:onehar:uci_har_6c'}})}});
   assert.match(app.get('detail-body').innerHTML,/Table 2 · PDF p\.16/);

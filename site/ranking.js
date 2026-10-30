@@ -14,11 +14,12 @@
   const nameOf = id => labels[id] || data?.benchmarks.find(b => b.id === id)?.name || rows.find(r => r.dataset === id)?.datasetLabel || id;
   function score(row) {
     if (!model.finite(row.value)) return '—';
-    if (row.unit === 'percent') return `${(row.value * 100).toFixed(2)}<span class="score-unit">%</span>`;
+    if (row.unit === 'percent') return `${fixed2(row.value * 100)}<span class="score-unit">%</span>`;
     if (row.unit === 'percentage-points') return `${(row.value * 100).toFixed(2)}<span class="score-unit">pp</span>`;
     const native = row.metric === row.sourceRecord?.primary_metric && row.displayValue != null ? Number(row.displayValue) : row.value;
     return (Number.isFinite(native) ? native : row.value).toLocaleString('en-US', { maximumFractionDigits: 3 });
   }
+  const fixed2 = value => Number(value.toFixed(10)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const sourceBadge = row => `<span class="source-badge ${row.source === 'run' ? 'source-run' : 'source-paper'}">${row.source === 'run' ? '<i aria-hidden="true"></i>Our run' : 'Paper'}</span>`;
   async function getJson(path, optional = false) {
     const response = await fetch(path, { cache: 'no-store' });
@@ -171,24 +172,25 @@
     return `<div class="other-label-set">${unique.map(r => `<button class="variant-result" data-result="${esc(r.id)}" aria-label="Different label set: ${esc(entry.method.name)} on ${esc(r.datasetLabel || nameOf(r.dataset))}">${esc(r.sourceRecord?.num_classes ? `${r.sourceRecord.num_classes} classes` : r.datasetLabel || nameOf(r.dataset))} ↗</button>`).join('')}<span class="cell-metric">Other label set<br>excluded from mean</span></div>`;
   }
   const referenceMethodName = method => method.id === 'onehar' ? 'One Model to Fit Them All (oneHAR)' : method.name;
+  const classAsterisk = '<sup class="comparison-asterisk" aria-label="Different class versions across papers">*</sup>';
   function renderReferenceOverall() {
-    state.aggregateScope = 'paper-common';
+    state.aggregateScope = 'paper-four';
     state.basket = 'shared';
     state.metric = 'accuracy';
     rows = data.paperScope.observations;
     for (const id of ['mode-controls', 'dataset-field', 'basket-field', 'protocol-field', 'metric-field', 'cross-paper-controls']) $(id).hidden = true;
-    $('dataset-heading').textContent = 'Overall leaderboard · shared datasets';
+    $('dataset-heading').textContent = 'Overall leaderboard';
     const benchmark = model.paperBenchmark(data.transfer, null, state.order);
     referenceEntries = benchmark.entries;
     let entries = referenceEntries;
     if (state.search) entries = entries.filter(e => matchesSearch(e.method));
     shown = entries.flatMap(e => e.values);
-    $('result-summary').textContent = `${entries.length} ranked models · ${benchmark.datasetIds.length} shared label sets · paper-reported results`;
-    $('context-note').textContent = 'Fixed ranking set: UCI-HAR (6 classes) and RealWorld (8 classes). Each contributes 50%. * marks remaining training/split differences; see the notes at the bottom.';
+    $('result-summary').textContent = `${entries.length} ranked models · ${benchmark.datasetIds.length} datasets · paper-reported results`;
+    $('context-note').textContent = 'UCI-HAR, RealWorld, PAMAP2* and USC-HAD* · 25% each. * Class versions and evaluation settings are explained below.';
     $('sort-results').textContent = state.order === 'best' ? 'Average ↓' : 'Average ↑';
-    $('leaderboard-wrap').innerHTML = `<div class="overview-scroll"><table class="reference-table paper-reference-table"><caption class="sr-only">Paper comparison methods ranked using the same UCI-HAR six-class and RealWorld eight-class tasks. Training settings differ and are marked with an asterisk.</caption><thead><tr><th>Rank</th><th>Model</th>${benchmark.datasetIds.map(id => `<th>${esc(benchmark.catalog.find(d => d.id === id)?.label || id)}<br><span class="cell-metric">Accuracy</span></th>`).join('')}<th>Avg. Accuracy</th><th>Paper / setting</th><th>Details</th></tr></thead><tbody>${entries.map(e => {
+    $('leaderboard-wrap').innerHTML = `<div class="overview-scroll"><table class="reference-table paper-reference-table"><caption class="sr-only">Paper comparison methods ranked by equal-weight Accuracy on UCI-HAR, RealWorld, PAMAP2 and USC-HAD. Different class versions and training settings are marked with an asterisk.</caption><thead><tr><th>Rank</th><th>Model</th>${benchmark.columns.map(column => `<th>${esc(column.label)}${column.classMismatch ? classAsterisk : ''}<br><span class="cell-metric">Accuracy</span></th>`).join('')}<th class="reference-mean">Avg. Accuracy</th><th>Paper / setting</th><th>Details</th></tr></thead><tbody>${entries.map(e => {
       const meta = model.META[e.method.id];
-      return `<tr class="reference-row${e.rank === 1 ? ' leading' : ''}" data-method="${esc(e.method.id)}"><td><span class="rank-number">${e.rank}</span></td><th class="model-cell"><span class="model-title">${esc(referenceMethodName(e.method))}</span>${meta ? `<span class="model-subtitle">${esc(meta[2])} · ${esc(meta[1])}</span>` : ''}</th>${e.values.map(r => `<td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)}</button></td>`).join('')}<td><span class="main-score">${score({ ...e, value: e.mean })}</span><sup class="comparison-asterisk" aria-label="Training or split differences">*</sup></td><td class="reference-source">${esc(e.protocolLabel)}<br><span class="cell-metric">Table ${esc(e.sourceTable?.table)}</span></td><td><button type="button" class="details-button" data-summary="${esc(e.method.id)}">View datasets ↗</button></td></tr>`;
+      return `<tr class="reference-row${e.rank === 1 ? ' leading' : ''}" data-method="${esc(e.method.id)}"><td><span class="rank-number">${e.rank}</span></td><th class="model-cell"><span class="model-title">${esc(referenceMethodName(e.method))}</span>${meta ? `<span class="model-subtitle">${esc(meta[2])} · ${esc(meta[1])}</span>` : ''}</th>${e.values.map(r => `<td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)}${r.classMismatch ? classAsterisk : ''}</button></td>`).join('')}<td class="reference-mean"><span class="main-score">${score({ ...e, value: e.mean })}</span><sup class="comparison-asterisk" aria-label="Class versions or evaluation settings differ">*</sup></td><td class="reference-source">${esc(e.protocolLabel)}<br><span class="cell-metric">Table ${esc(e.sourceTable?.table)}</span></td><td><button type="button" class="details-button" data-summary="${esc(e.method.id)}">View datasets ↗</button></td></tr>`;
     }).join('')}</tbody></table></div>${!entries.length ? '<div class="empty-state">No matching model.</div>' : ''}`;
     if ($('reference-footnote')) $('reference-footnote').hidden = false;
   }
@@ -196,11 +198,11 @@
     const e = referenceEntries.find(e => e.method.id === id);
     if (!e) return;
     $('detail-title').textContent = referenceMethodName(e.method);
-    $('detail-context').textContent = `${e.coverage} shared datasets · equal-weight mean Accuracy`;
+    $('detail-context').textContent = `${e.coverage} datasets · equal-weight mean Accuracy`;
     shown = [...new Map([...shown, ...e.allValues].map(r => [r.id, r])).values()];
-    const table = values => `<div class="reference-detail-scroll"><table class="reference-detail-table"><thead><tr><th>Dataset / label set</th><th>Accuracy</th><th>Setting / source</th></tr></thead><tbody>${values.map(r => `<tr><td>${esc(r.datasetLabel || nameOf(r.dataset))}</td><td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)} ↗</button></td><td>${esc(r.protocolLabel)}<br>${sourceBadge(r)}</td></tr>`).join('')}</tbody></table></div>`;
-    const other = e.allValues.filter(r => !e.datasetIds.includes(r.dataset));
-    $('detail-body').innerHTML = `<div class="detail-score"><span class="main-score">${score({ ...e, value: e.mean })}*</span></div><p class="reference-explanation">The ranking uses the same UCI-HAR (6 classes) and RealWorld (8 classes) tasks for every method, with equal weights. Remaining training and split differences are marked *.</p>${table(e.values)}${other.length ? `<details class="other-runs"><summary>Other reported datasets (${other.length}) · excluded from the overall mean</summary>${table(other)}</details>` : ''}<p class="reference-explanation">All values come from the two papers. The mean is recalculated over the two shared tasks. Click any score for the source table and full setting.</p>${link(e.method.paper, 'Source paper')}`;
+    const table = values => `<div class="reference-detail-scroll"><table class="reference-detail-table"><thead><tr><th>Dataset / label set</th><th>Accuracy</th><th>Setting / source</th></tr></thead><tbody>${values.map(r => `<tr><td>${esc(r.datasetLabel || nameOf(r.dataset))}${r.classMismatch ? classAsterisk : ''}</td><td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)} ↗</button></td><td>${esc(r.protocolLabel)}<br>${sourceBadge(r)}</td></tr>`).join('')}</tbody></table></div>`;
+    const other = e.allValues.filter(r => !e.labelSets.includes(r.dataset));
+    $('detail-body').innerHTML = `<div class="detail-score"><span class="main-score">${score({ ...e, value: e.mean })}*</span></div><p class="reference-explanation">UCI-HAR, RealWorld, PAMAP2 and USC-HAD each contribute 25%. PAMAP2 uses 9 classes in oneHAR and 12 in MOSAIC; USC-HAD uses 7 and 12 respectively. Different class versions and evaluation settings are marked *.</p>${table(e.values)}${other.length ? `<details class="other-runs"><summary>Other reported datasets (${other.length}) · excluded from the overall mean</summary>${table(other)}</details>` : ''}<p class="reference-explanation">All values come from the two papers. The mean is recalculated over these four datasets, counting each dataset once per model. Click any score for the source table and full setting.</p>${link(e.method.paper, 'Source paper')}`;
     if (!$('result-dialog').open) $('result-dialog').showModal();
   }
   function renderOverall() {
