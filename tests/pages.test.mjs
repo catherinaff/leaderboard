@@ -7,7 +7,7 @@ import vm from 'node:vm';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 const read=name=>fs.readFileSync(path.join(root,'site',name),'utf8');
-async function boot(prefix,search='?board=imu&view=overall&tab=standard') {
+async function boot(prefix,search='') {
   const page='https://official.example'+prefix+'/';
   const elements=new Map();
   function get(id) {
@@ -56,7 +56,7 @@ test('paper reference, cross-dataset and Sensor QA remain usable under the prefi
   for(const search of ['?board=imu&view=overview','?board=imu&tab=cross-dataset','?board=qa&view=overall']) {
     const app=await boot('/leaderboard',search);
     assert.doesNotMatch(app.get('leaderboard-wrap').innerHTML,/Results could not be loaded|No matching results/);
-    assert.match(app.get('leaderboard-wrap').innerHTML,/source-paper|overall-complete/);
+    assert.match(app.get('leaderboard-wrap').innerHTML,/source-paper|overall-complete|reference-row/);
   }
 });
 test('Pages submissions use the campus server portal instead of a dead local API',()=>{
@@ -76,36 +76,52 @@ test('all dataset downloads point to official HTTPS sources',()=>{
  }
  assert.match(html,/checksums describe the mirror snapshot/);
 });
-test('both papers stay visible when Cross-dataset inherits the Overall view',async()=>{
- const app=await boot('/leaderboard','?board=imu&tab=cross-dataset&view=overall');
- assert.equal(app.get('protocol-select').value,'mosaic-zero-shot');
- assert.equal(app.get('cross-paper-controls').hidden,false);
- assert.match(app.get('cross-paper-controls').innerHTML,/One Model to Fit Them All \(oneHAR\)/);
- app.get('cross-paper-controls').dispatch('click',{target:{closest:()=>({dataset:{crossPaper:'onehar'}})}});
- assert.equal(app.get('protocol-select').value,'onehar-lodo');
- assert.match(app.get('result-summary').textContent,/9 ranked models · 5 datasets/);
- assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
- assert.match(app.get('leaderboard-wrap').innerHTML,/40\.10/);
- assert.equal(new URL(app.env.location.href).searchParams.get('aggregate'),'onehar-lodo');
- app.get('model-search').dispatch('input',{target:{value:'One Model to Fit Them All'}});
- assert.match(app.get('result-summary').textContent,/1 ranked models/);
- assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
+test('the homepage and every Overall URL rank all ten methods with visible asterisk notes',async()=>{
+ for(const query of ['', '?board=imu&view=overall', '?board=imu&tab=cross-dataset&view=overall&aggregate=onehar-lodo', '?board=imu&view=overall&tab=standard']) {
+  const app=await boot('/leaderboard',query);
+  const html=app.get('leaderboard-wrap').innerHTML;
+  assert.match(app.get('result-summary').textContent,/10 ranked models/);
+  for(const id of ['mosaic','onehar','robusthar','unimts','tinyhar','limu_bert','attend_and_discriminate','if_convtransformer','deepsense','deepconvlstm']) assert.ok(html.includes('data-method="'+id+'"'));
+  assert.match(html,/92\.22/);
+  assert.match(html,/68\.09/);
+  assert.match(html,/comparison-asterisk/);
+  assert.doesNotMatch(html,/Partial coverage|unranked/);
+  assert.equal(app.get('reference-footnote').hidden,false);
+  assert.equal(app.get('mode-controls').hidden,true);
+ }
+ assert.match(read('index.html'),/缺失项不记 0/);
+ assert.match(read('index.html'),/训练\/测试划分/);
+ assert.match(read('index.html'),/oneHAR 采用论文 supervised joint training/);
 });
-test('oneHAR can be selected from an unsupported target and retains all five reported targets',async()=>{
- const app=await boot('/leaderboard','?board=imu&tab=cross-dataset&dataset=opportunity_4c');
- assert.match(app.get('protocol-select').innerHTML,/onehar-lodo/);
- app.get('protocol-select').dispatch('change',{target:{value:'onehar-lodo'}});
- assert.equal(app.get('dataset-select').value,'uci_har_6c');
- assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
- assert.match(app.get('leaderboard-wrap').innerHTML,/53\.10/);
- const targets=app.get('dataset-select').innerHTML;
- for(const id of ['uci_har_6c','hhar_6c','pamap2_9c','usc_had_7c','realworld_8c']) assert.ok(targets.includes(id));
- assert.ok(!targets.includes('opportunity_4c'));
- app.get('dataset-select').dispatch('change',{target:{value:'hhar_6c'}});
- assert.equal(app.get('protocol-select').value,'onehar-lodo');
- assert.match(app.get('leaderboard-wrap').innerHTML,/33\.60/);
- app.get('view-controls').dispatch('click',{target:{closest:()=>({dataset:{view:'overall'}})}});
- assert.equal(app.get('protocol-select').value,'onehar-lodo');
- app.get('model-search').dispatch('input',{target:{value:'One Model to Fit Them All'}});
- assert.match(app.get('result-summary').textContent,/1 ranked models/);
+test('dataset details expose every included score and its original setting',async()=>{
+ const app=await boot('/leaderboard');
+ app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-summary]'?{dataset:{summary:'onehar'}}:null}});
+ assert.match(app.get('detail-context').textContent,/5 datasets/);
+ assert.match(app.get('detail-body').innerHTML,/supervised joint training/);
+ assert.match(app.get('detail-body').innerHTML,/91\.90/);
+ app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:onehar-joint:onehar:uci_har_6c'}})}});
+ assert.match(app.get('detail-body').innerHTML,/Table 2/);
+});
+test('available-only means are calculated transparently, without coverage priority or selecting the highest value',async()=>{
+ const app=await boot('/leaderboard');
+ const M=app.env.IoTBenchRanking;
+ const fixture=(id,dataset,value,source='run',extra={})=>({id:id+dataset+source,method:{id,name:id},dataset,protocol:'raw-v2',metric:'accuracy',metrics:{accuracy:value},value,source,unit:'percent',direction:'higher',...extra});
+ const rows=[fixture('x','wisdm',.99),fixture('x','wisdm_18c',.5,'paper',{paperRole:'original',protocol:'paper'}),fixture('x','hhar',.8),fixture('y','uci_har',.95)];
+ const before=JSON.stringify(rows);
+ const result=M.referenceRanking(rows,'accuracy','best',['x','y']);
+ assert.equal(result[0].method.id,'y');
+ assert.equal(result[0].coverage,1);
+ assert.equal(result[1].coverage,2);
+ assert.equal(result[1].mean,.65);
+ assert.equal(JSON.stringify(rows),before);
+ const reg=JSON.parse(read('api/results.json')),evidence=JSON.parse(read('data/imu_evidence.json')),repro=JSON.parse(read('data/imu_reproduction_20261028.json')),transfer=JSON.parse(read('data/paper_transfer_evidence.json'));
+ const actual=M.referenceRanking([...M.imuObservations(reg,evidence,repro),...M.mainPaperObservations(transfer)]);
+ const one=actual.find(e=>e.method.id==='onehar'),mosaic=actual.find(e=>e.method.id==='mosaic');
+ assert.equal(one.coverage,5);assert.ok(Math.abs(one.mean-.9222)<1e-12);
+ assert.ok(one.values.every(r=>r.protocol==='onehar-joint'));
+ assert.equal(mosaic.coverage,18);assert.ok(mosaic.values.every(r=>r.protocol==='mosaic-full-shot'));
+ assert.ok(actual.every((e,i)=>i===0||actual[i-1].mean>=e.mean));
+ app.get('sort-results').dispatch('click');
+ const html=app.get('leaderboard-wrap').innerHTML;
+ assert.ok(html.indexOf('data-method="mosaic"')<html.indexOf('data-method="robusthar"'));
 });

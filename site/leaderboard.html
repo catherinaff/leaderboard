@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Compare IMU activity recognition and sensor question answering with clearly sourced paper and measured results.">
   <title>IoTBench · Sensor Intelligence Leaderboard</title>
-  <link rel="stylesheet" href="ranking.css?v=20261030-cross-papers">
-  <script defer src="ranking-model.js?v=20261030-clean-view"></script>
-  <script defer src="ranking.js?v=20261030-cross-papers"></script>
+  <link rel="stylesheet" href="ranking.css?v=20261030-all-methods">
+  <script defer src="ranking-model.js?v=20261030-all-methods"></script>
+  <script defer src="ranking.js?v=20261030-all-methods"></script>
 </head>
 <body class="lb-page">
   <header><div class="lb-header">
@@ -19,7 +19,7 @@
     <div class="lb-hero"><div><p class="lb-kicker">BENCHMARKING SENSOR INTELLIGENCE</p><h1>Sensor Intelligence Leaderboard</h1><p>Compare activity recognition and sensor question answering.</p></div><button type="button" class="refresh-button" id="refresh" aria-label="Refresh result data">↻ Refresh</button></div>
     <div class="board-bar">
       <div class="board-switch" id="board-switch" aria-label="Leaderboard type"><button type="button" data-board="imu" class="active" aria-pressed="true">IMU HAR</button><button type="button" data-board="qa" aria-pressed="false">Sensor QA</button></div>
-      <div class="view-switch" id="view-controls" aria-label="Result view"><button type="button" data-view="overall" aria-pressed="false">Overall</button><button type="button" data-view="ranking" class="active" aria-pressed="true">Ranking</button><button type="button" data-view="overview" aria-pressed="false">Overview</button></div>
+      <div class="view-switch" id="view-controls" aria-label="Result view"><button type="button" data-view="overall" aria-pressed="false">Overall ranking</button><button type="button" data-view="ranking" class="active" aria-pressed="true">Dataset rankings</button><button type="button" data-view="overview" aria-pressed="false">Overview</button></div>
     </div>
     <section class="board-panel" aria-labelledby="board-title">
       <div class="panel-top"><h2 id="board-title">IMU activity recognition</h2></div>
@@ -36,9 +36,13 @@
       <div class="results-heading"><div><h3 id="dataset-heading">UCI-HAR</h3><p id="result-summary" role="status" aria-live="polite">Loading results…</p></div><button type="button" id="sort-results" class="sort-button" aria-label="Reverse score sorting">Score ↓</button></div>
       <p class="context-note" id="context-note">Ranked within the same protocol and metric.</p>
       <div id="leaderboard-wrap"><div class="empty-state">Loading leaderboard…</div></div>
-      <div class="panel-bottom"><div class="source-legend"><span class="source-badge source-run"><i aria-hidden="true"></i>Our run</span><span class="source-badge source-paper">Paper</span><span>Source stays visible.</span></div><details class="score-policy"><summary>How scores are selected</summary><p><strong>Paper values take precedence</strong> whenever the corresponding dataset, metric and evaluation setting are reported. Saved runs and differences remain in Details. Completed runs without a paper counterpart have their own setting. Dataset rankings are grouped by protocol and metric. Overall preserves original paper averages when the full target set and setting match. Other means use equal dataset weight across a fixed, visible set; partial coverage remains unranked.</p><p>Paper imports retain their source and review notes; the label does not claim an independent re-evaluation. Incomplete runs do not receive scores.</p></details></div>
+      <div class="panel-bottom"><div class="source-legend"><span class="source-badge source-run"><i aria-hidden="true"></i>Our run</span><span class="source-badge source-paper">Paper</span><span>Source stays visible.</span></div><details class="score-policy"><summary>How scores are selected</summary><p><strong>Paper values take precedence</strong> whenever the corresponding dataset, metric and evaluation setting are reported. Saved runs and differences remain in Details. Completed runs without a paper counterpart have their own setting. Dataset rankings are grouped by protocol and metric. The main overall ranking uses an equal-weight mean of each method’s available datasets, with one score per dataset. All methods receive ranks. Different dataset coverage and evaluation settings are marked with * and explained at the bottom of the page.</p><p>Paper imports retain their source and review notes; the label does not claim an independent re-evaluation. Incomplete runs do not receive scores.</p></details></div>
     </section>
     <footer class="lb-footer"><span id="last-updated">Latest saved results</span><div class="lb-footer-links"><a href="reproduction.html">Run progress ↗</a><a href="data/imu_evidence.json" target="_blank" rel="noopener">Score sources ↗</a><a href="data/paper_audit_20261030.json" target="_blank" rel="noopener">Paper audit ↗</a><a href="datasets.html">Download datasets ↗</a></div></footer>
+    <aside id="reference-footnote" class="reference-footnote" hidden aria-label="Ranking notes">
+      <p><strong>* 参考排名：</strong>各方法按其可用数据集的 Accuracy 等权平均，缺失项不记 0。每个方法在每个数据集上只计一项结果，优先采用论文报告，未报告的项目使用已完成实测。不同方法的数据集、类别数、训练/测试划分及标注预算可能不同，因此该排序不代表统一协议下的直接比较。</p>
+      <p>MOSAIC 采用论文 full-shot 结果，oneHAR 采用论文 supervised joint training 结果；同一方法的 zero-shot / LODO 结果不重复计入平均。这里按逐数据集分数重新计算均值，可能与论文原表使用其他权重的 Avg 不同。各项来源与具体设置见 View datasets。</p>
+    </aside>
   </main>
   <dialog id="result-dialog" class="result-dialog" aria-labelledby="detail-title"><div class="dialog-heading"><div><h2 id="detail-title"></h2><p id="detail-context"></p></div><button id="close-dialog" type="button" class="dialog-close" aria-label="Close result details">×</button></div><div id="detail-body"></div></dialog>
 </body>

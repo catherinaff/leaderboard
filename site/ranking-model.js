@@ -213,5 +213,30 @@
       return (order === 'reverse' ? -delta : delta) || a.method.name.localeCompare(b.method.name);
     });
   }
-  root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows });
+  function referenceRanking(observations, metric = 'accuracy', order = 'best', methodIds = CORE) {
+    const family = id => id.startsWith('opportunity') ? 'opportunity' : id.startsWith('wisdm') ? 'wisdm' : id.startsWith('pamap2') ? 'pamap2' : id.startsWith('usc_had') ? 'usc_had' : id.startsWith('realworld') ? 'realworld' : id.replace(/_\d+c$/, '');
+    // The setting/source preference is fixed before reading score values.
+    const priority = r => ['mosaic-full-shot', 'onehar-joint'].includes(r.protocol) ? 0 : r.source === 'paper' && r.paperRole === 'original' ? 1 : r.source === 'paper' && r.paperRole !== 'comparison' ? 2 : r.source === 'paper' ? 3 : r.protocol === 'raw-v2' ? 4 : 5;
+    const selected = new Map();
+    for (const original of observations) {
+      if (!methodIds.includes(original.method.id)) continue;
+      const r = forMetric(original, metric);
+      if (!r || !finite(r.value) || r.value < 0 || r.value > 1 || r.unit !== 'percent') continue;
+      const key = `${r.method.id}:${family(r.dataset)}`;
+      const previous = selected.get(key);
+      if (!previous || priority(r) < priority(previous) || priority(r) === priority(previous) && String(r.id).localeCompare(String(previous.id)) < 0) selected.set(key, r);
+    }
+    const entries = [];
+    for (const id of methodIds) {
+      const values = [...selected.values()].filter(r => r.method.id === id).sort((a, b) => family(a.dataset).localeCompare(family(b.dataset)));
+      if (!values.length) continue;
+      entries.push({ method: values[0].method, values, coverage: values.length,
+        mean: values.reduce((sum, r) => sum + r.value, 0) / values.length,
+        metric, unit: 'percent', starred: true,
+        sourceRuns: values.filter(r => r.source === 'run').length,
+        sourcePapers: values.filter(r => r.source === 'paper').length });
+    }
+    return entries.sort((a, b) => (order === 'reverse' ? a.mean - b.mean : b.mean - a.mean) || a.method.name.localeCompare(b.method.name));
+  }
+  root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows, referenceRanking });
 })(globalThis);
