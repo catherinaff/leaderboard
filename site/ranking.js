@@ -34,11 +34,12 @@
   async function load() {
     $('refresh').disabled = true;
     try {
-      const [benchmarks, registry, evidence, reproduction, qa, transfer] = await Promise.all([getApi('benchmarks'), getApi('results'), getJson('data/imu_evidence.json'), getJson('data/imu_reproduction_20261028.json', true), getJson('data/sensor_qa_leaderboard.json'), getJson('data/paper_transfer_evidence.json', true)]);
+      const [benchmarks, registry, evidence, reproduction, qa, transfer] = await Promise.all([getApi('benchmarks'), getApi('results'), getJson('data/imu_evidence.json'), getJson('data/imu_reproduction_20261028.json', true), getJson('data/sensor_qa_leaderboard.json'), getJson('data/paper_transfer_evidence.json')]);
       data = { benchmarks, registry, evidence, reproduction: reproduction || { cells: [] }, qa, transfer: transfer || { groups: [] } };
       data.imuRows = [...model.imuObservations(registry, evidence, data.reproduction), ...model.mainPaperObservations(data.transfer)];
       data.qaRows = model.qaObservations(qa);
       data.crossRows = model.transferObservations(data.transfer);
+      data.paperScope = model.paperScope(data.transfer);
       $('last-updated').textContent = data.reproduction.updated_at ? `Runs updated ${new Date(data.reproduction.updated_at).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}` : 'Latest saved results';
       render();
     } catch (error) {
@@ -51,8 +52,7 @@
     const u = new URL(location.href);
     for (const key of ['board', 'tab', 'dataset', 'target', 'protocol', 'metric', 'view', 'track', 'modality', 'aggregate', 'basket']) u.searchParams.delete(key);
     u.searchParams.set('board', state.board);
-    if (state.mode !== 'reported' && state.board === 'imu') u.searchParams.set('tab', state.mode === 'cross' ? 'cross-dataset' : 'standard');
-    if (state.view === 'overall') { u.searchParams.set('view', 'overall'); u.searchParams.set('aggregate', state.aggregateScope); u.searchParams.set('basket', state.basket); }
+    if (state.view === 'overall') { u.searchParams.set('view', 'overall'); if (state.board !== 'imu') { u.searchParams.set('aggregate', state.aggregateScope); u.searchParams.set('basket', state.basket); } }
     else if (state.view === 'overview' && state.board === 'imu' && state.mode === 'reported') u.searchParams.set('view', 'overview');
     else if (state.dataset) u.searchParams.set('dataset', state.dataset);
     if (state.protocol !== 'all' && state.view !== 'overall') u.searchParams.set('protocol', state.protocol);
@@ -74,20 +74,18 @@
   function render() {
     if (!data) return;
     if ($('reference-footnote')) $('reference-footnote').hidden = true;
+    if (state.board === 'imu') { state.mode = 'cross'; if (state.view === 'overview') state.view = 'overall'; }
     if (state.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported')) state.view = 'ranking';
     $('board-switch').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.board === state.board); b.setAttribute('aria-pressed', String(b.dataset.board === state.board)); });
-    $('mode-controls').hidden = state.board !== 'imu';
+    $('mode-controls').hidden = true;
     $('mode-description').hidden = state.board !== 'imu';
-    $('mode-description').textContent = {
-      reported: 'Literature reference: published scores take priority. Our completed runs fill gaps; evaluation settings may differ between papers.',
-      unified: 'Measured comparison: our runs use shared dataset splits and metrics. Only completed runs are shown; implementation and paper-calibration status remain in Details.',
-      cross: 'Transfer results from the cited papers, grouped by target label set, training sources and label budget.'
-    }[state.mode];
+    $('mode-description').textContent = 'MOSAIC (2026) + One Model to Fit Them All (2025): all reported comparison methods and dataset label sets. Scores retain each paper’s evaluation setting.';
+    $('last-updated').textContent = state.board === 'imu' ? 'Paper tables checked · 30 Oct 2026' : 'Paper-reported Sensor QA results';
     $('view-controls').hidden = false;
     $('mode-controls').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.mode === state.mode); b.setAttribute('aria-pressed', String(b.dataset.mode === state.mode)); });
     $('view-controls').querySelectorAll('button').forEach(b => { b.hidden = b.dataset.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported'); b.classList.toggle('active', b.dataset.view === state.view); b.setAttribute('aria-pressed', String(b.dataset.view === state.view)); });
     $('board-title').textContent = state.board === 'qa' ? 'Sensor question answering' : 'IMU activity recognition';
-    rows = state.board === 'qa' ? data.qaRows : state.mode === 'cross' ? data.crossRows : data.imuRows;
+    rows = state.board === 'qa' ? data.qaRows : data.paperScope.observations;
     if (state.mode === 'unified' && state.board === 'imu') rows = rows.filter(r => r.protocol === 'raw-v2');
     $('basket-field').hidden = state.view !== 'overall';
     $('dataset-field').hidden = false;
@@ -96,8 +94,9 @@
     $('protocol-label').textContent = state.view === 'overall' ? 'Score source' : 'Protocol';
     $('sort-results').hidden = false;
     if (state.view === 'overall') { if (state.board === 'imu') renderReferenceOverall(); else renderOverall(); renderCrossPapers(); syncUrl(); return; }
-    // Old released-test links continue to resolve to their distinct measured track.
-    if (state.dataset === 'onehar-released') { state.dataset = 'uci_har'; state.protocol = 'onehar_released_checkpoint'; }
+    // Legacy links resolve to the corresponding paper label set.
+    const legacyDatasets = { uci_har: 'uci_har_6c', hhar: 'hhar_6c', realworld_har: 'realworld_8c', pamap2: 'pamap2_12c', 'onehar-released': 'uci_har_6c' };
+    if (state.board === 'imu' && legacyDatasets[state.dataset]) state.dataset = legacyDatasets[state.dataset];
     const cross = state.board === 'imu' && state.mode === 'cross';
     const crossProtocols = cross ? data.transfer.groups.map(g => [g.id, g.label]) : [];
     if (cross && state.protocol !== 'all' && !crossProtocols.some(([id]) => id === state.protocol)) state.protocol = 'all';
@@ -132,8 +131,7 @@
     shown = visible;
     const groups = model.groupRows(visible, state.order);
     const count = new Set(visible.map(r => r.method.id)).size;
-    const measured = visible.filter(r => r.source === 'run').length;
-    $('result-summary').textContent = `${count} models · ${groups.length} protocol${groups.length === 1 ? '' : 's'} · ${measured} measured result${measured === 1 ? '' : 's'}`;
+    $('result-summary').textContent = `${count} models · ${groups.length} setting${groups.length === 1 ? '' : 's'} · paper-reported results`;
     $('dataset-heading').textContent = nameOf(state.dataset);
     $('context-note').textContent = state.mode === 'cross' && state.board === 'imu' ? 'Scores are sorted within each paper’s comparison setting. Training sources and label budgets stay separate.' : 'Ranked within the same protocol and metric. Open a result for the paper value and run details.';
     if (state.board === 'imu' && state.dataset === 'opportunity_a' && visible.some(r => r.protocol === 'raw-v2')) {
@@ -146,9 +144,10 @@
   }
   function groupTable(group) {
     let previous = null, rank = 0;
+    const ranks = new Map();
+    model.sortRows(group.rows).forEach((r, i) => { if (previous === null || Math.abs(r.value - previous) > 1e-12) rank = i + 1; previous = r.value; ranks.set(r.id, rank); });
     return `<section class="ranking-group"><div class="group-heading"><h3>${esc(group.label)}</h3><span>${esc(group.metric)} ${group.rows[0]?.direction === 'lower' ? '↓' : '↑'}</span></div><div class="ranking-scroll"><table class="ranking-table"><caption class="sr-only">${esc(nameOf(state.dataset))}, ${esc(group.label)}, ${esc(group.metric)}</caption><thead><tr><th scope="col" class="rank-col">Rank</th><th scope="col">Model</th><th scope="col" class="score-col">Score</th><th scope="col">Source</th><th scope="col"><span class="sr-only">Result details</span></th></tr></thead><tbody>${group.rows.map((r, i) => {
-      if (previous === null || Math.abs(r.value - previous) > 1e-12) rank = i + 1;
-      previous = r.value;
+      rank = ranks.get(r.id);
       return `<tr class="result-row${rank === 1 && state.order === 'best' ? ' leading' : ''}"><td class="rank-col"><span class="rank-number">${rank}</span></td><th scope="row" class="model-cell"><span class="model-title">${esc(r.method.name)}</span><span class="model-subtitle">${esc([r.method.venue, r.method.year].filter(Boolean).join(' · '))}${r.method.modality ? ` · ${esc(r.method.modality)}` : ''}</span></th><td class="score-col"><span class="main-score">${score(r)}</span>${model.finite(r.uncertainty) ? `<span class="score-uncertainty">± ${(r.uncertainty * (r.unit === 'percent' ? 100 : 1)).toFixed(2)}</span>` : ''}</td><td class="source-col">${sourceBadge(r)}</td><td class="details-col"><button class="details-button" type="button" data-result="${esc(r.id)}" aria-label="Details for ${esc(r.method.name)}">Details <span aria-hidden="true">↗</span></button></td></tr>`;
     }).join('')}</tbody></table></div>${group.rows.some(r => r.review === 'Calibration pending') ? '<p class="group-footnote">Complete measured runs; paper calibration is pending for some implementations. See Details.</p>' : ''}</section>`;
   }
@@ -177,26 +176,24 @@
   }
   const referenceMethodName = method => method.id === 'onehar' ? 'One Model to Fit Them All (oneHAR)' : method.name;
   function renderReferenceOverall() {
-    state.aggregateScope = 'available';
+    state.aggregateScope = 'paper-common';
+    state.basket = 'shared';
     state.metric = 'accuracy';
-    state.mode = 'reported';
-    rows = data.imuRows;
+    rows = data.paperScope.observations;
     for (const id of ['mode-controls', 'dataset-field', 'basket-field', 'protocol-field', 'metric-field', 'cross-paper-controls']) $(id).hidden = true;
-    $('mode-description').textContent = 'All methods in one reference ranking. Average Accuracy uses each method’s available datasets; * marks differences in coverage and evaluation settings.';
-    $('dataset-heading').textContent = 'Overall leaderboard';
-    referenceEntries = model.referenceRanking(data.imuRows, 'accuracy', state.order);
+    $('mode-description').textContent = 'Methods and benchmarks from MOSAIC (2026) and One Model to Fit Them All (2025). The overall ranking uses the same two label sets for every method.';
+    $('dataset-heading').textContent = 'Overall leaderboard · shared datasets';
+    const benchmark = model.paperBenchmark(data.transfer, null, state.order);
+    referenceEntries = benchmark.entries;
     let entries = referenceEntries;
     if (state.search) entries = entries.filter(e => matchesSearch(e.method));
     shown = entries.flatMap(e => e.values);
-    $('result-summary').textContent = `${entries.length} ranked models · all available datasets`;
-    $('context-note').textContent = 'Paper values take precedence. Completed runs fill missing scores. Every method receives a rank; see * at the bottom of the page.';
+    $('result-summary').textContent = `${entries.length} ranked models · ${benchmark.datasetIds.length} shared label sets · paper-reported results`;
+    $('context-note').textContent = 'Fixed ranking set: UCI-HAR (6 classes) and RealWorld (8 classes). Each contributes 50%. * marks remaining training/split differences; see the notes at the bottom.';
     $('sort-results').textContent = state.order === 'best' ? 'Average ↓' : 'Average ↑';
-    let previous = null, rank = 0;
-    $('leaderboard-wrap').innerHTML = `<div class="overview-scroll"><table class="reference-table"><caption class="sr-only">All methods ranked by available-dataset mean Accuracy. Different datasets and settings are marked with an asterisk.</caption><thead><tr><th>Rank</th><th>Model</th><th>Avg. Accuracy</th><th>Datasets</th><th>Source</th><th>Details</th></tr></thead><tbody>${entries.map((e, i) => {
-      if (previous === null || Math.abs(e.mean - previous) > 1e-12) rank = i + 1;
-      previous = e.mean;
-      const sources = [e.sourcePapers ? `${e.sourcePapers} paper` : '', e.sourceRuns ? `${e.sourceRuns} run${e.sourceRuns === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ');
-      return `<tr class="reference-row${rank === 1 && state.order === 'best' ? ' leading' : ''}" data-method="${esc(e.method.id)}"><td><span class="rank-number">${rank}</span></td><th class="model-cell"><span class="model-title">${esc(referenceMethodName(e.method))}</span><span class="model-subtitle">${esc([e.method.venue, e.method.year].filter(Boolean).join(' · '))}</span></th><td><span class="main-score">${score({ ...e, value: e.mean })}</span><sup class="comparison-asterisk" aria-label="Different datasets or settings">*</sup></td><td>${e.coverage}</td><td class="reference-source">${esc(sources)}</td><td><button type="button" class="details-button" data-summary="${esc(e.method.id)}">View datasets ↗</button></td></tr>`;
+    $('leaderboard-wrap').innerHTML = `<div class="overview-scroll"><table class="reference-table paper-reference-table"><caption class="sr-only">Paper comparison methods ranked using the same UCI-HAR six-class and RealWorld eight-class tasks. Training settings differ and are marked with an asterisk.</caption><thead><tr><th>Rank</th><th>Model</th>${benchmark.datasetIds.map(id => `<th>${esc(benchmark.catalog.find(d => d.id === id)?.label || id)}<br><span class="cell-metric">Accuracy</span></th>`).join('')}<th>Avg. Accuracy</th><th>Paper / setting</th><th>Details</th></tr></thead><tbody>${entries.map(e => {
+      const meta = model.META[e.method.id];
+      return `<tr class="reference-row${e.rank === 1 ? ' leading' : ''}" data-method="${esc(e.method.id)}"><td><span class="rank-number">${e.rank}</span></td><th class="model-cell"><span class="model-title">${esc(referenceMethodName(e.method))}</span>${meta ? `<span class="model-subtitle">${esc(meta[2])} · ${esc(meta[1])}</span>` : ''}</th>${e.values.map(r => `<td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)}</button></td>`).join('')}<td><span class="main-score">${score({ ...e, value: e.mean })}</span><sup class="comparison-asterisk" aria-label="Training or split differences">*</sup></td><td class="reference-source">${esc(e.protocolLabel)}<br><span class="cell-metric">Table ${esc(e.sourceTable?.table)}</span></td><td><button type="button" class="details-button" data-summary="${esc(e.method.id)}">View datasets ↗</button></td></tr>`;
     }).join('')}</tbody></table></div>${!entries.length ? '<div class="empty-state">No matching model.</div>' : ''}`;
     if ($('reference-footnote')) $('reference-footnote').hidden = false;
   }
@@ -204,9 +201,11 @@
     const e = referenceEntries.find(e => e.method.id === id);
     if (!e) return;
     $('detail-title').textContent = referenceMethodName(e.method);
-    $('detail-context').textContent = `${e.coverage} datasets · equal-weight mean Accuracy`;
-    shown = [...new Map([...shown, ...e.values].map(r => [r.id, r])).values()];
-    $('detail-body').innerHTML = `<div class="detail-score"><span class="main-score">${score({ ...e, value: e.mean })}*</span></div><p class="reference-explanation">Each dataset contributes once. Paper values take precedence; completed measurements fill missing scores. Different label sets and training settings are retained below.</p><div class="reference-detail-scroll"><table class="reference-detail-table"><thead><tr><th>Dataset / label set</th><th>Accuracy</th><th>Setting / source</th></tr></thead><tbody>${e.values.map(r => `<tr><td>${esc(r.datasetLabel || nameOf(r.dataset))}</td><td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)} ↗</button></td><td>${esc(r.protocolLabel)}<br>${sourceBadge(r)}</td></tr>`).join('')}</tbody></table></div><p class="reference-explanation">The mean is recalculated from these per-dataset values; it can differ from a paper’s original weighted average. Click a score for its source and evaluation details.</p>${link(e.method.paper, 'Source paper')}`;
+    $('detail-context').textContent = `${e.coverage} shared datasets · equal-weight mean Accuracy`;
+    shown = [...new Map([...shown, ...e.allValues].map(r => [r.id, r])).values()];
+    const table = values => `<div class="reference-detail-scroll"><table class="reference-detail-table"><thead><tr><th>Dataset / label set</th><th>Accuracy</th><th>Setting / source</th></tr></thead><tbody>${values.map(r => `<tr><td>${esc(r.datasetLabel || nameOf(r.dataset))}</td><td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)} ↗</button></td><td>${esc(r.protocolLabel)}<br>${sourceBadge(r)}</td></tr>`).join('')}</tbody></table></div>`;
+    const other = e.allValues.filter(r => !e.datasetIds.includes(r.dataset));
+    $('detail-body').innerHTML = `<div class="detail-score"><span class="main-score">${score({ ...e, value: e.mean })}*</span></div><p class="reference-explanation">The ranking uses the same UCI-HAR (6 classes) and RealWorld (8 classes) tasks for every method, with equal weights. Remaining training and split differences are marked *.</p>${table(e.values)}${other.length ? `<details class="other-runs"><summary>Other reported datasets (${other.length}) · excluded from the overall mean</summary>${table(other)}</details>` : ''}<p class="reference-explanation">All values come from the two papers. The mean is recalculated over the two shared tasks. Click any score for the source table and full setting.</p>${link(e.method.paper, 'Source paper')}`;
     if (!$('result-dialog').open) $('result-dialog').showModal();
   }
   function renderOverall() {

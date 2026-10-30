@@ -121,7 +121,8 @@
           const factor = group.native_unit === 'fraction_0_1' ? 1 : 0.01;
           const macro = /macro/i.test(group.metric_names?.f1 || '');
           const metrics = { accuracy: r.accuracy * factor, [macro ? 'f1_macro' : 'f1_score']: r.f1 * factor };
-          out.push({ id: `transfer:${group.id}:${entry.method_id}:${r.target_id}`, method: { id: entry.method_id, name: entry.method_id === group.method_id ? META[group.method_id]?.[0] || entry.method_name : entry.method_name, year: paper.year || '', venue: entry.method_id === group.method_id ? 'IMWUT / UbiComp' : `${group.method_name} comparison`, paper: paper.url || '' }, dataset: r.target_id, datasetLabel: `${r.target_dataset} · ${r.num_classes} classes`, protocol: group.id, protocolLabel: group.label, protocolNote: `${entry.role === 'paper_comparison_baseline' ? entry.source_description || group.setting : group.setting + '. ' + group.source_description} ${entry.role === 'paper_comparison_baseline' ? 'Comparison baseline evaluated in the cited paper; training sources can differ.' : ''}`, metric: 'accuracy', metricLabel: 'Accuracy', metrics, value: metrics.accuracy, source: 'paper', direction: 'higher', unit: 'percent', paperUrl: paper.url || '', locator: `Table ${group.provenance?.table} · PDF p.${group.provenance?.pdf_page_1based}`, sourceRecord: { ...r, model_variant: entry.model_variant, source_description: entry.source_description, original_paper_average: entry.paper_reported_average, source_table: group.provenance } });
+          const own = entry.method_id === group.method_id;
+          out.push({ id: `transfer:${group.id}:${entry.method_id}:${r.target_id}`, method: { id: entry.method_id, name: own ? META[group.method_id]?.[0] || entry.method_name : entry.method_name, year: META[entry.method_id]?.[1] || '', venue: META[entry.method_id]?.[2] || '', paper: paper.url || '' }, dataset: r.target_id, datasetLabel: `${r.target_dataset} · ${r.num_classes} classes`, protocol: group.id, protocolLabel: group.label, settingLabel: entry.method_id === 'limu_bert' && group.id === 'onehar-joint' ? 'oneHAR · per-dataset training' : group.label, protocolNote: `${entry.role === 'paper_comparison_baseline' ? entry.source_description || group.setting : group.setting + '. ' + group.source_description} ${entry.role === 'paper_comparison_baseline' ? 'Comparison baseline evaluated in the cited paper; training sources can differ.' : ''}`, metric: 'accuracy', metricLabel: 'Accuracy', metrics, value: metrics.accuracy, source: 'paper', direction: 'higher', unit: 'percent', paperUrl: paper.url || '', locator: `Table ${group.provenance?.table} · PDF p.${group.provenance?.pdf_page_1based}`, sourceRecord: { ...r, model_variant: entry.model_variant, source_description: entry.source_description, original_paper_average: entry.paper_reported_average, source_table: group.provenance } });
         }
       }
     }
@@ -238,5 +239,49 @@
     }
     return entries.sort((a, b) => (order === 'reverse' ? a.mean - b.mean : b.mean - a.mean) || a.method.name.localeCompare(b.method.name));
   }
-  root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows, referenceRanking });
+  function paperScope(data) {
+    const catalog = new Map(), methods = new Map(), ownTargets = new Map();
+    for (const g of data.groups || []) {
+      if (!ownTargets.has(g.method_id)) ownTargets.set(g.method_id, new Set());
+      for (const r of g.results || []) {
+        ownTargets.get(g.method_id).add(r.target_id);
+        if (!catalog.has(r.target_id)) catalog.set(r.target_id, { id: r.target_id, name: r.target_dataset, classes: r.num_classes, label: `${r.target_dataset} · ${r.num_classes} classes`, papers: [] });
+        const entry = catalog.get(r.target_id);
+        if (!entry.papers.includes(g.paper_id)) entry.papers.push(g.paper_id);
+      }
+      for (const e of [g, ...(data.comparisons?.[g.id] || [])]) if (!methods.has(e.method_id)) methods.set(e.method_id, { id: e.method_id, name: e.method_name });
+    }
+    const sets = [...ownTargets.values()];
+    const common = sets.length ? [...sets[0]].filter(id => sets.every(set => set.has(id))) : [];
+    common.sort((a, b) => Number(b === 'uci_har_6c') - Number(a === 'uci_har_6c') || a.localeCompare(b));
+    return { catalog: [...catalog.values()], familyCount: new Set([...catalog.values()].map(d => d.name)).size, methods: [...methods.values()], common,
+      observations: transferObservations(data) };
+  }
+  function paperBenchmark(data, datasetIds = null, order = 'best') {
+    const scope = paperScope(data), ids = datasetIds || scope.common;
+    // Choose one complete, documented setting per method, independent of score.
+    const preference = ['onehar-joint', 'mosaic-full-shot', 'mosaic-few-shot', 'onehar-lodo', 'mosaic-zero-shot'];
+    const entries = [];
+    for (const method of scope.methods) {
+      const candidates = preference.map(protocol => {
+        const values = ids.map(id => scope.observations.find(r => r.method.id === method.id && r.protocol === protocol && r.dataset === id));
+        return values.length && values.every(r => r && finite(r.value)) ? { protocol, values } : null;
+      }).filter(Boolean);
+      if (!candidates.length) continue;
+      const selected = candidates[0], group = data.groups.find(g => g.id === selected.protocol);
+      const allValues = scope.observations.filter(r => r.method.id === method.id && r.protocol === selected.protocol);
+      entries.push({ method: { ...selected.values[0].method, name: method.id === 'onehar' ? 'oneHAR' : method.name },
+        values: selected.values, allValues, coverage: ids.length, datasetIds: ids,
+        mean: selected.values.reduce((sum, r) => sum + r.value, 0) / ids.length,
+        metric: 'accuracy', unit: 'percent', protocol: selected.protocol,
+        protocolLabel: selected.values[0].settingLabel, paperId: group.paper_id, sourceTable: group.provenance,
+        sourcePapers: ids.length, sourceRuns: 0, starred: true });
+    }
+    entries.sort((a, b) => b.mean - a.mean || a.method.name.localeCompare(b.method.name));
+    let previous = null, rank = 0;
+    entries.forEach((e, i) => { if (previous === null || Math.abs(e.mean - previous) > 1e-12) rank = i + 1; e.rank = rank; previous = e.mean; });
+    if (order === 'reverse') entries.sort((a, b) => a.mean - b.mean || a.method.name.localeCompare(b.method.name));
+    return { ...scope, datasetIds: ids, entries };
+  }
+  root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows, referenceRanking, paperScope, paperBenchmark });
 })(globalThis);

@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-30-original-pdf-verified",
+  "version": "2026-10-30-complete-paper-comparisons",
   "papers": {
     "mosaic": {
       "title": "Open-ended Human Activity Understanding via LLM-assisted Motion Decomposition and Semantic Fusion",
@@ -22,7 +22,7 @@
   "extraction_provenance": {
     "provider": "Parent task research worker; text extracted and table pages rendered and visually checked on its cloud executor. The local implementation agent did not read the PDF bytes.",
     "verified_at_utc": "2026-10-23",
-    "scope": "Main methods only; comparison baselines are not promoted as original-paper scores.",
+    "scope": "Main methods and all comparison baselines in MOSAIC Tables 2–4 and oneHAR Tables 2–3. Comparison values are attributed to the evaluating paper.",
     "local_recheck_20261030": {
       "onehar_pdf_sha256": "3b21f07506493c98cd477a536dc946188781908e2d927dacbbee6e1973621fb1",
       "mosaic_pdf_sha256": "06dfd2f3855098c7ed8b293f44693e8200d34572469f54c11d59fd8dda85ba33",
@@ -4769,18 +4769,3183 @@
           }
         ]
       }
+    ],
+    "mosaic-few-shot": [
+      {
+        "method_id": "onellm",
+        "method_name": "OneLLM",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "OneLLM as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 15.2,
+          "f1": 6.0
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 26.4,
+            "f1": 14.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 16.0,
+            "f1": 7.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 25.6,
+            "f1": 11.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 3.3,
+            "f1": 1.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 23.6,
+            "f1": 17.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 10.3,
+            "f1": 2.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 11.7,
+            "f1": 7.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 16.1,
+            "f1": 11.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 10.2,
+            "f1": 3.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 10.0,
+            "f1": 1.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 9.3,
+            "f1": 1.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 45.4,
+            "f1": 5.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 8.2,
+            "f1": 4.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 30.2,
+            "f1": 3.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 9.3,
+            "f1": 7.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 5.3,
+            "f1": 3.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 4.9,
+            "f1": 1.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 6.4,
+            "f1": 2.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "imu2clip",
+        "method_name": "IMU2CLIP",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "IMU2CLIP as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 15.8,
+          "f1": 6.8
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 40.1,
+            "f1": 14.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 18.1,
+            "f1": 11.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 21.7,
+            "f1": 10.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 7.8,
+            "f1": 4.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 18.4,
+            "f1": 10.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 38.5,
+            "f1": 25.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 16.9,
+            "f1": 5.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 12.1,
+            "f1": 4.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 9.3,
+            "f1": 1.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 13.7,
+            "f1": 9.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 9.8,
+            "f1": 1.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 45.4,
+            "f1": 5.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 8.6,
+            "f1": 3.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 4.1,
+            "f1": 1.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 5.0,
+            "f1": 4.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 5.3,
+            "f1": 1.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 3.7,
+            "f1": 3.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 6.6,
+            "f1": 3.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "sensorllm",
+        "method_name": "SensorLLM",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "SensorLLM as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 25.0,
+          "f1": 11.5
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 27.5,
+            "f1": 10.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 47.1,
+            "f1": 10.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 22.3,
+            "f1": 6.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 6.6,
+            "f1": 1.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 16.7,
+            "f1": 4.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 46.6,
+            "f1": 9.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 18.1,
+            "f1": 5.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 12.5,
+            "f1": 2.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 9.6,
+            "f1": 4.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 49.7,
+            "f1": 5.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 39.5,
+            "f1": 54.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 51.3,
+            "f1": 30.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 9.3,
+            "f1": 1.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 12.7,
+            "f1": 10.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 7.5,
+            "f1": 7.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 42.4,
+            "f1": 33.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 9.0,
+            "f1": 1.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 20.7,
+            "f1": 4.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "gpt4ts",
+        "method_name": "GPT4TS",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "GPT4TS as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 42.5,
+          "f1": 34.4
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 69.5,
+            "f1": 64.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 40.0,
+            "f1": 36.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 49.2,
+            "f1": 41.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 24.6,
+            "f1": 14.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 67.9,
+            "f1": 68.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 61.3,
+            "f1": 38.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 45.1,
+            "f1": 36.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 41.8,
+            "f1": 36.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 42.9,
+            "f1": 31.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 30.5,
+            "f1": 26.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 69.7,
+            "f1": 64.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 48.9,
+            "f1": 23.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 36.3,
+            "f1": 27.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 25.9,
+            "f1": 14.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 21.8,
+            "f1": 14.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 40.7,
+            "f1": 33.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 32.1,
+            "f1": 28.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 17.4,
+            "f1": 17.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "timellm",
+        "method_name": "TimeLLM",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "TimeLLM as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 19.7,
+          "f1": 10.3
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 25.6,
+            "f1": 15.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 32.0,
+            "f1": 15.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 11.7,
+            "f1": 10.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 7.6,
+            "f1": 7.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 32.7,
+            "f1": 22.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 39.5,
+            "f1": 19.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 14.3,
+            "f1": 9.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 14.1,
+            "f1": 5.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 20.1,
+            "f1": 10.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 10.2,
+            "f1": 7.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 26.2,
+            "f1": 14.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 18.4,
+            "f1": 6.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 12.2,
+            "f1": 8.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 48.6,
+            "f1": 9.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 14.2,
+            "f1": 6.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 12.1,
+            "f1": 7.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 7.4,
+            "f1": 4.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 8.4,
+            "f1": 3.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "units",
+        "method_name": "UNITS",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "UNITS as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 18.3,
+          "f1": 10.9
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 26.7,
+            "f1": 17.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 18.2,
+            "f1": 15.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 34.9,
+            "f1": 21.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 29.3,
+            "f1": 17.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 29.3,
+            "f1": 16.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 16.7,
+            "f1": 14.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 18.2,
+            "f1": 11.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 19.6,
+            "f1": 9.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 12.4,
+            "f1": 10.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 8.4,
+            "f1": 4.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 29.8,
+            "f1": 22.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 21.3,
+            "f1": 4.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 9.3,
+            "f1": 9.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 11.2,
+            "f1": 5.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 6.3,
+            "f1": 4.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 7.1,
+            "f1": 1.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 24.6,
+            "f1": 8.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 6.0,
+            "f1": 2.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "calf",
+        "method_name": "CALF",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 3,
+          "pdf_page_1based": 15,
+          "printed_page": "168:15",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 3; Target-supervised adaptation · 10 labeled samples per activity. Baseline-specific pretraining follows the paper.",
+        "model_variant": "CALF as evaluated in MOSAIC Table 3; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 20.3,
+          "f1": 10.6
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 40.1,
+            "f1": 23.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 18.1,
+            "f1": 9.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 25.2,
+            "f1": 16.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 29.5,
+            "f1": 6.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 30.5,
+            "f1": 23.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 33.1,
+            "f1": 7.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 16.3,
+            "f1": 15.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 17.5,
+            "f1": 15.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 13.3,
+            "f1": 7.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 21.3,
+            "f1": 2.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 11.7,
+            "f1": 6.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 52.9,
+            "f1": 20.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 10.3,
+            "f1": 5.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 17.7,
+            "f1": 13.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 5.6,
+            "f1": 4.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 10.3,
+            "f1": 6.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 3.7,
+            "f1": 2.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 9.0,
+            "f1": 3.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      }
+    ],
+    "mosaic-full-shot": [
+      {
+        "method_id": "onellm",
+        "method_name": "OneLLM",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "OneLLM as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 20.1,
+          "f1": 7.4
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 40.1,
+            "f1": 15.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 16.8,
+            "f1": 7.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 27.4,
+            "f1": 12.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 26.2,
+            "f1": 5.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 23.9,
+            "f1": 19.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 46.6,
+            "f1": 9.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 13.2,
+            "f1": 7.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 17.8,
+            "f1": 12.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 10.3,
+            "f1": 5.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 11.2,
+            "f1": 3.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 10.4,
+            "f1": 2.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 46.2,
+            "f1": 6.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 9.3,
+            "f1": 5.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 31.6,
+            "f1": 3.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 10.9,
+            "f1": 9.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 5.8,
+            "f1": 3.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 6.4,
+            "f1": 1.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 8.0,
+            "f1": 2.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "imu2clip",
+        "method_name": "IMU2CLIP",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "IMU2CLIP as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 35.9,
+          "f1": 23.0
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 57.5,
+            "f1": 44.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 54.4,
+            "f1": 50.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 38.1,
+            "f1": 20.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 8.4,
+            "f1": 6.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 19.1,
+            "f1": 13.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 81.0,
+            "f1": 30.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 37.1,
+            "f1": 23.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 32.3,
+            "f1": 29.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 51.6,
+            "f1": 41.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 15.3,
+            "f1": 11.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 11.0,
+            "f1": 3.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 47.8,
+            "f1": 31.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 29.7,
+            "f1": 24.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 16.4,
+            "f1": 13.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 81.0,
+            "f1": 30.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 37.1,
+            "f1": 23.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 21.0,
+            "f1": 13.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 6.6,
+            "f1": 3.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "sensorllm",
+        "method_name": "SensorLLM",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "SensorLLM as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 46.2,
+          "f1": 30.2
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 28.9,
+            "f1": 17.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 81.7,
+            "f1": 49.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 26.4,
+            "f1": 25.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 77.0,
+            "f1": 32.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 40.1,
+            "f1": 34.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 54.3,
+            "f1": 28.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 51.8,
+            "f1": 45.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 35.6,
+            "f1": 32.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 35.6,
+            "f1": 32.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 81.7,
+            "f1": 49.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 51.3,
+            "f1": 17.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 54.4,
+            "f1": 32.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 46.5,
+            "f1": 33.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 13.3,
+            "f1": 10.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 54.3,
+            "f1": 28.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 51.8,
+            "f1": 45.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 25.3,
+            "f1": 18.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 21.8,
+            "f1": 11.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "gpt4ts",
+        "method_name": "GPT4TS",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "GPT4TS as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 56.0,
+          "f1": 46.0
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 81.5,
+            "f1": 84.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 58.2,
+            "f1": 53.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 57.2,
+            "f1": 50.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 34.4,
+            "f1": 20.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 68.8,
+            "f1": 70.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 87.8,
+            "f1": 46.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 56.8,
+            "f1": 45.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 57.4,
+            "f1": 52.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 73.7,
+            "f1": 65.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 33.1,
+            "f1": 26.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 69.2,
+            "f1": 66.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 73.0,
+            "f1": 38.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 55.2,
+            "f1": 49.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 51.4,
+            "f1": 23.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 39.4,
+            "f1": 34.7,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 54.1,
+            "f1": 49.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 33.1,
+            "f1": 29.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 23.2,
+            "f1": 21.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "timellm",
+        "method_name": "TimeLLM",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "TimeLLM as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 23.2,
+          "f1": 11.7
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 40.1,
+            "f1": 18.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 32.7,
+            "f1": 17.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 13.5,
+            "f1": 11.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 26.2,
+            "f1": 8.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 32.9,
+            "f1": 22.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 47.8,
+            "f1": 26.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 16.9,
+            "f1": 10.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 15.9,
+            "f1": 6.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 20.7,
+            "f1": 11.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 14.3,
+            "f1": 8.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 27.3,
+            "f1": 15.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 19.3,
+            "f1": 7.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 13.1,
+            "f1": 10.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 49.9,
+            "f1": 10.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 14.8,
+            "f1": 7.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 13.1,
+            "f1": 8.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 8.9,
+            "f1": 4.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 10.1,
+            "f1": 5.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "units",
+        "method_name": "UNITS",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "UNITS as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 42.5,
+          "f1": 34.9
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 44.0,
+            "f1": 37.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 46.9,
+            "f1": 47.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 45.3,
+            "f1": 44.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 32.3,
+            "f1": 19.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 32.3,
+            "f1": 32.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 46.2,
+            "f1": 14.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 31.4,
+            "f1": 28.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 57.2,
+            "f1": 57.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 30.9,
+            "f1": 21.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 42.2,
+            "f1": 40.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 31.4,
+            "f1": 31.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 61.0,
+            "f1": 16.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 47.3,
+            "f1": 47.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 22.7,
+            "f1": 8.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 64.0,
+            "f1": 63.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 54.8,
+            "f1": 54.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 58.2,
+            "f1": 52.2,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 17.7,
+            "f1": 12.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      },
+      {
+        "method_id": "calf",
+        "method_name": "CALF",
+        "role": "paper_comparison_baseline",
+        "native_unit": "percent",
+        "metric_names": {
+          "accuracy": "accuracy",
+          "f1": "F1 (aggregation unspecified)"
+        },
+        "provenance": {
+          "table": 4,
+          "pdf_page_1based": 16,
+          "printed_page": "168:16",
+          "paper_id": "mosaic",
+          "independently_rechecked_at": "2026-10-30"
+        },
+        "source_description": "Baseline evaluated in MOSAIC Table 4; Target-supervised reference · random 70/30 split. Baseline-specific pretraining follows the paper.",
+        "model_variant": "CALF as evaluated in MOSAIC Table 4; not independently verified from its original paper.",
+        "paper_reported_average": {
+          "accuracy": 48.8,
+          "f1": 35.1
+        },
+        "average_note": "Original comparison-table average retained; not recomputed.",
+        "uncertainty_note": "No per-target dispersion is reported in this table.",
+        "results": [
+          {
+            "target_id": "opportunity_4c",
+            "target_dataset": "Opportunity",
+            "num_classes": 4,
+            "accuracy": 69.8,
+            "f1": 63.6,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "uci_har_6c",
+            "target_dataset": "UCI-HAR",
+            "num_classes": 6,
+            "accuracy": 77.7,
+            "f1": 76.8,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "motionsense_6c",
+            "target_dataset": "MotionSense",
+            "num_classes": 6,
+            "accuracy": 50.7,
+            "f1": 44.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "w_har_7c",
+            "target_dataset": "w-HAR",
+            "num_classes": 7,
+            "accuracy": 30.8,
+            "f1": 10.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "shoaib_7c",
+            "target_dataset": "Shoaib",
+            "num_classes": 7,
+            "accuracy": 31.2,
+            "f1": 25.5,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "har70plus_7c",
+            "target_dataset": "HAR70+",
+            "num_classes": 7,
+            "accuracy": 76.4,
+            "f1": 44.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "realworld_8c",
+            "target_dataset": "RealWorld",
+            "num_classes": 8,
+            "accuracy": 59.6,
+            "f1": 50.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "tnda_har_8c",
+            "target_dataset": "TNDA-HAR",
+            "num_classes": 8,
+            "accuracy": 35.7,
+            "f1": 28.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "pamap2_12c",
+            "target_dataset": "PAMAP2",
+            "num_classes": 12,
+            "accuracy": 77.8,
+            "f1": 68.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "usc_had_12c",
+            "target_dataset": "USC-HAD",
+            "num_classes": 12,
+            "accuracy": 34.7,
+            "f1": 12.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mhealth_12c",
+            "target_dataset": "Mhealth",
+            "num_classes": 12,
+            "accuracy": 34.7,
+            "f1": 13.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "harth_12c",
+            "target_dataset": "Harth",
+            "num_classes": 12,
+            "accuracy": 66.2,
+            "f1": 35.0,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "ut_complex_13c",
+            "target_dataset": "UT-Complex",
+            "num_classes": 13,
+            "accuracy": 39.2,
+            "f1": 32.9,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wharf_14c",
+            "target_dataset": "Wharf",
+            "num_classes": 14,
+            "accuracy": 19.2,
+            "f1": 14.1,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "wisdm_18c",
+            "target_dataset": "WISDM",
+            "num_classes": 18,
+            "accuracy": 76.4,
+            "f1": 44.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "dsads_19c",
+            "target_dataset": "DSADS",
+            "num_classes": 19,
+            "accuracy": 59.6,
+            "f1": 50.3,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "utd_mhad_27c",
+            "target_dataset": "UTD-MHAD",
+            "num_classes": 27,
+            "accuracy": 10.5,
+            "f1": 6.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          },
+          {
+            "target_id": "mmact_35c",
+            "target_dataset": "MMAct",
+            "num_classes": 35,
+            "accuracy": 27.9,
+            "f1": 10.4,
+            "reported_uncertainty": null,
+            "source_datasets": [
+              "Target training partition; baseline-specific pretraining follows MOSAIC"
+            ]
+          }
+        ]
+      }
     ]
   },
   "comparison_totals": {
-    "baseline_rows": 25,
-    "target_observations": 255,
-    "paper_reported_averages": 25
+    "baseline_rows": 39,
+    "target_observations": 507,
+    "paper_reported_averages": 39
   },
   "comparison_provenance": {
     "verified_at_utc": "2026-10-23",
     "verification": "Parent research worker extracted and visually checked the supplied PDF Table 2 (MOSAIC) and Table 3 (oneHAR). Local agent integrated the supplied evidence; parent cloud paths do not denote local files.",
     "original_paper_scores": false,
-    "training_caveat": "MOSAIC baselines have different training sources. Only the primary MOSAIC row is attributed to HumanML3D + T2M-GPT synthetic IMU pretraining. GPT4TS uses Mhealth training data. Do not treat the comparison as a controlled common-source ranking."
+    "training_caveat": "MOSAIC baselines have different training sources. Only the primary MOSAIC row is attributed to HumanML3D + T2M-GPT synthetic IMU pretraining. GPT4TS uses Mhealth training data. Do not treat the comparison as a controlled common-source ranking.",
+    "local_completion_20261030": {
+      "tables": [
+        "MOSAIC Table 3 (PDF p.15)",
+        "MOSAIC Table 4 (PDF p.16)"
+      ],
+      "added_baseline_rows": 14,
+      "added_target_observations": 252,
+      "checked_numeric_values": 532,
+      "pdf_sha256": "06dfd2f3855098c7ed8b293f44693e8200d34572469f54c11d59fd8dda85ba33",
+      "verification": "Two text parsers agree for every row; rendered source pages inspected. Existing target and average values were not changed."
+    }
   },
   "audit_20261030": {
     "onehar": [
@@ -4815,15 +7980,15 @@
           "group": "mosaic-few-shot",
           "table": 3,
           "pdf_page": 15,
-          "checked_values": 38,
-          "status": "all stored target and average values match the user-provided original PDF; table rendered and visually checked"
+          "checked_values": 304,
+          "status": "All main-model and seven baseline rows extracted with two PDF parsers; table rendered and visually checked against the supplied original PDF."
         },
         {
           "group": "mosaic-full-shot",
           "table": 4,
           "pdf_page": 16,
-          "checked_values": 38,
-          "status": "all stored target and average values match the user-provided original PDF; table rendered and visually checked"
+          "checked_values": 304,
+          "status": "All main-model and seven baseline rows extracted with two PDF parsers; table rendered and visually checked against the supplied original PDF."
         }
       ],
       "earlier_retrieval_failure": "ACM 403 resolved for verification by the user-provided local PDF"

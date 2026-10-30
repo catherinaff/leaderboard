@@ -4,8 +4,23 @@ Sensor intelligence leaderboard for IMU activity recognition and sensor question
 
 Website: https://catherinaff.github.io/leaderboard/
 
-The site includes overall and per-dataset rankings, paper-reported results,
-saved local measurements, source/protocol notes and dataset links.
+The IMU board follows the comparison scope of MOSAIC (2026, Tables 2–4)
+and One Model to Fit Them All (2025, Tables 2–3): 19 methods and 21 target
+label sets across 19 dataset families. The source tables and audit are in
+`site/data/paper_transfer_evidence.json`. Comparison-baseline scores are
+attributed to the evaluating paper, not to an independent rerun or the
+baseline's original publication.
+
+Overall ranking uses the equal-weight mean Accuracy on the exact shared
+UCI-HAR 6-class and RealWorld 8-class targets for every method. A complete
+setting is selected using a fixed, score-independent order: oneHAR supervised,
+MOSAIC full-shot, MOSAIC few-shot, oneHAR LODO, MOSAIC zero-shot. Training and
+split differences are visible and marked `*`; matching targets do not imply
+a controlled common-protocol comparison. Other targets and all original
+settings remain in per-dataset rankings. Class variants are never merged.
+
+Sensor QA retains its own cited tasks and metrics. Historical run snapshots
+remain available as evidence files outside the scoped IMU ranking.
 
 ## Data and hosting
 
