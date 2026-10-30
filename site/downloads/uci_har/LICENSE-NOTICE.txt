@@ -1,0 +1,10 @@
+UCI-HAR — license and original notice
+
+UCI CC BY 4.0 listing + original notice
+https://creativecommons.org/licenses/by/4.0/
+
+UCI currently lists CC BY 4.0. The bundled README also contains a prohibition on commercial use. Both original statements are retained; this mirror does not resolve the discrepancy or certify commercial reuse. Consult the original creators before relying on commercial-use rights.
+
+Official source: https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones
+
+All original archive notices remain intact. This mirror does not claim ownership, grant additional rights, or imply endorsement by the creators.

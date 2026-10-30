@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="app-path.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Detail — IoTBench-HAR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <h1><a href="./">IoTBench-HAR</a></h1>
+  <nav>
+    <a href="./">Leaderboard</a>
+    <a href="tasks.html">Tasks</a>
+    <a href="datasets.html">Datasets</a>
+    <a href="submit-model.html">Submit Model</a>
+  </nav>
+</header>
+
+<main class="container" id="root">
+  <p style="padding:2rem;text-align:center;color:#6b7280">Loading...</p>
+</main>
+
+<script>
+(async function () {
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) { location.href = 'tasks.html'; return; }
+
+  const root = document.getElementById('root');
+
+  let benchmarks = [];
+  let results = [];
+  let evidence = { records: [], protocols: {}, sources: {} };
+  try {
+    const [bResp, rResp, eResp] = await Promise.all([
+      fetch('api/benchmarks', { cache: 'no-store' }),
+      fetch('api/results', { cache: 'no-store' }),
+      fetch('data/imu_evidence.json', { cache: 'no-store' }).catch(() => null)
+    ]);
+    if (!bResp.ok || !rResp.ok) throw new Error('Data unavailable');
+    benchmarks = await bResp.json();
+    results = await rResp.json();
+    if (eResp?.ok) evidence = await eResp.json();
+  } catch (e) {
+    root.innerHTML = '<p role="alert">Unable to load task data. Please reload the page.</p>';
+    return;
+  }
+
+  const bench = benchmarks.find(b => b.id === id);
+  if (!bench) {
+    root.innerHTML = '<p style="padding:2rem;text-align:center">Task not found. <a href="tasks.html">View all tasks</a></p>';
+    return;
+  }
+
+  // Build method rows for this benchmark
+  const methods = [];
+  for (const r of results) {
+    for (const item of (r.results || [])) {
+      if (item.benchmark_id === id) {
+        methods.push({
+          method_id: r.id,
+          method_name: r.method_name,
+          paper_url: r.paper_url || '',
+          code_url: r.code_url || '',
+          result: item,
+        });
+      }
+    }
+  }
+  methods.sort((a, b) => a.method_name.localeCompare(b.method_name));
+
+  const p = bench.protocol;
+  const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  const methodById = new Map(results.map(method => [method.id, method]));
+  const curated = (evidence.records || []).filter(item => item.benchmark_id === id && item.display !== false)
+    .sort((a, b) => (methodById.get(a.method_id)?.method_name || a.method_id).localeCompare(methodById.get(b.method_id)?.method_name || b.method_id) || a.kind.localeCompare(b.kind));
+  const metricNames = { accuracy: 'Accuracy', f1_macro: 'Macro-F1', f1_weighted: 'Weighted-F1', f1_micro: 'Micro-F1', f1_score: 'F1 (type unspecified)' };
+  function metricValue(value, metric, units) {
+    if (typeof value !== 'number' || !Number.isFinite(value)) return '—';
+    if (!metric) return `${esc(value)} <small>metric unspecified</small>`;
+    if (units === 'loss' || /loss|mse|mae/i.test(metric)) return `${value.toFixed(4)} <small>${esc(metricNames[metric] || metric)}</small>`;
+    const formatted = value >= 0 && value <= 1 ? `${(value * 100).toFixed(2)}%` : `${esc(value)} (raw value)`;
+    return `${formatted} <small>${esc(metricNames[metric] || metric)}</small>`;
+  }
+  function link(url, label) {
+    return /^(https?:\/\/|\/(?!\/)|\.\.?\/)/i.test(url || '')
+      ? `<a href="${esc(IoTBenchPath(url))}" target="_blank" rel="noopener">${esc(label)}</a>` : esc(label);
+  }
+  function methodName(method) {
+    return `${esc(method.method_name || method.id)}${method.paper_url ? ` · ${link(method.paper_url, 'paper')}` : ''}`;
+  }
+  function reviewNotes(item, raw = false) {
+    const notes = [];
+    if (raw) {
+      if (/inspired/i.test(item.source || '')) notes.push('Paper-inspired baseline; not an official implementation');
+      if (item.official_code_used === false) notes.push('Official code not used');
+      for (const [key, label] of [['calibration_status','Recorded calibration'],['paper_reference_gap_status','Recorded paper gap'],['reproduction_status','Recorded reproduction']]) {
+        if (item[key]) notes.push(`${label}: ${item[key]}`);
+      }
+      if (!notes.length) notes.push('No independent verification established by this page');
+    } else {
+      if (item.status) notes.push(`Evidence status: ${item.status}`);
+      if (item.kind === 'local') notes.push(item.standalone_artifact_found ? 'Saved run artifact recorded' : 'Registry record only; no standalone run artifact recorded');
+      if (item.saved_calibration_status) notes.push(`Recorded calibration: ${item.saved_calibration_status}`);
+      if (item.checked_at) notes.push(`Last evidence review: ${item.checked_at}`);
+    }
+    if (item.protocol_status === 'author_released_test' || item.saved_protocol_status === 'author_released_test') notes.push('Released checkpoint / author test set; not canonical Standard or LODO');
+    return notes.map(note => `<div>${esc(note)}</div>`).join('');
+  }
+  const isCross = bench.category === 'Cross-Dataset';
+  const classes = isCross ? bench.shared_classes : bench.classes;
+  const datasetLabel = isCross ? `${bench.source} → ${bench.target}` : bench.dataset;
+  const downloadKey = ({ uci_har: 'uci_har', wisdm: 'wisdm', pamap2: 'pamap2', hhar: 'hhar', opportunity_a: 'opportunity', opportunity_b: 'opportunity' })[bench.id];
+
+  let html = `
+    <div class="task-hero">
+      <p style="color:#6b7280;font-size:.85rem"><a href="./" style="color:var(--accent)">← Leaderboard</a> &nbsp;|&nbsp; <a href="tasks.html" style="color:var(--accent)">Tasks</a></p>
+      <h2>${esc(bench.name)}</h2>
+      <p class="task-sub">${esc(datasetLabel)} · ${esc(bench.paper)}</p>
+      ${downloadKey ? `<p style="font-size:.85rem;margin:.65rem 0"><a href="datasets.html#${downloadKey}">Download original dataset · attribution &amp; license →</a></p>` : ''}
+      ${bench.paper_url ? `<p style="font-size:.8rem;margin-top:.25rem"><a href="${esc(bench.paper_url)}" target="_blank" rel="noopener">Paper ↗</a>${bench.dataset_url ? ` &nbsp;|&nbsp; <a href="${esc(bench.dataset_url)}" target="_blank" rel="noopener">Dataset ↗</a>` : ''}</p>` : ''}
+      <div class="tags" style="margin-top:.5rem">
+        <span class="tag">${esc(bench.modality)}</span>
+        <span class="tag">${esc(p.type)}</span>
+        ${p.pre_segmented ? '<span class="tag">Pre-segmented</span>' : ''}
+        <span class="tag">${classes.length} classes</span>
+      </div>
+    </div>
+
+    ${bench.description ? `<div class="detail-box" style="margin-bottom:1.5rem"><p style="font-size:.9rem;line-height:1.7;color:var(--text)">${esc(bench.description)}</p></div>` : ''}
+
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>${isCross ? 'Source & Target' : 'Overview'}</h4>
+        <dl>
+          ${isCross ? `
+            <dt>Source</dt><dd>${esc(bench.source)}</dd>
+            <dt>Target</dt><dd>${esc(bench.target)}</dd>
+            ${bench.shared_classes ? `<dt>Shared classes</dt><dd>${bench.shared_classes.length}</dd>` : ''}
+          ` : `
+            <dt>Sensor</dt><dd>${esc(bench.sensor_type)}</dd>
+            <dt>Placement</dt><dd>${esc(bench.placement)}</dd>
+            <dt>Subjects</dt><dd>${bench.subjects}</dd>
+            <dt>Sampling</dt><dd>${bench.sampling_rate_hz} Hz</dd>
+            <dt>Channels</dt><dd>${bench.channels}</dd>
+          `}
+        </dl>
+      </div>
+
+      <div class="detail-box">
+        <h4>Protocol</h4>
+        <dl>
+          <dt>Split</dt><dd>${esc(p.type)}</dd>
+          <dt>Train</dt><dd>${esc(p.train_subjects || p.source_train || '—')}</dd>
+          <dt>Test</dt><dd>${esc(p.test_subjects || p.target_test || '—')}</dd>
+          ${p.folds ? `<dt>Folds</dt><dd>${p.folds}</dd>` : ''}
+          <dt>Window</dt><dd>${p.window_size_samples} samples (${p.window_size_seconds}s)</dd>
+          <dt>Stride</dt><dd>${p.stride_samples} samples (${p.overlap} overlap)</dd>
+          <dt>Primary metric</dt><dd style="color:var(--accent);font-weight:600">${esc(bench.metrics.primary)}</dd>
+        </dl>
+        ${p.note ? `<p style="font-size:.8rem;line-height:1.6;margin-top:.75rem">${esc(p.note)}</p>` : ''}
+      </div>
+    </div>
+
+    <div class="detail-box" style="margin-bottom:1.5rem">
+      <h4>${isCross ? 'Shared Classes' : 'Classes'} (${classes.length})</h4>
+      <p style="font-size:.85rem;color:var(--text-secondary)">${classes.map(c => esc(c)).join(', ')}</p>
+    </div>
+
+    <h3 style="margin-bottom:.75rem">Results associated with this dataset</h3>
+    <p role="note" style="padding:1rem;background:#fff7df;border-left:4px solid #d4a027;line-height:1.7;margin-bottom:1.25rem"><strong>No shared ranking.</strong> Records may use different dataset variants, subjects, classes, windows and metrics. The task protocol above does not apply to every record below. A saved score or source link alone does not establish a valid canonical reproduction.</p>
+    <h4 style="margin-bottom:.75rem">Curated paper and saved-run evidence</h4>
+  `;
+
+  if (curated.length === 0) {
+    html += '<p style="color:#6b7280;padding:1rem">No curated evidence is available for this task. Any raw registry records are listed separately below.</p>';
+  } else {
+    html += '<div class="table-wrap"><table><thead><tr><th>Method / evidence</th><th>Recorded result</th><th>Evaluation protocol</th><th>Source / review notes</th></tr></thead><tbody>';
+    for (const item of curated) {
+      const method = methodById.get(item.method_id) || { method_name: item.method_id };
+      const protocol = evidence.protocols?.[item.protocol_id] || {};
+      const source = evidence.sources?.[item.source_id];
+      html += `<tr><td class="method-name">${methodName(method)}<div>${item.kind === 'paper' ? 'Paper-reported' : 'Saved local observation'}</div></td><td class="score">${metricValue(item.primary_score, item.primary_metric, item.metric_units?.[item.primary_metric])}</td>`;
+      html += `<td style="white-space:normal;min-width:210px"><strong>${esc(protocol.label || item.protocol_id || 'Not established')}</strong><p>${esc(protocol.dataset_variant || '')}</p><p>${esc(protocol.split || '')}</p><p>${esc(item.saved_protocol_note || protocol.metric_note || '')}</p></td>`;
+      html += `<td style="white-space:normal;min-width:220px">${reviewNotes(item)}`;
+      if (source) html += `<p>${link(source.url, source.title)} · ${esc(source.locator || '')}</p>`;
+      if (item.run_source) html += `<details><summary>Saved source record</summary><p style="overflow-wrap:anywhere">${esc(item.run_source.path)}#${esc(item.run_source.json_pointer)}</p><p style="overflow-wrap:anywhere">SHA-256: ${esc(item.run_source.sha256)}</p></details>`;
+      html += '</td></tr>';
+    }
+    html += '</tbody></table></div>';
+  }
+
+  html += `<details style="margin-top:1.5rem"><summary style="cursor:pointer;font-weight:600">Complete raw registry (${methods.length} records; includes historical, duplicate and review-needed entries)</summary><p style="line-height:1.7;margin:1rem 0">These are stored records, not an independently verified ranking. Calibration failures, superseded runs, paper-inspired baselines and different protocols may be present. Statuses below are the saved metadata; they are not a new verification of every score.</p>`;
+  if (!methods.length) html += '<p>No raw registry records.</p>';
+  else {
+    html += '<div class="table-wrap"><table><thead><tr><th>Method</th><th>Saved primary / metrics</th><th>Protocol as recorded</th><th>Source / review status</th></tr></thead><tbody>';
+    for (const method of methods) {
+      const result = method.result;
+      html += `<tr><td class="method-name">${methodName(method)}</td><td>${metricValue(result.primary_score, result.primary_metric)}<details><summary>All saved metrics</summary>${Object.entries(result.metrics || {}).map(([name,value]) => `<div>${esc(name)}: ${typeof value === 'number' ? metricValue(value,name) : esc(value)}</div>`).join('')}</details></td>`;
+      html += `<td style="white-space:normal;min-width:200px">${esc(result.protocol_status || 'Not recorded')}<p>${esc(result.protocol_note || '')}</p></td><td style="white-space:normal;min-width:220px"><p><code>${esc(result.source || 'No source recorded')}</code></p>${reviewNotes(result,true)}`;
+      if (result.official_repo) html += `<p>${link(result.official_repo,'Implementation repository')}</p>`;
+      if (result.evaluation_report_url) html += `<p>${link(result.evaluation_report_url,'Evaluation report')}</p>`;
+      if (result.review_note) html += `<p>${esc(result.review_note)}</p>`;
+      html += '</td></tr>';
+    }
+    html += '</tbody></table></div>';
+  }
+  html += '</details>';
+  html += `<div style="margin-top:2rem"><a href="submit-model.html?benchmark=${encodeURIComponent(id)}" class="btn btn-primary">Open model submission preview →</a></div>`;
+  root.innerHTML = html;
+})();
+</script>
+</body>
+</html>

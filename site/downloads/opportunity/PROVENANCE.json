@@ -1,0 +1,48 @@
+{
+  "id": "opportunity",
+  "name": "OPPORTUNITY",
+  "variant": "Activity Recognition Dataset",
+  "summary": "4 participants · wearable, object and ambient sensors",
+  "scope": "One complete original archive supports both the gesture-recognition and locomotion tasks. It includes recordings, label definitions, documentation and the original benchmark tools.",
+  "creators": "Daniel Roggen, Alberto Calatroni, Long-Van Nguyen-Dinh, Ricardo Chavarriaga, Hesam Sagha and the OPPORTUNITY consortium",
+  "license_label": "CC BY 4.0 (UCI repository)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_note": "Retain the original consortium credits and notices. The original README requests the Roggen et al. 2010 dataset paper or the Chavarriaga et al. 2013 benchmark paper; both are supplied below.",
+  "citation": "Daniel Roggen et al. Collecting complex activity data sets in highly rich networked sensor environments. INSS, 2010.\nRicardo Chavarriaga et al. The Opportunity challenge: A benchmark database for on-body sensor-based activity recognition. Pattern Recognition Letters, 2013.",
+  "bibtex": "@inproceedings{roggen2010opportunity,\n  author = {Roggen, Daniel and others},\n  title = {Collecting complex activity data sets in highly rich networked sensor environments},\n  booktitle = {International Conference on Networked Sensing Systems},\n  year = {2010}\n}\n\n@article{chavarriaga2013opportunity,\n  author = {Chavarriaga, Ricardo and Sagha, Hesam and Calatroni, Alberto and Digumarti, Sundaratejaswi and Tröster, Gerhard and Millán, José del R. and Roggen, Daniel},\n  title = {The Opportunity challenge: A benchmark database for on-body sensor-based activity recognition},\n  journal = {Pattern Recognition Letters},\n  year = {2013}\n}",
+  "doi": "10.24432/C5M027",
+  "source_url": "https://archive.ics.uci.edu/dataset/226/opportunity+activity+recognition",
+  "official_archive_url": "https://archive.ics.uci.edu/static/public/226/opportunity%2Bactivity%2Brecognition.zip",
+  "archive_url": "/downloads/opportunity/opportunity-official-20261028.zip",
+  "filename": "opportunity-official-20261028.zip",
+  "bytes": 306636009,
+  "sha256": "3df913b5e5a987d309596350385087737784c9d4b811389536eb3a9bcaf6f1d0",
+  "archive_modified": false,
+  "mirrored_at": "2026-10-28T06:00:02.475178+00:00",
+  "original_notices": [
+    {
+      "name": "OpportunityUCIDataset/README",
+      "url": "/downloads/opportunity/original/original-01-README",
+      "sha256": "146e483e98fa19e3e9f556be653b1366fe9ebcc5e5468a99b031e15ffc5751fa"
+    },
+    {
+      "name": "OpportunityUCIDataset/scripts/benchmark/measures/ward/README",
+      "url": "/downloads/opportunity/original/original-02-README",
+      "sha256": "dd59843aeb1f1950d776d84e8cecd1880011538ac7bb1aba41191f430e50d7f5"
+    },
+    {
+      "name": "OpportunityUCIDataset/scripts/benchmark/readme.txt",
+      "url": "/downloads/opportunity/original/original-03-readme.txt",
+      "sha256": "95925cdac43b88bf79fc3e4a609c82f157c42f5ddad07f4a999ebc9896379992"
+    },
+    {
+      "name": "OpportunityUCIDataset/scripts/DataExplorer/readme.txt",
+      "url": "/downloads/opportunity/original/original-04-readme.txt",
+      "sha256": "608bae90a8912f6ce70c809a9a361b747ce57f9d8b187936d547adb5709e58ec"
+    }
+  ],
+  "attribution_url": "/downloads/opportunity/ATTRIBUTION.txt",
+  "license_notice_url": "/downloads/opportunity/LICENSE-NOTICE.txt",
+  "citation_url": "/downloads/opportunity/CITATION.bib",
+  "checksums_url": "/downloads/opportunity/SHA256SUMS.txt"
+}

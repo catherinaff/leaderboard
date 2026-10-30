@@ -1,0 +1,10 @@
+HHAR — license and original notice
+
+CC BY 4.0 (UCI repository)
+https://creativecommons.org/licenses/by/4.0/
+
+Give the dataset creators appropriate credit, retain the source/license links and original notices, and cite the Stisen et al. SenSys 2015 paper identified in both original READMEs.
+
+Official source: https://archive.ics.uci.edu/dataset/344/heterogeneity+activity+recognition
+
+All original archive notices remain intact. This mirror does not claim ownership, grant additional rights, or imply endorsement by the creators.

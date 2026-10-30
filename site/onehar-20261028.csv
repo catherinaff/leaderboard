@@ -1,0 +1,20 @@
+﻿suite,dataset,samples,classes,accuracy,f1_macro,majority_baseline_accuracy,protocol
+author_released_test,HHAR,5773,6,0.9293261735666032,0.9296572385922844,,"Released checkpoint, author test set, global nine candidates; not canonical/LODO"
+author_released_test,Pamap2,1542,9,0.8910505836575876,0.8909707951249154,,"Released checkpoint, author test set, global nine candidates; not canonical/LODO"
+author_released_test,Realworld,7098,8,0.9499859115243731,0.9511648959831901,,"Released checkpoint, author test set, global nine candidates; not canonical/LODO"
+author_released_test,UCI-HAR,2443,6,0.9103561195251739,0.9104413666855664,,"Released checkpoint, author test set, global nine candidates; not canonical/LODO"
+author_released_test,USC-HAD,2178,7,0.891643709825528,0.8824051790907993,,"Released checkpoint, author test set, global nine candidates; not canonical/LODO"
+custom_frozen_adapter,UCI-HAR,2947,6,0.7587376993552766,0.7664274834767878,0.18221920597217509,official UCI-HAR 2947-window test partition
+custom_frozen_adapter,WISDM,1892,6,0.1014799154334038,0.0624810226223081,0.36522198731501054,subjects 31–36
+custom_frozen_adapter,PAMAP2,19204,12,0.047958758591960006,0.0238048586729339,0.12377629660487398,all available subjects; frozen checkpoint; no LOSO retraining
+custom_frozen_adapter,HHAR,67515,6,0.18385543953195585,0.06231207368950333,0.19582315041101978,all available subjects; frozen checkpoint; no LOSO retraining
+custom_frozen_adapter,USC-HAD,27205,12,0.13633523249402682,0.1115412015506112,0.13762176070575263,all available subjects; frozen checkpoint; no LOSO retraining
+custom_frozen_adapter,OPPORTUNITY · 手势,5630,17,0.24706927175843693,0.03114528962899581,0.2602131438721137,all available subjects; frozen checkpoint; no LOSO retraining
+custom_frozen_adapter,OPPORTUNITY · 运动,29777,4,0.24921919602377673,0.18060518883286472,0.4454444705645297,all available subjects; frozen checkpoint; no LOSO retraining
+custom_frozen_adapter,MotionSense,4534,6,0.25011027790030876,0.09434540340842719,0.24525805028672254,"all released LIMU-BERT processed windows; exploratory, no canonical split claimed"
+custom_frozen_adapter,Shoaib,10500,7,0.18476190476190477,0.11146530201091563,0.15714285714285714,"all released LIMU-BERT processed windows; exploratory, no canonical split claimed"
+custom_frozen_adapter,MHEALTH,6684,12,0.0803411131059246,0.027130688562132573,0.08976660682226212,all 10 subjects; 100-step windows / stride 50 within contiguous activity blocks; null excluded; no retraining
+custom_frozen_adapter,DSADS,9120,19,0.09407894736842105,0.039768599829761324,0.05263157894736842,all original 9120 five-second segments; 19 actual source classes; no custom class merge; no retraining
+custom_frozen_adapter,UniMiB-SHAR,11771,17,0.08206609463936794,0.029151044171185175,0.16863478039249002,all 11771 original AF-17 windows / 30 subjects; 17 source classes rather than placeholder class groups; no retraining
+custom_frozen_adapter,Skoda,34917,10,0.10902998539393419,0.020201184906474594,0.1369533465074319,single subject; calibrated acceleration from all 10 right-arm sensors; 30-step windows / stride 15 inside gestures; null excluded; no retraining
+input_ablation_total_acc,UCI-HAR,2947,6,0.17441465897522904,0.07291997880233174,,Same original 2947 test windows; total_acc rather than body_acc

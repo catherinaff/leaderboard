@@ -1,0 +1,34 @@
+{
+  "id": "uci_har",
+  "name": "UCI-HAR",
+  "variant": "Human Activity Recognition Using Smartphones",
+  "summary": "30 participants · 6 activities · 50 Hz · accelerometer + gyroscope",
+  "scope": "Complete official release, including the original train/test windows, inertial signals, labels and documentation.",
+  "creators": "Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto and Xavier Parra",
+  "license_label": "UCI CC BY 4.0 listing + original notice",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_note": "UCI currently lists CC BY 4.0. The bundled README also contains a prohibition on commercial use. Both original statements are retained; this mirror does not resolve the discrepancy or certify commercial reuse. Consult the original creators before relying on commercial-use rights.",
+  "license_discrepancy": true,
+  "citation": "Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. ESANN, 2013.",
+  "bibtex": "@inproceedings{anguita2013uci_har,\n  author = {Anguita, Davide and Ghio, Alessandro and Oneto, Luca and Parra, Xavier and Reyes-Ortiz, Jorge L.},\n  title = {A Public Domain Dataset for Human Activity Recognition Using Smartphones},\n  booktitle = {European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning},\n  year = {2013}\n}",
+  "doi": "10.24432/C54S4K",
+  "source_url": "https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones",
+  "official_archive_url": "https://archive.ics.uci.edu/static/public/240/human%2Bactivity%2Brecognition%2Busing%2Bsmartphones.zip",
+  "archive_url": "/downloads/uci_har/uci-har-official-20261028.zip",
+  "filename": "uci-har-official-20261028.zip",
+  "bytes": 61005872,
+  "sha256": "c00b803081a5c797cd5e4b83700a9810b38d53d9d84e01917e090e1fdbc81031",
+  "archive_modified": false,
+  "mirrored_at": "2026-10-28T05:48:15.180408+00:00",
+  "original_notices": [
+    {
+      "name": "UCI HAR Dataset.zip!UCI HAR Dataset/README.txt",
+      "url": "/downloads/uci_har/original/original-01-README.txt",
+      "sha256": "eaee53f45825f349681a1a1b92a997a0082648f9b5bf93ddb3290caeede4b3a8"
+    }
+  ],
+  "attribution_url": "/downloads/uci_har/ATTRIBUTION.txt",
+  "license_notice_url": "/downloads/uci_har/LICENSE-NOTICE.txt",
+  "citation_url": "/downloads/uci_har/CITATION.bib",
+  "checksums_url": "/downloads/uci_har/SHA256SUMS.txt"
+}

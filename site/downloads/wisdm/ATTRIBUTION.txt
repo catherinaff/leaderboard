@@ -1,0 +1,13 @@
+WISDM — Activity Prediction / AR v1.1
+
+Original creators: Jennifer R. Kwapisz, Gary M. Weiss, Samuel A. Moore and the WISDM Lab, Fordham University
+Official source: https://www.cis.fordham.edu/wisdm/dataset.php
+Official archive: https://www.cis.fordham.edu/wisdm/includes/datasets/latest/WISDM_ar_latest.tar.gz
+
+Jennifer R. Kwapisz, Gary M. Weiss and Samuel A. Moore (2010). Activity Recognition using Cell Phone Accelerometers. Fourth International Workshop on Knowledge Discovery from Sensor Data (KDD-10), Washington DC. Citation follows the original dataset README.
+
+The authors permit sharing/redistribution and request that the original readme.txt always accompanies the dataset, and that the specified paper is cited when using it. The archive and the standalone original README are preserved. No Creative Commons license is assigned by this mirror.
+License/source terms: https://www.cis.fordham.edu/wisdm/dataset.php
+
+Archive SHA-256: e573791269aab4a629721cf04b6031b7cbf8e14261cd2bc86e65887a2bc592d7
+The archive bytes are unchanged. Only the mirror filename is normalized. Original README and license notices are also provided separately in original/. No endorsement by the creators is implied.

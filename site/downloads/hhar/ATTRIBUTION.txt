@@ -1,0 +1,13 @@
+HHAR — Heterogeneity Human Activity Recognition
+
+Original creators: Henrik Blunck, Sourav Bhattacharya, Thor Siiger Prentow, Mikkel Baun Kjærgaard and Anind Dey
+Official source: https://archive.ics.uci.edu/dataset/344/heterogeneity+activity+recognition
+Official archive: https://archive.ics.uci.edu/static/public/344/heterogeneity%2Bactivity%2Brecognition.zip
+
+Allan Stisen, Henrik Blunck, Sourav Bhattacharya, Thor Siiger Prentow, Mikkel Baun Kjærgaard, Anind Dey, Tobias Sonne and Mads Møller Jensen. Smart Devices are Different: Assessing and Mitigating Mobile Sensing Heterogeneities for Activity Recognition. SenSys, 2015.
+
+Give the dataset creators appropriate credit, retain the source/license links and original notices, and cite the Stisen et al. SenSys 2015 paper identified in both original READMEs.
+License/source terms: https://creativecommons.org/licenses/by/4.0/
+
+Archive SHA-256: 8c9f8dd5f50074feaad2c5cec5d927a4fc8366324de26079629a3de3aef0e124
+The archive bytes are unchanged. Only the mirror filename is normalized. Original README and license notices are also provided separately in original/. No endorsement by the creators is implied.

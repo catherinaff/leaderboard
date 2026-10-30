@@ -1,0 +1,14 @@
+OPPORTUNITY — Activity Recognition Dataset
+
+Original creators: Daniel Roggen, Alberto Calatroni, Long-Van Nguyen-Dinh, Ricardo Chavarriaga, Hesam Sagha and the OPPORTUNITY consortium
+Official source: https://archive.ics.uci.edu/dataset/226/opportunity+activity+recognition
+Official archive: https://archive.ics.uci.edu/static/public/226/opportunity%2Bactivity%2Brecognition.zip
+
+Daniel Roggen et al. Collecting complex activity data sets in highly rich networked sensor environments. INSS, 2010.
+Ricardo Chavarriaga et al. The Opportunity challenge: A benchmark database for on-body sensor-based activity recognition. Pattern Recognition Letters, 2013.
+
+Retain the original consortium credits and notices. The original README requests the Roggen et al. 2010 dataset paper or the Chavarriaga et al. 2013 benchmark paper; both are supplied below.
+License/source terms: https://creativecommons.org/licenses/by/4.0/
+
+Archive SHA-256: 3df913b5e5a987d309596350385087737784c9d4b811389536eb3a9bcaf6f1d0
+The archive bytes are unchanged. Only the mirror filename is normalized. Original README and license notices are also provided separately in original/. No endorsement by the creators is implied.

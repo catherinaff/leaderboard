@@ -1,0 +1,10 @@
+PAMAP2 — license and original notice
+
+CC BY 4.0 (UCI repository)
+https://creativecommons.org/licenses/by/4.0/
+
+Retain attribution and the license/source links. The original README describes academic/scientific use and requests both Reiss–Stricker 2012 publications; both references are included below and in the citation files.
+
+Official source: https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring
+
+All original archive notices remain intact. This mirror does not claim ownership, grant additional rights, or imply endorsement by the creators.

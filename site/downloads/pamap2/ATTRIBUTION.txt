@@ -1,0 +1,14 @@
+PAMAP2 — Physical Activity Monitoring
+
+Original creators: Attila Reiss; research publications by Attila Reiss and Didier Stricker, DFKI
+Official source: https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring
+Official archive: https://archive.ics.uci.edu/static/public/231/pamap2%2Bphysical%2Bactivity%2Bmonitoring.zip
+
+Attila Reiss and Didier Stricker. Introducing a New Benchmarked Dataset for Activity Monitoring. ISWC, 2012.
+Attila Reiss and Didier Stricker. Creating and Benchmarking a New Dataset for Physical Activity Monitoring. ABRA, 2012.
+
+Retain attribution and the license/source links. The original README describes academic/scientific use and requests both Reiss–Stricker 2012 publications; both references are included below and in the citation files.
+License/source terms: https://creativecommons.org/licenses/by/4.0/
+
+Archive SHA-256: 76b3580bd5a804121f507717cb498c66a312ef5c774f4a78ac470e6558add352
+The archive bytes are unchanged. Only the mirror filename is normalized. Original README and license notices are also provided separately in original/. No endorsement by the creators is implied.

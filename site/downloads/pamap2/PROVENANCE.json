@@ -1,0 +1,38 @@
+{
+  "id": "pamap2",
+  "name": "PAMAP2",
+  "variant": "Physical Activity Monitoring",
+  "summary": "9 participants · 18 activities · 3 IMUs + heart rate",
+  "scope": "The full original Protocol and Optional recordings with the original documentation. Leaderboard protocols can use a smaller subject/activity subset.",
+  "creators": "Attila Reiss; research publications by Attila Reiss and Didier Stricker, DFKI",
+  "license_label": "CC BY 4.0 (UCI repository)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_note": "Retain attribution and the license/source links. The original README describes academic/scientific use and requests both Reiss–Stricker 2012 publications; both references are included below and in the citation files.",
+  "citation": "Attila Reiss and Didier Stricker. Introducing a New Benchmarked Dataset for Activity Monitoring. ISWC, 2012.\nAttila Reiss and Didier Stricker. Creating and Benchmarking a New Dataset for Physical Activity Monitoring. ABRA, 2012.",
+  "bibtex": "@inproceedings{reiss2012pamap2_iswc,\n  author = {Reiss, Attila and Stricker, Didier},\n  title = {Introducing a New Benchmarked Dataset for Activity Monitoring},\n  booktitle = {IEEE International Symposium on Wearable Computers},\n  year = {2012},\n  doi = {10.1109/ISWC.2012.13}\n}\n\n@inproceedings{reiss2012pamap2_abra,\n  author = {Reiss, Attila and Stricker, Didier},\n  title = {Creating and Benchmarking a New Dataset for Physical Activity Monitoring},\n  booktitle = {Workshop on Affect and Behaviour Related Assistance},\n  year = {2012}\n}",
+  "doi": "10.24432/C5NW2H",
+  "source_url": "https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring",
+  "official_archive_url": "https://archive.ics.uci.edu/static/public/231/pamap2%2Bphysical%2Bactivity%2Bmonitoring.zip",
+  "archive_url": "/downloads/pamap2/pamap2-official-20261028.zip",
+  "filename": "pamap2-official-20261028.zip",
+  "bytes": 688226940,
+  "sha256": "76b3580bd5a804121f507717cb498c66a312ef5c774f4a78ac470e6558add352",
+  "archive_modified": false,
+  "mirrored_at": "2026-10-28T05:59:46.279718+00:00",
+  "original_notices": [
+    {
+      "name": "PAMAP2_Dataset.zip!PAMAP2_Dataset/readme.pdf",
+      "url": "/downloads/pamap2/original/original-01-readme.pdf",
+      "sha256": "99a0339f1d754089fc2f7f2c24f5a47888a51dc0646a8b210af60358c00da30d"
+    },
+    {
+      "name": "readme.pdf",
+      "url": "/downloads/pamap2/original/original-02-readme.pdf",
+      "sha256": "99a0339f1d754089fc2f7f2c24f5a47888a51dc0646a8b210af60358c00da30d"
+    }
+  ],
+  "attribution_url": "/downloads/pamap2/ATTRIBUTION.txt",
+  "license_notice_url": "/downloads/pamap2/LICENSE-NOTICE.txt",
+  "citation_url": "/downloads/pamap2/CITATION.bib",
+  "checksums_url": "/downloads/pamap2/SHA256SUMS.txt"
+}

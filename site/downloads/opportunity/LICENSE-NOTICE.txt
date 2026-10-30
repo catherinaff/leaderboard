@@ -1,0 +1,10 @@
+OPPORTUNITY — license and original notice
+
+CC BY 4.0 (UCI repository)
+https://creativecommons.org/licenses/by/4.0/
+
+Retain the original consortium credits and notices. The original README requests the Roggen et al. 2010 dataset paper or the Chavarriaga et al. 2013 benchmark paper; both are supplied below.
+
+Official source: https://archive.ics.uci.edu/dataset/226/opportunity+activity+recognition
+
+All original archive notices remain intact. This mirror does not claim ownership, grant additional rights, or imply endorsement by the creators.

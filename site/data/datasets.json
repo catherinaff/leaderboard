@@ -1,0 +1,208 @@
+{
+  "updated_at": "2026-10-28T06:04:58.481229+00:00",
+  "datasets": [
+    {
+      "id": "uci_har",
+      "name": "UCI-HAR",
+      "variant": "Human Activity Recognition Using Smartphones",
+      "summary": "30 participants · 6 activities · 50 Hz · accelerometer + gyroscope",
+      "scope": "Complete official release, including the original train/test windows, inertial signals, labels and documentation.",
+      "creators": "Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto and Xavier Parra",
+      "license_label": "UCI CC BY 4.0 listing + original notice",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_note": "UCI currently lists CC BY 4.0. The bundled README also contains a prohibition on commercial use. Both original statements are retained; this mirror does not resolve the discrepancy or certify commercial reuse. Consult the original creators before relying on commercial-use rights.",
+      "license_discrepancy": true,
+      "citation": "Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. ESANN, 2013.",
+      "bibtex": "@inproceedings{anguita2013uci_har,\n  author = {Anguita, Davide and Ghio, Alessandro and Oneto, Luca and Parra, Xavier and Reyes-Ortiz, Jorge L.},\n  title = {A Public Domain Dataset for Human Activity Recognition Using Smartphones},\n  booktitle = {European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning},\n  year = {2013}\n}",
+      "doi": "10.24432/C54S4K",
+      "source_url": "https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones",
+      "official_archive_url": "https://archive.ics.uci.edu/static/public/240/human%2Bactivity%2Brecognition%2Busing%2Bsmartphones.zip",
+      "archive_url": "https://archive.ics.uci.edu/static/public/240/human%2Bactivity%2Brecognition%2Busing%2Bsmartphones.zip",
+      "filename": "uci-har-official-20261028.zip",
+      "bytes": 61005872,
+      "sha256": "c00b803081a5c797cd5e4b83700a9810b38d53d9d84e01917e090e1fdbc81031",
+      "archive_modified": false,
+      "mirrored_at": "2026-10-28T05:48:15.180408+00:00",
+      "original_notices": [
+        {
+          "name": "UCI HAR Dataset.zip!UCI HAR Dataset/README.txt",
+          "url": "/downloads/uci_har/original/original-01-README.txt",
+          "sha256": "eaee53f45825f349681a1a1b92a997a0082648f9b5bf93ddb3290caeede4b3a8"
+        }
+      ],
+      "attribution_url": "/downloads/uci_har/ATTRIBUTION.txt",
+      "license_notice_url": "/downloads/uci_har/LICENSE-NOTICE.txt",
+      "citation_url": "/downloads/uci_har/CITATION.bib",
+      "checksums_url": "/downloads/uci_har/SHA256SUMS.txt",
+      "mirror_snapshot_archive_path": "/downloads/uci_har/uci-har-official-20261028.zip",
+      "checksum_scope": "IoTBench mirror snapshot, 2026-10-28; official archives may change"
+    },
+    {
+      "id": "wisdm",
+      "name": "WISDM",
+      "variant": "Activity Prediction / AR v1.1",
+      "summary": "36 participants · 6 activities · 20 Hz · smartphone accelerometer",
+      "scope": "The AR v1.1 release used by the six-class leaderboard task. This is a different release from Actitracker v2 and the later smartphone/smartwatch dataset.",
+      "creators": "Jennifer R. Kwapisz, Gary M. Weiss, Samuel A. Moore and the WISDM Lab, Fordham University",
+      "license_label": "Original-author redistribution terms",
+      "license_url": "https://www.cis.fordham.edu/wisdm/dataset.php",
+      "license_note": "The authors permit sharing/redistribution and request that the original readme.txt always accompanies the dataset, and that the specified paper is cited when using it. The archive and the standalone original README are preserved. No Creative Commons license is assigned by this mirror.",
+      "citation": "Jennifer R. Kwapisz, Gary M. Weiss and Samuel A. Moore (2010). Activity Recognition using Cell Phone Accelerometers. Fourth International Workshop on Knowledge Discovery from Sensor Data (KDD-10), Washington DC. Citation follows the original dataset README.",
+      "bibtex": "@inproceedings{kwapisz2010wisdm,\n  author = {Kwapisz, Jennifer R. and Weiss, Gary M. and Moore, Samuel A.},\n  title = {Activity Recognition using Cell Phone Accelerometers},\n  booktitle = {Fourth International Workshop on Knowledge Discovery from Sensor Data},\n  year = {2010},\n  url = {https://www.cis.fordham.edu/wisdm/public_files/sensorKDD-2010.pdf}\n}",
+      "doi": null,
+      "source_url": "https://www.cis.fordham.edu/wisdm/dataset.php",
+      "official_archive_url": "https://www.cis.fordham.edu/wisdm/includes/datasets/latest/WISDM_ar_latest.tar.gz",
+      "archive_url": "https://www.cis.fordham.edu/wisdm/includes/datasets/latest/WISDM_ar_latest.tar.gz",
+      "filename": "wisdm-ar-v1.1.tar.gz",
+      "bytes": 11404612,
+      "sha256": "e573791269aab4a629721cf04b6031b7cbf8e14261cd2bc86e65887a2bc592d7",
+      "archive_modified": false,
+      "mirrored_at": "2026-10-28T05:48:03.770299+00:00",
+      "original_notices": [
+        {
+          "name": "WISDM_ar_v1.1/readme.txt",
+          "url": "/downloads/wisdm/original/original-01-readme.txt",
+          "sha256": "3f36b96a7b9ded114c8017654ef46f0d63afb003e4474693ee31e12ed1e6ae51"
+        }
+      ],
+      "attribution_url": "/downloads/wisdm/ATTRIBUTION.txt",
+      "license_notice_url": "/downloads/wisdm/LICENSE-NOTICE.txt",
+      "citation_url": "/downloads/wisdm/CITATION.bib",
+      "checksums_url": "/downloads/wisdm/SHA256SUMS.txt",
+      "mirror_snapshot_archive_path": "/downloads/wisdm/wisdm-ar-v1.1.tar.gz",
+      "checksum_scope": "IoTBench mirror snapshot, 2026-10-28; official archives may change"
+    },
+    {
+      "id": "pamap2",
+      "name": "PAMAP2",
+      "variant": "Physical Activity Monitoring",
+      "summary": "9 participants · 18 activities · 3 IMUs + heart rate",
+      "scope": "The full original Protocol and Optional recordings with the original documentation. Leaderboard protocols can use a smaller subject/activity subset.",
+      "creators": "Attila Reiss; research publications by Attila Reiss and Didier Stricker, DFKI",
+      "license_label": "CC BY 4.0 (UCI repository)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_note": "Retain attribution and the license/source links. The original README describes academic/scientific use and requests both Reiss–Stricker 2012 publications; both references are included below and in the citation files.",
+      "citation": "Attila Reiss and Didier Stricker. Introducing a New Benchmarked Dataset for Activity Monitoring. ISWC, 2012.\nAttila Reiss and Didier Stricker. Creating and Benchmarking a New Dataset for Physical Activity Monitoring. ABRA, 2012.",
+      "bibtex": "@inproceedings{reiss2012pamap2_iswc,\n  author = {Reiss, Attila and Stricker, Didier},\n  title = {Introducing a New Benchmarked Dataset for Activity Monitoring},\n  booktitle = {IEEE International Symposium on Wearable Computers},\n  year = {2012},\n  doi = {10.1109/ISWC.2012.13}\n}\n\n@inproceedings{reiss2012pamap2_abra,\n  author = {Reiss, Attila and Stricker, Didier},\n  title = {Creating and Benchmarking a New Dataset for Physical Activity Monitoring},\n  booktitle = {Workshop on Affect and Behaviour Related Assistance},\n  year = {2012}\n}",
+      "doi": "10.24432/C5NW2H",
+      "source_url": "https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring",
+      "official_archive_url": "https://archive.ics.uci.edu/static/public/231/pamap2%2Bphysical%2Bactivity%2Bmonitoring.zip",
+      "archive_url": "https://archive.ics.uci.edu/static/public/231/pamap2%2Bphysical%2Bactivity%2Bmonitoring.zip",
+      "filename": "pamap2-official-20261028.zip",
+      "bytes": 688226940,
+      "sha256": "76b3580bd5a804121f507717cb498c66a312ef5c774f4a78ac470e6558add352",
+      "archive_modified": false,
+      "mirrored_at": "2026-10-28T05:59:46.279718+00:00",
+      "original_notices": [
+        {
+          "name": "PAMAP2_Dataset.zip!PAMAP2_Dataset/readme.pdf",
+          "url": "/downloads/pamap2/original/original-01-readme.pdf",
+          "sha256": "99a0339f1d754089fc2f7f2c24f5a47888a51dc0646a8b210af60358c00da30d"
+        },
+        {
+          "name": "readme.pdf",
+          "url": "/downloads/pamap2/original/original-02-readme.pdf",
+          "sha256": "99a0339f1d754089fc2f7f2c24f5a47888a51dc0646a8b210af60358c00da30d"
+        }
+      ],
+      "attribution_url": "/downloads/pamap2/ATTRIBUTION.txt",
+      "license_notice_url": "/downloads/pamap2/LICENSE-NOTICE.txt",
+      "citation_url": "/downloads/pamap2/CITATION.bib",
+      "checksums_url": "/downloads/pamap2/SHA256SUMS.txt",
+      "mirror_snapshot_archive_path": "/downloads/pamap2/pamap2-official-20261028.zip",
+      "checksum_scope": "IoTBench mirror snapshot, 2026-10-28; official archives may change"
+    },
+    {
+      "id": "hhar",
+      "name": "HHAR",
+      "variant": "Heterogeneity Human Activity Recognition",
+      "summary": "9 participants · 6 activities · phones + smartwatches",
+      "scope": "Complete UCI bundle: both the activity-recognition experiment and the still-device experiment, including their original documentation.",
+      "creators": "Henrik Blunck, Sourav Bhattacharya, Thor Siiger Prentow, Mikkel Baun Kjærgaard and Anind Dey",
+      "license_label": "CC BY 4.0 (UCI repository)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_note": "Give the dataset creators appropriate credit, retain the source/license links and original notices, and cite the Stisen et al. SenSys 2015 paper identified in both original READMEs.",
+      "citation": "Allan Stisen, Henrik Blunck, Sourav Bhattacharya, Thor Siiger Prentow, Mikkel Baun Kjærgaard, Anind Dey, Tobias Sonne and Mads Møller Jensen. Smart Devices are Different: Assessing and Mitigating Mobile Sensing Heterogeneities for Activity Recognition. SenSys, 2015.",
+      "bibtex": "@inproceedings{stisen2015hhar,\n  author = {Stisen, Allan and Blunck, Henrik and Bhattacharya, Sourav and Prentow, Thor Siiger and Kjærgaard, Mikkel Baun and Dey, Anind and Sonne, Tobias and Jensen, Mads Møller},\n  title = {Smart Devices are Different: Assessing and Mitigating Mobile Sensing Heterogeneities for Activity Recognition},\n  booktitle = {ACM Conference on Embedded Networked Sensor Systems},\n  year = {2015},\n  doi = {10.1145/2809695.2809718}\n}",
+      "doi": "10.24432/C5689X",
+      "source_url": "https://archive.ics.uci.edu/dataset/344/heterogeneity+activity+recognition",
+      "official_archive_url": "https://archive.ics.uci.edu/static/public/344/heterogeneity%2Bactivity%2Brecognition.zip",
+      "archive_url": "https://archive.ics.uci.edu/static/public/344/heterogeneity%2Bactivity%2Brecognition.zip",
+      "filename": "hhar-official-20261028.zip",
+      "bytes": 822098071,
+      "sha256": "8c9f8dd5f50074feaad2c5cec5d927a4fc8366324de26079629a3de3aef0e124",
+      "archive_modified": false,
+      "mirrored_at": "2026-10-28T05:59:58.154963+00:00",
+      "original_notices": [
+        {
+          "name": "Activity recognition exp.zip!Activity recognition exp/readme.txt",
+          "url": "/downloads/hhar/original/original-01-readme.txt",
+          "sha256": "9cc832dc12c610c2d81f36bfe60ff72d50d9e87d7d8a3bde77841a63598151d8"
+        },
+        {
+          "name": "Still exp.zip!Still exp/readme.txt",
+          "url": "/downloads/hhar/original/original-03-readme.txt",
+          "sha256": "163b7b8b2d1d5cafd4f1f4ef3fdf341e2844e57c2e3c35162934658d202bc93a"
+        }
+      ],
+      "attribution_url": "/downloads/hhar/ATTRIBUTION.txt",
+      "license_notice_url": "/downloads/hhar/LICENSE-NOTICE.txt",
+      "citation_url": "/downloads/hhar/CITATION.bib",
+      "checksums_url": "/downloads/hhar/SHA256SUMS.txt",
+      "mirror_snapshot_archive_path": "/downloads/hhar/hhar-official-20261028.zip",
+      "checksum_scope": "IoTBench mirror snapshot, 2026-10-28; official archives may change"
+    },
+    {
+      "id": "opportunity",
+      "name": "OPPORTUNITY",
+      "variant": "Activity Recognition Dataset",
+      "summary": "4 participants · wearable, object and ambient sensors",
+      "scope": "One complete original archive supports both the gesture-recognition and locomotion tasks. It includes recordings, label definitions, documentation and the original benchmark tools.",
+      "creators": "Daniel Roggen, Alberto Calatroni, Long-Van Nguyen-Dinh, Ricardo Chavarriaga, Hesam Sagha and the OPPORTUNITY consortium",
+      "license_label": "CC BY 4.0 (UCI repository)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_note": "Retain the original consortium credits and notices. The original README requests the Roggen et al. 2010 dataset paper or the Chavarriaga et al. 2013 benchmark paper; both are supplied below.",
+      "citation": "Daniel Roggen et al. Collecting complex activity data sets in highly rich networked sensor environments. INSS, 2010.\nRicardo Chavarriaga et al. The Opportunity challenge: A benchmark database for on-body sensor-based activity recognition. Pattern Recognition Letters, 2013.",
+      "bibtex": "@inproceedings{roggen2010opportunity,\n  author = {Roggen, Daniel and others},\n  title = {Collecting complex activity data sets in highly rich networked sensor environments},\n  booktitle = {International Conference on Networked Sensing Systems},\n  year = {2010}\n}\n\n@article{chavarriaga2013opportunity,\n  author = {Chavarriaga, Ricardo and Sagha, Hesam and Calatroni, Alberto and Digumarti, Sundaratejaswi and Tröster, Gerhard and Millán, José del R. and Roggen, Daniel},\n  title = {The Opportunity challenge: A benchmark database for on-body sensor-based activity recognition},\n  journal = {Pattern Recognition Letters},\n  year = {2013}\n}",
+      "doi": "10.24432/C5M027",
+      "source_url": "https://archive.ics.uci.edu/dataset/226/opportunity+activity+recognition",
+      "official_archive_url": "https://archive.ics.uci.edu/static/public/226/opportunity%2Bactivity%2Brecognition.zip",
+      "archive_url": "https://archive.ics.uci.edu/static/public/226/opportunity%2Bactivity%2Brecognition.zip",
+      "filename": "opportunity-official-20261028.zip",
+      "bytes": 306636009,
+      "sha256": "3df913b5e5a987d309596350385087737784c9d4b811389536eb3a9bcaf6f1d0",
+      "archive_modified": false,
+      "mirrored_at": "2026-10-28T06:00:02.475178+00:00",
+      "original_notices": [
+        {
+          "name": "OpportunityUCIDataset/README",
+          "url": "/downloads/opportunity/original/original-01-README",
+          "sha256": "146e483e98fa19e3e9f556be653b1366fe9ebcc5e5468a99b031e15ffc5751fa"
+        },
+        {
+          "name": "OpportunityUCIDataset/scripts/benchmark/measures/ward/README",
+          "url": "/downloads/opportunity/original/original-02-README",
+          "sha256": "dd59843aeb1f1950d776d84e8cecd1880011538ac7bb1aba41191f430e50d7f5"
+        },
+        {
+          "name": "OpportunityUCIDataset/scripts/benchmark/readme.txt",
+          "url": "/downloads/opportunity/original/original-03-readme.txt",
+          "sha256": "95925cdac43b88bf79fc3e4a609c82f157c42f5ddad07f4a999ebc9896379992"
+        },
+        {
+          "name": "OpportunityUCIDataset/scripts/DataExplorer/readme.txt",
+          "url": "/downloads/opportunity/original/original-04-readme.txt",
+          "sha256": "608bae90a8912f6ce70c809a9a361b747ce57f9d8b187936d547adb5709e58ec"
+        }
+      ],
+      "attribution_url": "/downloads/opportunity/ATTRIBUTION.txt",
+      "license_notice_url": "/downloads/opportunity/LICENSE-NOTICE.txt",
+      "citation_url": "/downloads/opportunity/CITATION.bib",
+      "checksums_url": "/downloads/opportunity/SHA256SUMS.txt",
+      "mirror_snapshot_archive_path": "/downloads/opportunity/opportunity-official-20261028.zip",
+      "checksum_scope": "IoTBench mirror snapshot, 2026-10-28; official archives may change"
+    }
+  ],
+  "download_mode": "official-source-links",
+  "public_page_updated_at": "2026-10-30T08:05:05.976160+00:00"
+}

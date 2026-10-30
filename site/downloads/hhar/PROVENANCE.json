@@ -1,0 +1,38 @@
+{
+  "id": "hhar",
+  "name": "HHAR",
+  "variant": "Heterogeneity Human Activity Recognition",
+  "summary": "9 participants · 6 activities · phones + smartwatches",
+  "scope": "Complete UCI bundle: both the activity-recognition experiment and the still-device experiment, including their original documentation.",
+  "creators": "Henrik Blunck, Sourav Bhattacharya, Thor Siiger Prentow, Mikkel Baun Kjærgaard and Anind Dey",
+  "license_label": "CC BY 4.0 (UCI repository)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_note": "Give the dataset creators appropriate credit, retain the source/license links and original notices, and cite the Stisen et al. SenSys 2015 paper identified in both original READMEs.",
+  "citation": "Allan Stisen, Henrik Blunck, Sourav Bhattacharya, Thor Siiger Prentow, Mikkel Baun Kjærgaard, Anind Dey, Tobias Sonne and Mads Møller Jensen. Smart Devices are Different: Assessing and Mitigating Mobile Sensing Heterogeneities for Activity Recognition. SenSys, 2015.",
+  "bibtex": "@inproceedings{stisen2015hhar,\n  author = {Stisen, Allan and Blunck, Henrik and Bhattacharya, Sourav and Prentow, Thor Siiger and Kjærgaard, Mikkel Baun and Dey, Anind and Sonne, Tobias and Jensen, Mads Møller},\n  title = {Smart Devices are Different: Assessing and Mitigating Mobile Sensing Heterogeneities for Activity Recognition},\n  booktitle = {ACM Conference on Embedded Networked Sensor Systems},\n  year = {2015},\n  doi = {10.1145/2809695.2809718}\n}",
+  "doi": "10.24432/C5689X",
+  "source_url": "https://archive.ics.uci.edu/dataset/344/heterogeneity+activity+recognition",
+  "official_archive_url": "https://archive.ics.uci.edu/static/public/344/heterogeneity%2Bactivity%2Brecognition.zip",
+  "archive_url": "/downloads/hhar/hhar-official-20261028.zip",
+  "filename": "hhar-official-20261028.zip",
+  "bytes": 822098071,
+  "sha256": "8c9f8dd5f50074feaad2c5cec5d927a4fc8366324de26079629a3de3aef0e124",
+  "archive_modified": false,
+  "mirrored_at": "2026-10-28T05:59:58.154963+00:00",
+  "original_notices": [
+    {
+      "name": "Activity recognition exp.zip!Activity recognition exp/readme.txt",
+      "url": "/downloads/hhar/original/original-01-readme.txt",
+      "sha256": "9cc832dc12c610c2d81f36bfe60ff72d50d9e87d7d8a3bde77841a63598151d8"
+    },
+    {
+      "name": "Still exp.zip!Still exp/readme.txt",
+      "url": "/downloads/hhar/original/original-03-readme.txt",
+      "sha256": "163b7b8b2d1d5cafd4f1f4ef3fdf341e2844e57c2e3c35162934658d202bc93a"
+    }
+  ],
+  "attribution_url": "/downloads/hhar/ATTRIBUTION.txt",
+  "license_notice_url": "/downloads/hhar/LICENSE-NOTICE.txt",
+  "citation_url": "/downloads/hhar/CITATION.bib",
+  "checksums_url": "/downloads/hhar/SHA256SUMS.txt"
+}

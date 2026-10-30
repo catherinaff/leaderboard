@@ -1,0 +1,10 @@
+WISDM — license and original notice
+
+Original-author redistribution terms
+https://www.cis.fordham.edu/wisdm/dataset.php
+
+The authors permit sharing/redistribution and request that the original readme.txt always accompanies the dataset, and that the specified paper is cited when using it. The archive and the standalone original README are preserved. No Creative Commons license is assigned by this mirror.
+
+Official source: https://www.cis.fordham.edu/wisdm/dataset.php
+
+All original archive notices remain intact. This mirror does not claim ownership, grant additional rights, or imply endorsement by the creators.

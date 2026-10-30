@@ -1,0 +1,160 @@
+{
+  "version": "2026-10-30",
+  "scope": "IMU HAR core literature overlay and oneHAR/MOSAIC transfer evidence; Sensor QA workbook imports are outside this PDF audit.",
+  "selection_policy": "Paper first, regardless of measured-run gap; preserve saved runs.",
+  "sources": [
+    {
+      "source_id": "tinyhar",
+      "title": "TinyHAR, ISWC 2022",
+      "url": "https://publikationen.bibliothek.kit.edu/1000150216/149250239",
+      "locator": "Figure 2, PDF p.4; Sections 4.1-4.2",
+      "pdf_sha256": "fd1ae624c53b645f322af04e49e60be472e980f896fba1058fd070f0062efbf2",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": true
+    },
+    {
+      "source_id": "limu",
+      "title": "LIMU-BERT, SenSys 2021",
+      "url": "https://tanrui.github.io/pub/LIMU_BERT.pdf",
+      "locator": "Table 2, PDF p.8; Sections 4.1.2 and 4.1.5",
+      "pdf_sha256": "381d25ea8d2e6c153951a93ab90766022fc6b4b396a852f959bc42b294df73ae",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": true
+    },
+    {
+      "source_id": "ad",
+      "title": "Attend And Discriminate, author preprint of IMWUT 2021 paper",
+      "url": "https://arxiv.org/pdf/2007.07172",
+      "locator": "Table 2, PDF p.8; Sections 4.1-4.2",
+      "pdf_sha256": "9fb3be2ba9483f38f41a435a4dda2834c23abecf9aac3237663d9b72f2d5bf93",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": true
+    },
+    {
+      "source_id": "unimts",
+      "title": "UniMTS, NeurIPS 2024",
+      "url": "https://papers.nips.cc/paper_files/paper/2024/file/c290d4373c495b2cad0625d6288260f0-Paper-Conference.pdf",
+      "locator": "Table 2, PDF p.9; Section 4.1 and Appendix A.2",
+      "pdf_sha256": "da4fff677a11eab8ebf0b30a5ecd97b5a8229bffe5d51433f2a19b9e192951f1",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": true
+    },
+    {
+      "source_id": "robust",
+      "title": "RobustHAR, IJCAI 2025",
+      "url": "https://ijcai.org/proceedings/2025/0952.pdf",
+      "locator": "Tables 1-2, PDF pp.5-6; Section 4.3",
+      "pdf_sha256": "195ab161c512fea5178b05974363b159c3ffe2dc78afefa8b7b199cf5c156438",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": true
+    },
+    {
+      "source_id": "deepsense",
+      "title": "DeepSense, WWW 2017",
+      "url": "https://arxiv.org/pdf/1611.01942",
+      "locator": "Section 5.3.2 and Figure 5, PDF p.7",
+      "pdf_sha256": "41d55b9dfeff0f43098fe9814a5d3260d5fc51c6a3d166f918a9bae4b3231b7c",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": true
+    },
+    {
+      "source_id": "tsf",
+      "title": "Triple Spectral Fusion, authors of IF-ConvTransformer",
+      "url": "https://arxiv.org/html/2605.02743v1#S4.T4",
+      "locator": "Table 4, PDF p.10, IF-ConvTransformer comparison row; Section IV-A3",
+      "pdf_sha256": "6f7ced20dab83a481166491cfe14bd6e799f602842a3faa84cf54adafb88f841",
+      "status": "PDF table or figure text and rendered page checked on 2026-10-30",
+      "original_model_paper": false
+    },
+    {
+      "source_id": "deepconv_original",
+      "title": "DeepConvLSTM, Sensors 2016 · original paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4732148/",
+      "locator": "Table 4 and Section 4.4 / Equation 11; Table 9 (Skoda)",
+      "status": "Original full-text HTML Table 4 and weighted F1 Equation 11 checked on 2026-10-30"
+    }
+  ],
+  "onehar": [
+    {
+      "group": "onehar-joint",
+      "table": 2,
+      "pdf_page": 16,
+      "checked_values": 96,
+      "status": "all target and average columns match original PDF text; table also rendered and visually checked"
+    },
+    {
+      "group": "onehar-lodo",
+      "table": 3,
+      "pdf_page": 17,
+      "checked_values": 108,
+      "status": "all target and average columns match original PDF text; table also rendered and visually checked"
+    }
+  ],
+  "paper_observations": 43,
+  "main_transfer_observations": 64,
+  "comparison_observations": 255,
+  "corrections": [
+    "Expose all 64 oneHAR/MOSAIC main target scores in the primary literature UI.",
+    "Add 35 oneHAR joint-training baseline observations from original Table 2.",
+    "Add 24 previously omitted original-paper dataset observations (16 UniMTS, 3 TinyHAR, 2 LIMU-BERT, 1 RobustHAR, 2 DeepConvLSTM).",
+    "DeepConvLSTM original weighted-F1: 0.915 with Null and 0.866 without Null; retain A&D macro-F1 as a different protocol.",
+    "Keep original avg columns when complete dataset sets match. oneHAR joint published Accuracy .933 vs equal-weight per-target mean .9222.",
+    "Keep OPPORTUNITY 4-class, 17-gesture no-Null and 18-class including-Null tasks distinct; retain PAMAP2 9/12 and USC-HAD 7/12 variants."
+  ],
+  "limitations": [
+    "IF-ConvTransformer 2022 original full text could not be retrieved. The same authors’ TSF Table 4 comparison scores were rechecked; they remain explicitly labelled as comparison results.",
+    "Some saved runs have only historical registry evidence. No new training or inference was executed.",
+    "Original-paper figures/tables and author-preprint versions do not establish that their protocols are mutually comparable."
+  ],
+  "mosaic": {
+    "status": "independently checked against user-provided original PDF",
+    "pdf_sha256": "06dfd2f3855098c7ed8b293f44693e8200d34572469f54c11d59fd8dda85ba33",
+    "checked_at": "2026-10-30",
+    "tables": [
+      {
+        "group": "mosaic-zero-shot",
+        "table": 2,
+        "pdf_page": 13,
+        "checked_values": 418,
+        "status": "all stored target and average values match the user-provided original PDF; table rendered and visually checked"
+      },
+      {
+        "group": "mosaic-few-shot",
+        "table": 3,
+        "pdf_page": 15,
+        "checked_values": 38,
+        "status": "all stored target and average values match the user-provided original PDF; table rendered and visually checked"
+      },
+      {
+        "group": "mosaic-full-shot",
+        "table": 4,
+        "pdf_page": 16,
+        "checked_values": 38,
+        "status": "all stored target and average values match the user-provided original PDF; table rendered and visually checked"
+      }
+    ],
+    "earlier_retrieval_failure": "ACM 403 resolved for verification by the user-provided local PDF"
+  },
+  "verified_transfer_numeric_values": 698,
+  "clarifications": {
+    "onehar": {
+      "source": "Original Table 1, PDF p.14; Tables 2–3, pp.16–17",
+      "evaluated_datasets": [
+        "HHAR",
+        "PAMAP2",
+        "RealWorld",
+        "UCI-HAR",
+        "USC-HAD"
+      ],
+      "wisdm": "not reported",
+      "opportunity": "not reported"
+    },
+    "mosaic": {
+      "source": "Original Tables 2–4, PDF pp.13,15,16",
+      "wisdm_classes": 18,
+      "opportunity_classes": 4,
+      "wisdm_6class": "not reported",
+      "opportunity_17gesture_no_null": "not reported"
+    }
+  }
+}

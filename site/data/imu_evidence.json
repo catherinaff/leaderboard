@@ -1,0 +1,1995 @@
+{
+  "version": "2026-10-30-paper-first",
+  "note": "Paper and saved local evidence are separate observations; no pooled ranking or Standard promotion is implied. Local means a saved experiment in this project; execution dates and protocols are stated per record.",
+  "sources": {
+    "tinyhar": {
+      "title": "TinyHAR, ISWC 2022",
+      "url": "https://publikationen.bibliothek.kit.edu/1000150216/149250239",
+      "locator": "Figure 2, PDF p.4; Sections 4.1-4.2"
+    },
+    "limu": {
+      "title": "LIMU-BERT, SenSys 2021",
+      "url": "https://tanrui.github.io/pub/LIMU_BERT.pdf",
+      "locator": "Table 2, PDF p.8; Sections 4.1.2 and 4.1.5"
+    },
+    "ad": {
+      "title": "Attend And Discriminate, author preprint of IMWUT 2021 paper",
+      "url": "https://arxiv.org/pdf/2007.07172",
+      "locator": "Table 2, PDF p.8; Sections 4.1-4.2"
+    },
+    "unimts": {
+      "title": "UniMTS, NeurIPS 2024",
+      "url": "https://papers.nips.cc/paper_files/paper/2024/file/c290d4373c495b2cad0625d6288260f0-Paper-Conference.pdf",
+      "locator": "Table 2, PDF p.9; Section 4.1 and Appendix A.2"
+    },
+    "robust": {
+      "title": "RobustHAR, IJCAI 2025",
+      "url": "https://ijcai.org/proceedings/2025/0952.pdf",
+      "locator": "Tables 1-2, PDF pp.5-6; Section 4.3"
+    },
+    "deepsense": {
+      "title": "DeepSense, WWW 2017",
+      "url": "https://arxiv.org/pdf/1611.01942",
+      "locator": "Section 5.3.2 and Figure 5, PDF p.7"
+    },
+    "tsf": {
+      "title": "Triple Spectral Fusion, authors of IF-ConvTransformer",
+      "url": "https://arxiv.org/html/2605.02743v1#S4.T4",
+      "locator": "Table 4, PDF p.10, IF-ConvTransformer comparison row; Section IV-A3"
+    },
+    "onehar_checkpoint_eval_20261028": {
+      "title": "oneHAR released-checkpoint evaluation · 2026-10-28",
+      "url": "/onehar-20261028.html",
+      "locator": "All five repository-provided test sets; strict 536-tensor load; saved-prediction metric audit."
+    },
+    "deepconv_original": {
+      "title": "DeepConvLSTM, Sensors 2016 · original paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4732148/",
+      "locator": "Table 4 and Section 4.4 / Equation 11; Table 9 (Skoda)"
+    }
+  },
+  "protocols": {
+    "tiny_loso": {
+      "label": "LOSO",
+      "split": "Leave-one-subject-out cross-validation.",
+      "dataset_variant": "TinyHAR official loader, dataset-specific windows.",
+      "metric_note": "Figure 2 F1M means macro-F1; percentages converted to fractions."
+    },
+    "limu_1pct": {
+      "label": "1% labels · random 80/10/10",
+      "split": "Random 80% train, 10% validation, 10% test; balanced 1% labeled training subset.",
+      "dataset_variant": "20 Hz, 120-sample non-overlapping IMU sequences; LIMU-GRU classifier or named baseline.",
+      "metric_note": "Accuracy and macro-F1; not the official UCI-HAR subject split."
+    },
+    "ad_pamap": {
+      "label": "A&D subject holdout",
+      "split": "Subject 6 runs 1-2 test; subject 5 runs 1-2 validation; remainder train.",
+      "dataset_variant": "PAMAP2 12 activities; sample-wise evaluation.",
+      "metric_note": "Class-averaged (macro) F1."
+    },
+    "ad_opp": {
+      "label": "A&D gesture split",
+      "split": "S2/S3 ADL4-5 test; S1 ADL2 validation; remaining runs train.",
+      "dataset_variant": "OPPORTUNITY gesture, 79 channels, 17 gestures plus Null.",
+      "metric_note": "Sample-wise macro-F1; differs from canonical 113-channel LOSO."
+    },
+    "unimts_full": {
+      "label": "Full-shot · author protocol",
+      "split": "Author-prepared full-shot evaluation; exact split indices are not re-established here.",
+      "dataset_variant": "18 class-specific targets in original Table 2; WISDM has 18 classes, Opportunity 4, PAMAP2 12, USC-HAD 12.",
+      "metric_note": "Table 2 Acc and macro-F1; no transfer of 18-class WISDM to original WISDM."
+    },
+    "robust_15pct": {
+      "label": "15% labels · 80/10/10",
+      "split": "8:1:1 train/validation/test; 15% of training labels; five trials.",
+      "dataset_variant": "OPPORTUNITY 17 activities / 5 devices; RealWorld 8 activities / 13 subjects.",
+      "metric_note": "F1 averaging is not specified in Section 4.1; do not label it macro or weighted."
+    },
+    "deepsense_original": {
+      "label": "Original HHAR user holdout",
+      "split": "One-user-out evaluation in original DeepSense HAR experiment.",
+      "dataset_variant": "Original HHAR sensing/preprocessing, not LIMU-BERT 1% labels.",
+      "metric_note": "Accuracy; paper reports mean and uncertainty 0.942 ± 0.032."
+    },
+    "if_tsf_loso": {
+      "label": "TSF comparison · LOSO",
+      "split": "LOSO over subjects, repeated three runs, as stated in TSF IV-A3.",
+      "dataset_variant": "TSF comparison preprocessing; OPPORTUNITY uses Null-inclusive gesture labels.",
+      "metric_note": "WF1 is weighted-F1; F1 is macro-F1. This is an author comparison paper, not a fresh extraction of the 2022 paper."
+    },
+    "if_local_hhar": {
+      "label": "Local segmented HHAR · review",
+      "split": "Saved subject folds, segmented at label/time-gap boundaries.",
+      "dataset_variant": "HHAR smartphone streams, 200-sample windows, stride 100.",
+      "metric_note": "Weighted-F1; saved gap is outside tolerance."
+    },
+    "if_local_pamap": {
+      "label": "Local PAMAP2 · review",
+      "split": "Saved nine-subject folds; 30 epochs, seed 42.",
+      "dataset_variant": "48-sample windows, stride 24; official wearable branch.",
+      "metric_note": "Weighted-F1; saved gap is outside tolerance."
+    },
+    "deepconv_local": {
+      "label": "Saved official checkpoint",
+      "split": "Protocol recorded in saved registry; standalone run artifact not found.",
+      "dataset_variant": "OPPORTUNITY checkpoint evaluation; check Null handling before comparing.",
+      "metric_note": "Weighted-F1; not paired as equivalent to A&D macro-F1."
+    },
+    "local_baseline": {
+      "label": "Inspired baseline · archive",
+      "split": "Official UCI-HAR subject split in saved local run.",
+      "dataset_variant": "DeepConvLSTM-style reimplementation, not an official-model claim.",
+      "metric_note": "Accuracy; archived separately from validated method results."
+    },
+    "unimts_local_uci": {
+      "label": "Local canonical adapter",
+      "split": "Project canonical UCI-HAR subject split: 7352 train / 2947 test windows, as saved in input_adapter.",
+      "dataset_variant": "6 classes; 50 Hz source, total acceleration xyz plus body gyro xyz; upstream finetune_custom.py, full-shot, 200 epochs.",
+      "metric_note": "Accuracy; split preparation differs from the author-prepared paper protocol. Registry only."
+    },
+    "unimts_local_pamap": {
+      "label": "Local prepared PAMAP split",
+      "split": "Saved official UniMTS prepared PAMAP arrays: 13986 train / 2311 test windows. Exact subject indices not re-established.",
+      "dataset_variant": "12 classes; source arrays 100 Hz, shape 1000 × 27 per window; gyro=0 default selects accelerometer channels.",
+      "metric_note": "Saved primary weighted-F1 differs from the paper macro-F1. Secondary Accuracy and macro-F1 are retained."
+    },
+    "deepsense_local_abc": {
+      "label": "Local HHAR a/b/c · review",
+      "split": "Three saved a/b/c folds from public HHAR raw preprocessing; equivalence to the paper user-holdout experiment is pending review.",
+      "dataset_variant": "Official TensorFlow-1 model and public HHAR-Data-Process preprocessing; saved note reports a train-count discrepancy in fold c.",
+      "metric_note": "Accuracy; macro-F1 remains below the paper result. This is not a passed protocol calibration."
+    },
+    "if_local_opp": {
+      "label": "Local W-path · LOSO",
+      "split": "Four saved subject folds, seed 42, 100 epochs; not the paper comparison three-run aggregation.",
+      "dataset_variant": "Official W classifier, 63 channels, 24-sample windows / 12-sample stride, Null plus 17 gestures.",
+      "metric_note": "Weighted-F1; differs from the Standard 17-class no-Null canonical track."
+    },
+    "onehar_released_checkpoint": {
+      "label": "Released checkpoint · author test",
+      "split": "All five repository-provided test arrays. Training membership is not sufficiently documented to claim canonical subject holdout or LODO.",
+      "dataset_variant": "50 Hz, 120 steps, accelerometer only, 1–5 positions. HHAR 6 classes / PAMAP2 9 / RealWorld 8 / UCI-HAR 6 / USC-HAD 7; global nine-class candidates.",
+      "metric_note": "Per-window accuracy; inference only, no training. The original sensor-count grouping and batch size 256 are preserved. These are local measured values, not paper-table values."
+    },
+    "deepconv_original_gesture": {
+      "label": "DeepConvLSTM original · gestures with Null",
+      "split": "OPPORTUNITY challenge train sessions; S2/S3 ADL3 validation; S2/S3 ADL4–5 test.",
+      "dataset_variant": "113 on-body channels, 17 gestures plus Null; 30 Hz.",
+      "metric_note": "Sample-support weighted F1, Equation 11; Table 4 includes the Null class."
+    },
+    "deepconv_original_gesture_no_null": {
+      "label": "DeepConvLSTM original · gestures without Null",
+      "split": "Original OPPORTUNITY challenge split; Null removed.",
+      "dataset_variant": "17 gesture classes, without Null; separate from the 18-class task.",
+      "metric_note": "Sample-support weighted F1, Table 4 / Equation 11."
+    }
+  },
+  "records": [
+    {
+      "id": "paper_tinyhar_wisdm_tinyhar",
+      "method_id": "tinyhar",
+      "benchmark_id": "wisdm",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.8347,
+      "metrics": {
+        "f1_macro": 0.8347
+      },
+      "source_id": "tinyhar",
+      "protocol_id": "tiny_loso",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "reported_uncertainty": 0.0089,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_tinyhar_pamap2_tinyhar",
+      "method_id": "tinyhar",
+      "benchmark_id": "pamap2",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.7527,
+      "metrics": {
+        "f1_macro": 0.7527
+      },
+      "source_id": "tinyhar",
+      "protocol_id": "tiny_loso",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "reported_uncertainty": 0.0087,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_tinyhar_opportunity_a_tinyhar",
+      "method_id": "tinyhar",
+      "benchmark_id": "opportunity_a",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.389,
+      "metrics": {
+        "f1_macro": 0.389
+      },
+      "source_id": "tinyhar",
+      "protocol_id": "tiny_loso",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "reported_uncertainty": 0.0122,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_limu_bert_uci_har_limu",
+      "method_id": "limu_bert",
+      "benchmark_id": "uci_har",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.924,
+      "metrics": {
+        "accuracy": 0.924,
+        "f1_macro": 0.923
+      },
+      "source_id": "limu",
+      "protocol_id": "limu_1pct",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "model_variant": "LIMU-GRU",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_limu_bert_hhar_limu",
+      "method_id": "limu_bert",
+      "benchmark_id": "hhar",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.964,
+      "metrics": {
+        "accuracy": 0.964,
+        "f1_macro": 0.962
+      },
+      "source_id": "limu",
+      "protocol_id": "limu_1pct",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "model_variant": "LIMU-GRU",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_deepsense_hhar_deepsense",
+      "method_id": "deepsense",
+      "benchmark_id": "hhar",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.942,
+      "metrics": {
+        "accuracy": 0.942,
+        "f1_macro": 0.931,
+        "f1_micro": 0.942
+      },
+      "source_id": "deepsense",
+      "protocol_id": "deepsense_original",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_micro": "fraction"
+      },
+      "reported_uncertainty": 0.032,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_deepsense_uci_har_limu",
+      "method_id": "deepsense",
+      "benchmark_id": "uci_har",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.576,
+      "metrics": {
+        "accuracy": 0.576,
+        "f1_macro": 0.544
+      },
+      "source_id": "limu",
+      "protocol_id": "limu_1pct",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "model_variant": "LIMU-BERT DeepSense baseline",
+      "paper_role": "comparison"
+    },
+    {
+      "id": "paper_deepsense_hhar_limu",
+      "method_id": "deepsense",
+      "benchmark_id": "hhar",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.715,
+      "metrics": {
+        "accuracy": 0.715,
+        "f1_macro": 0.688
+      },
+      "source_id": "limu",
+      "protocol_id": "limu_1pct",
+      "status": "table_checked",
+      "display": false,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "model_variant": "LIMU-BERT DeepSense baseline",
+      "paper_role": "comparison"
+    },
+    {
+      "id": "paper_attend_and_discriminate_pamap2_ad",
+      "method_id": "attend_and_discriminate",
+      "benchmark_id": "pamap2",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.908,
+      "metrics": {
+        "f1_macro": 0.908
+      },
+      "source_id": "ad",
+      "protocol_id": "ad_pamap",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_attend_and_discriminate_opportunity_a_ad",
+      "method_id": "attend_and_discriminate",
+      "benchmark_id": "opportunity_a",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.746,
+      "metrics": {
+        "f1_macro": 0.746
+      },
+      "source_id": "ad",
+      "protocol_id": "ad_opp",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_deepconvlstm_pamap2_ad",
+      "method_id": "deepconvlstm",
+      "benchmark_id": "pamap2",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.748,
+      "metrics": {
+        "f1_macro": 0.748
+      },
+      "source_id": "ad",
+      "protocol_id": "ad_pamap",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "model_variant": "DeepConvLSTM comparison baseline",
+      "paper_role": "comparison"
+    },
+    {
+      "id": "paper_deepconvlstm_opportunity_a_ad",
+      "method_id": "deepconvlstm",
+      "benchmark_id": "opportunity_a",
+      "kind": "paper",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.672,
+      "metrics": {
+        "f1_macro": 0.672
+      },
+      "source_id": "ad",
+      "protocol_id": "ad_opp",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "model_variant": "DeepConvLSTM comparison baseline",
+      "paper_role": "comparison"
+    },
+    {
+      "id": "paper_unimts_uci_har_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "uci_har",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.921,
+      "metrics": {
+        "accuracy": 0.921,
+        "f1_macro": 0.922
+      },
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_pamap2_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "pamap2",
+      "kind": "paper",
+      "primary_metric": "accuracy",
+      "primary_score": 0.98,
+      "metrics": {
+        "accuracy": 0.98,
+        "f1_macro": 0.981
+      },
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_robusthar_opportunity_a_robust",
+      "method_id": "robusthar",
+      "benchmark_id": "opportunity_a",
+      "kind": "paper",
+      "primary_metric": "f1_score",
+      "primary_score": 0.9374,
+      "metrics": {
+        "f1_score": 0.9374,
+        "accuracy": 0.9372
+      },
+      "source_id": "robust",
+      "protocol_id": "robust_15pct",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_score": "fraction",
+        "accuracy": "fraction"
+      },
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_robusthar_realworld_har_robust",
+      "method_id": "robusthar",
+      "benchmark_id": "realworld_har",
+      "kind": "paper",
+      "primary_metric": "f1_score",
+      "primary_score": 0.9578,
+      "metrics": {
+        "f1_score": 0.9578,
+        "accuracy": 0.9576
+      },
+      "source_id": "robust",
+      "protocol_id": "robust_15pct",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_score": "fraction",
+        "accuracy": "fraction"
+      },
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_if_convtransformer_hhar_tsf",
+      "method_id": "if_convtransformer",
+      "benchmark_id": "hhar",
+      "kind": "paper",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.9513,
+      "metrics": {
+        "f1_weighted": 0.9513,
+        "f1_macro": 0.9501
+      },
+      "source_id": "tsf",
+      "protocol_id": "if_tsf_loso",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_weighted": "fraction",
+        "f1_macro": "fraction"
+      },
+      "paper_role": "comparison"
+    },
+    {
+      "id": "paper_if_convtransformer_pamap2_tsf",
+      "method_id": "if_convtransformer",
+      "benchmark_id": "pamap2",
+      "kind": "paper",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.9386,
+      "metrics": {
+        "f1_weighted": 0.9386,
+        "f1_macro": 0.9221
+      },
+      "source_id": "tsf",
+      "protocol_id": "if_tsf_loso",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_weighted": "fraction",
+        "f1_macro": "fraction"
+      },
+      "paper_role": "comparison"
+    },
+    {
+      "id": "paper_if_convtransformer_opportunity_a_tsf",
+      "method_id": "if_convtransformer",
+      "benchmark_id": "opportunity_a",
+      "kind": "paper",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.8795,
+      "metrics": {
+        "f1_weighted": 0.8795,
+        "f1_macro": 0.5029
+      },
+      "source_id": "tsf",
+      "protocol_id": "if_tsf_loso",
+      "status": "table_checked",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_weighted": "fraction",
+        "f1_macro": "fraction"
+      },
+      "paper_role": "comparison"
+    },
+    {
+      "id": "local_tinyhar_wisdm_tiny_loso",
+      "method_id": "tinyhar",
+      "benchmark_id": "wisdm",
+      "kind": "local",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.8288285459999999,
+      "metrics": {
+        "f1_macro": 0.8288285459999999,
+        "f1_macro_std": 0.006763548382914401,
+        "f1_weighted": 0.8755774159999999,
+        "f1_weighted_std": 0.004552139325467107
+      },
+      "protocol_id": "tiny_loso",
+      "status": "saved_run",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "f1_macro": "fraction",
+        "f1_macro_std": "fraction",
+        "f1_weighted": "fraction",
+        "f1_weighted_std": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": "configs/data.yaml + configs/model.yaml + notebooks/model/Train model.ipynb",
+      "run_source": {
+        "path": "experiments/runs/tinyhar_paper_official_calibration_wisdm_parallel_20260724/results.json",
+        "sha256": "d9a22be005f49c6b997f22ac8e0143924f8ef40e1ac8b048b44be57d6043f70f",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "b84b89d09f6914fe93e82cde423e294042da2741",
+      "official_repo": "https://github.com/teco-kit/ISWC22-HAR",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "models.TinyHAR.TinyHAR_Model",
+      "seed": null,
+      "epochs": null,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_tinyhar_pamap2_tiny_loso",
+      "method_id": "tinyhar",
+      "benchmark_id": "pamap2",
+      "kind": "local",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.7548390488888889,
+      "metrics": {
+        "f1_macro": 0.7548390488888889,
+        "f1_macro_std": 0.012148706045620402,
+        "f1_weighted": 0.8624135133333333,
+        "f1_weighted_std": 0.02584532847339056
+      },
+      "protocol_id": "tiny_loso",
+      "status": "saved_run",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "f1_macro": "fraction",
+        "f1_macro_std": "fraction",
+        "f1_weighted": "fraction",
+        "f1_weighted_std": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": "configs/data.yaml + configs/model.yaml + notebooks/model/Train model.ipynb",
+      "run_source": {
+        "path": "experiments/runs/tinyhar_paper_official_calibration_pamap2_20260722/results.json",
+        "sha256": "93081a265788d9f18b14f75a79b51daec571da4151145199aa69ed524e70456b",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "b84b89d09f6914fe93e82cde423e294042da2741",
+      "official_repo": "https://github.com/teco-kit/ISWC22-HAR",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "models.TinyHAR.TinyHAR_Model",
+      "seed": null,
+      "epochs": null,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_attend_and_discriminate_pamap2_ad_pamap",
+      "method_id": "attend_and_discriminate",
+      "benchmark_id": "pamap2",
+      "kind": "local",
+      "primary_metric": "f1_macro",
+      "primary_score": 0.8688,
+      "metrics": {
+        "accuracy": 0.9056,
+        "f1_macro": 0.8688,
+        "f1_weighted": 0.9045
+      },
+      "protocol_id": "ad_pamap",
+      "status": "saved_run",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "experiments/runs/attend_and_discriminate_official_paper_protocol_20260723.json",
+        "sha256": "61605b2f16683ddce2778301fa7d9ba64e01c96538a700bfc6fe1673ce0cea67",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "fd090e71fb16f14f6849062412a0f119f484dfb0",
+      "official_repo": "https://github.com/AdelaideAuto-IDLab/Attend-And-Discriminate",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "See saved result and protocol",
+      "seed": null,
+      "epochs": 60,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_deepsense_hhar_deepsense_local_abc",
+      "method_id": "deepsense",
+      "benchmark_id": "hhar",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.9127777828431269,
+      "metrics": {
+        "accuracy": 0.9127777828431269,
+        "accuracy_std": 0.07775960493086362,
+        "f1_macro": 0.8347280738163243,
+        "f1_macro_std": 0.11150098232352129,
+        "f1_weighted": 0.9007505012424771,
+        "f1_weighted_std": 0.09333059406596482,
+        "f1_micro": 0.9127777828431269,
+        "f1_micro_std": 0.07775960493086362
+      },
+      "protocol_id": "deepsense_local_abc",
+      "status": "registry_only_review",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "accuracy_std": "fraction",
+        "f1_macro": "fraction",
+        "f1_macro_std": "fraction",
+        "f1_weighted": "fraction",
+        "f1_weighted_std": "fraction",
+        "f1_micro": "fraction",
+        "f1_micro_std": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": "Accuracy is reported per user request; macro F1 remains below paper and should be revisited before treating this as a passed calibration.",
+      "configuration_source": null,
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/11/results/12"
+      },
+      "official_code_used": true,
+      "official_commit": null,
+      "official_repo": "https://github.com/yscacaca/DeepSense",
+      "saved_calibration_status": null,
+      "saved_gap_status": "reported_by_accuracy_gap_pending_protocol_review",
+      "model_variant": "See saved result and protocol",
+      "seed": null,
+      "epochs": null,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_deepsense_uci_har_limu_1pct",
+      "method_id": "deepsense",
+      "benchmark_id": "uci_har",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.6253968253968254,
+      "metrics": {
+        "accuracy": 0.6253968253968254,
+        "f1_macro": 0.5961779715409444,
+        "f1_weighted": 0.6230109539223021,
+        "f1_micro": 0.6253968253968254
+      },
+      "protocol_id": "limu_1pct",
+      "status": "metric_review",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction",
+        "f1_micro": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "experiments/runs/deepsense_limu_lowlabel_official_merge.json",
+        "sha256": "0836bec82ddedad1de017fa7e894a28787bc224abdaeeb2a055c25d3637615a0",
+        "json_pointer": "/0/results/1"
+      },
+      "official_code_used": true,
+      "official_commit": "decffee7ecb4e2e5d7244b1a759cb80b752dc6c2",
+      "official_repo": "https://github.com/dapowan/LIMU-BERT-Public",
+      "saved_calibration_status": "passed_primary_metric_macro_f1_borderline",
+      "saved_gap_status": "primary_within_range_secondary_metric_borderline",
+      "model_variant": "LIMU-BERT official benchmark baseline implementation of DeepSense; not the original DeepSense TF HHAR-only repository.",
+      "seed": 3431,
+      "epochs": 700,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_limu_bert_uci_har_limu_1pct",
+      "method_id": "limu_bert",
+      "benchmark_id": "uci_har",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.927,
+      "metrics": {
+        "accuracy": 0.927,
+        "f1_macro": 0.926,
+        "train_accuracy": 0.99,
+        "validation_accuracy": 0.914,
+        "train_f1_macro": 0.99,
+        "validation_f1_macro": 0.919
+      },
+      "protocol_id": "limu_1pct",
+      "status": "registry_only",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "train_accuracy": "fraction",
+        "validation_accuracy": "fraction",
+        "train_f1_macro": "fraction",
+        "validation_f1_macro": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": "1% labeled data, balanced labels, official 20_120 protocol, LIMU-GRU classifier",
+      "configuration_source": null,
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/7/results/14"
+      },
+      "official_code_used": true,
+      "official_commit": "decffee7ecb4e2e5d7244b1a759cb80b752dc6c2",
+      "official_repo": "https://github.com/dapowan/LIMU-BERT-Public",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "See saved result and protocol",
+      "seed": 3431,
+      "epochs": 700,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_deepsense_hhar_limu_1pct",
+      "method_id": "deepsense",
+      "benchmark_id": "hhar",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.7014708552751044,
+      "metrics": {
+        "accuracy": 0.7014708552751044,
+        "f1_macro": 0.6750457563052102,
+        "f1_weighted": 0.7007063997850848,
+        "f1_micro": 0.7014708552751044
+      },
+      "protocol_id": "limu_1pct",
+      "status": "saved_run",
+      "display": false,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction",
+        "f1_micro": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "experiments/runs/deepsense_limu_lowlabel_official_merge.json",
+        "sha256": "0836bec82ddedad1de017fa7e894a28787bc224abdaeeb2a055c25d3637615a0",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "decffee7ecb4e2e5d7244b1a759cb80b752dc6c2",
+      "official_repo": "https://github.com/dapowan/LIMU-BERT-Public",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "LIMU-BERT official benchmark baseline implementation of DeepSense; not the original DeepSense TF HHAR-only repository.",
+      "seed": 3431,
+      "epochs": 700,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_limu_bert_hhar_limu_1pct",
+      "method_id": "limu_bert",
+      "benchmark_id": "hhar",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.971,
+      "metrics": {
+        "accuracy": 0.971,
+        "f1_macro": 0.969,
+        "train_accuracy": 1,
+        "validation_accuracy": 0.963,
+        "train_f1_macro": 1,
+        "validation_f1_macro": 0.959
+      },
+      "protocol_id": "limu_1pct",
+      "status": "registry_only",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "train_accuracy": "fraction",
+        "validation_accuracy": "fraction",
+        "train_f1_macro": "fraction",
+        "validation_f1_macro": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": "1% labeled data, balanced labels, official 20_120 protocol, LIMU-GRU classifier",
+      "configuration_source": null,
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/7/results/13"
+      },
+      "official_code_used": true,
+      "official_commit": "decffee7ecb4e2e5d7244b1a759cb80b752dc6c2",
+      "official_repo": "https://github.com/dapowan/LIMU-BERT-Public",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "See saved result and protocol",
+      "seed": 3431,
+      "epochs": 700,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_if_convtransformer_hhar_if_local_hhar",
+      "method_id": "if_convtransformer",
+      "benchmark_id": "hhar",
+      "kind": "local",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.879321258827046,
+      "metrics": {
+        "accuracy": 0.8846587405952887,
+        "f1_macro": 0.8815570553637682,
+        "f1_weighted": 0.879321258827046
+      },
+      "protocol_id": "if_local_hhar",
+      "status": "protocol_review",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction"
+      },
+      "saved_protocol_status": "official_code_paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "experiments/runs/if_convtransformer_paper_protocol_hhar_segmented_20260726/results.json",
+        "sha256": "2235821572ed4e5fc6139a22742ec70a1f649271e3a5537e562cbbfef605d8da",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "577fa56",
+      "official_repo": "https://github.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022",
+      "saved_calibration_status": null,
+      "saved_gap_status": "large_gap_check_protocol",
+      "model_variant": "See saved result and protocol",
+      "seed": 42,
+      "epochs": 30,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_if_convtransformer_pamap2_if_local_pamap",
+      "method_id": "if_convtransformer",
+      "benchmark_id": "pamap2",
+      "kind": "local",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.8119555555555554,
+      "metrics": {
+        "accuracy": 0.8113888888888888,
+        "f1_macro": 0.6514222222222222,
+        "f1_weighted": 0.8119555555555554
+      },
+      "protocol_id": "if_local_pamap",
+      "status": "protocol_review",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction"
+      },
+      "saved_protocol_status": "official_code_paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "experiments/runs/if_convtransformer_paper_protocol_pamap2_recovered_20260726/results.json",
+        "sha256": "00837c38524ef44065f01705b4c26394a63d13757a8ea427b96d74a2fe9f9966",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "577fa56",
+      "official_repo": "https://github.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022",
+      "saved_calibration_status": null,
+      "saved_gap_status": "large_gap_check_protocol",
+      "model_variant": "See saved result and protocol",
+      "seed": 42,
+      "epochs": 30,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_if_convtransformer_opportunity_a_if_local_opp",
+      "method_id": "if_convtransformer",
+      "benchmark_id": "opportunity_a",
+      "kind": "local",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.8734108983304738,
+      "metrics": {
+        "accuracy": 0.8884552770519357,
+        "accuracy_std": 0.009002036508112644,
+        "f1_macro": 0.5052096363086379,
+        "f1_macro_std": 0.035183475608268296,
+        "f1_macro_no_null": 0.47940266723290537,
+        "f1_macro_no_null_std": 0.037026176062920385,
+        "f1_micro": 0.8884552770519357,
+        "f1_micro_std": 0.009002036508112644,
+        "f1_weighted": 0.8734108983304738,
+        "f1_weighted_std": 0.012610716701518199,
+        "log_loss": 1.2087306619981888,
+        "log_loss_std": 0.07308755935979135,
+        "precision_macro": 0.6494846855718628,
+        "precision_macro_std": 0.04728571087188683,
+        "recall_macro": 0.4439791387688404,
+        "recall_macro_std": 0.05755178463414311
+      },
+      "protocol_id": "if_local_opp",
+      "status": "registry_only",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "accuracy_std": "fraction",
+        "f1_macro": "fraction",
+        "f1_macro_std": "fraction",
+        "f1_macro_no_null": "fraction",
+        "f1_macro_no_null_std": "fraction",
+        "f1_micro": "fraction",
+        "f1_micro_std": "fraction",
+        "f1_weighted": "fraction",
+        "f1_weighted_std": "fraction",
+        "log_loss": "loss",
+        "log_loss_std": "loss",
+        "precision_macro": "fraction",
+        "precision_macro_std": "fraction",
+        "recall_macro": "fraction",
+        "recall_macro_std": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": "README OPPORTUNITY command and src/utils/constants.py get_Opportunity_dataset_param defaults",
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/10/results/16"
+      },
+      "official_code_used": true,
+      "official_commit": "577fa56",
+      "official_repo": "https://github.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "classifiers.If_ConvTransformer_W_torch.If_ConvTransformer_W",
+      "seed": 42,
+      "epochs": 100,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_unimts_uci_har_unimts_local_uci",
+      "method_id": "unimts",
+      "benchmark_id": "uci_har",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.9114353579911775,
+      "metrics": {
+        "accuracy": 0.9114353579911775,
+        "f1_macro": 0.9116129457426277,
+        "precision_macro": 0.9158802274372998,
+        "recall_macro": 0.9121518381181577
+      },
+      "protocol_id": "unimts_local_uci",
+      "status": "protocol_mismatch_registry",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "precision_macro": "fraction",
+        "recall_macro": "fraction"
+      },
+      "saved_protocol_status": "canonical",
+      "saved_protocol_note": null,
+      "configuration_source": "UniMTS README full-shot custom fine-tuning command",
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/9/results/5"
+      },
+      "official_code_used": true,
+      "official_commit": "656fcdab7eee17d5b4158acf98fa348f74ce29a6",
+      "official_repo": "https://github.com/xiyuanzh/unimts",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "See saved result and protocol",
+      "seed": null,
+      "epochs": 200,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_unimts_pamap2_unimts_local_pamap",
+      "method_id": "unimts",
+      "benchmark_id": "pamap2",
+      "kind": "local",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.9506978459081609,
+      "metrics": {
+        "accuracy": 0.9519688446559931,
+        "f1_macro": 0.9534607588373781,
+        "f1_weighted": 0.9506978459081609,
+        "precision_macro": 0.9572383872589304,
+        "recall_macro": 0.956181326179081,
+        "retrieval_r1": 0.9519688446559931,
+        "retrieval_r2": 0.9826914755517092,
+        "retrieval_r3": 0.9991345737775854,
+        "retrieval_r4": 1,
+        "retrieval_r5": 1,
+        "mrr": 0.9730275494014137
+      },
+      "protocol_id": "unimts_local_pamap",
+      "status": "metric_mismatch_registry",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction",
+        "precision_macro": "fraction",
+        "recall_macro": "fraction",
+        "retrieval_r1": "fraction",
+        "retrieval_r2": "fraction",
+        "retrieval_r3": "fraction",
+        "retrieval_r4": "fraction",
+        "retrieval_r5": "fraction",
+        "mrr": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": "UniMTS official UniMTS_data.zip PAMAP prepared split with README full-shot custom fine-tuning command",
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/9/results/2"
+      },
+      "official_code_used": true,
+      "official_commit": "656fcdab7eee17d5b4158acf98fa348f74ce29a6",
+      "official_repo": "https://github.com/xiyuanzh/unimts",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "See saved result and protocol",
+      "seed": null,
+      "epochs": 200,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_deepconvlstm_opportunity_a_deepconv_local",
+      "method_id": "deepconvlstm",
+      "benchmark_id": "opportunity_a",
+      "kind": "local",
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.9156539675728004,
+      "metrics": {
+        "accuracy": 0.9168367346938775,
+        "f1_macro": 0.6984603485475415,
+        "f1_weighted": 0.9156539675728004
+      },
+      "protocol_id": "deepconv_local",
+      "status": "metric_mismatch_registry",
+      "display": true,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction"
+      },
+      "saved_protocol_status": "paper_protocol",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "data/evidence/results-466bc51b.json",
+        "sha256": "466bc51bcee71afc5cb5c6390357b3661a45b9d50a26bf3bfa408ecc4b1ef898",
+        "json_pointer": "/1/results/11"
+      },
+      "official_code_used": true,
+      "official_commit": "ea25e34da3a48b151a97bd3502802db547523b7f",
+      "official_repo": "https://github.com/STRCWearlab/DeepConvLSTM",
+      "saved_calibration_status": "passed",
+      "saved_gap_status": "within_expected_range",
+      "model_variant": "See saved result and protocol",
+      "seed": null,
+      "epochs": null,
+      "standalone_artifact_found": false
+    },
+    {
+      "id": "local_deepconvlstm_uci_har_local_baseline",
+      "method_id": "deepconvlstm",
+      "benchmark_id": "uci_har",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.8805564981336953,
+      "metrics": {
+        "accuracy": 0.8805564981336953,
+        "f1_macro": 0.8789816815403433,
+        "f1_weighted": 0.8793302543043314
+      },
+      "protocol_id": "local_baseline",
+      "status": "inspired_baseline",
+      "display": false,
+      "units": "Primary score is a fraction; see metric_units for secondary metrics",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction",
+        "f1_weighted": "fraction"
+      },
+      "saved_protocol_status": "canonical",
+      "saved_protocol_note": null,
+      "configuration_source": null,
+      "run_source": {
+        "path": "experiments/runs/uci_har_deepconvlstm/results.json",
+        "sha256": "b611df05149d35827602076b0177c8754c9922d8cd47fa6c3e394122d0eef235",
+        "json_pointer": "/0/results/0"
+      },
+      "official_code_used": null,
+      "official_commit": null,
+      "official_repo": null,
+      "saved_calibration_status": null,
+      "saved_gap_status": null,
+      "model_variant": "See saved result and protocol",
+      "seed": 42,
+      "epochs": 10,
+      "standalone_artifact_found": true
+    },
+    {
+      "id": "local_onehar_realworld_har_released_20261028",
+      "method_id": "onehar",
+      "benchmark_id": "realworld_har",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.9499859115243731,
+      "metrics": {
+        "accuracy": 0.9499859115243731
+      },
+      "metric_units": {
+        "accuracy": "fraction"
+      },
+      "protocol_id": "onehar_released_checkpoint",
+      "source_id": "onehar_checkpoint_eval_20261028",
+      "status": "released_checkpoint_evaluated",
+      "display": true,
+      "checked_at": "2026-10-28",
+      "executed_at": "2026-10-28",
+      "units": "Primary score and metrics are fractions.",
+      "saved_protocol_status": "author_released_test",
+      "saved_protocol_note": "Repository-provided test set: 7098 windows, 8 target classes, 5 accelerometer positions; 50 Hz / 120 steps; global nine-class candidates; batch size 256. Released-checkpoint training membership is not fully documented. Different from IoTBench canonical and LODO protocols.",
+      "configuration_source": "7098 windows / 8 target classes / 5 positions; frozen released checkpoint, batch size 256.",
+      "run_source": {
+        "path": "experiments/onehar_20261028/results_official/results.json",
+        "sha256": "6c7d8cf8e1fde4d724dedb5d0f8064b31f46afb6aac1b0fd60cbd6f4f84e1104",
+        "json_pointer": "/results/2"
+      },
+      "official_code_used": true,
+      "official_commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "official_repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "standalone_artifact_found": true,
+      "model_variant": "Released uniHAR.pth; unchanged model structure; strict checkpoint load. No retraining.",
+      "epochs": 0,
+      "trained": false
+    },
+    {
+      "id": "local_onehar_hhar_released_20261028",
+      "method_id": "onehar",
+      "benchmark_id": "hhar",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.9293261735666032,
+      "metrics": {
+        "accuracy": 0.9293261735666032
+      },
+      "metric_units": {
+        "accuracy": "fraction"
+      },
+      "protocol_id": "onehar_released_checkpoint",
+      "source_id": "onehar_checkpoint_eval_20261028",
+      "status": "released_checkpoint_evaluated",
+      "display": true,
+      "checked_at": "2026-10-28",
+      "executed_at": "2026-10-28",
+      "units": "Primary score and metrics are fractions.",
+      "saved_protocol_status": "author_released_test",
+      "saved_protocol_note": "Repository-provided test set: 5773 windows, 6 target classes, 2 accelerometer positions; 50 Hz / 120 steps; global nine-class candidates; batch size 256. Released-checkpoint training membership is not fully documented. Different from IoTBench canonical and LODO protocols.",
+      "configuration_source": "5773 windows / 6 target classes / 2 positions; frozen released checkpoint, batch size 256.",
+      "run_source": {
+        "path": "experiments/onehar_20261028/results_official/results.json",
+        "sha256": "6c7d8cf8e1fde4d724dedb5d0f8064b31f46afb6aac1b0fd60cbd6f4f84e1104",
+        "json_pointer": "/results/0"
+      },
+      "official_code_used": true,
+      "official_commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "official_repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "standalone_artifact_found": true,
+      "model_variant": "Released uniHAR.pth; unchanged model structure; strict checkpoint load. No retraining.",
+      "epochs": 0,
+      "trained": false
+    },
+    {
+      "id": "local_onehar_uci_har_released_20261028",
+      "method_id": "onehar",
+      "benchmark_id": "uci_har",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.9103561195251739,
+      "metrics": {
+        "accuracy": 0.9103561195251739
+      },
+      "metric_units": {
+        "accuracy": "fraction"
+      },
+      "protocol_id": "onehar_released_checkpoint",
+      "source_id": "onehar_checkpoint_eval_20261028",
+      "status": "released_checkpoint_evaluated",
+      "display": true,
+      "checked_at": "2026-10-28",
+      "executed_at": "2026-10-28",
+      "units": "Primary score and metrics are fractions.",
+      "saved_protocol_status": "author_released_test",
+      "saved_protocol_note": "Repository-provided test set: 2443 windows, 6 target classes, 1 accelerometer positions; 50 Hz / 120 steps; global nine-class candidates; batch size 256. Released-checkpoint training membership is not fully documented. Different from IoTBench canonical and LODO protocols.",
+      "configuration_source": "2443 windows / 6 target classes / 1 positions; frozen released checkpoint, batch size 256.",
+      "run_source": {
+        "path": "experiments/onehar_20261028/results_official/results.json",
+        "sha256": "6c7d8cf8e1fde4d724dedb5d0f8064b31f46afb6aac1b0fd60cbd6f4f84e1104",
+        "json_pointer": "/results/3"
+      },
+      "official_code_used": true,
+      "official_commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "official_repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "standalone_artifact_found": true,
+      "model_variant": "Released uniHAR.pth; unchanged model structure; strict checkpoint load. No retraining.",
+      "epochs": 0,
+      "trained": false
+    },
+    {
+      "id": "local_onehar_usc_had_released_20261028",
+      "method_id": "onehar",
+      "benchmark_id": "usc_had",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.891643709825528,
+      "metrics": {
+        "accuracy": 0.891643709825528
+      },
+      "metric_units": {
+        "accuracy": "fraction"
+      },
+      "protocol_id": "onehar_released_checkpoint",
+      "source_id": "onehar_checkpoint_eval_20261028",
+      "status": "released_checkpoint_evaluated",
+      "display": true,
+      "checked_at": "2026-10-28",
+      "executed_at": "2026-10-28",
+      "units": "Primary score and metrics are fractions.",
+      "saved_protocol_status": "author_released_test",
+      "saved_protocol_note": "Repository-provided test set: 2178 windows, 7 target classes, 1 accelerometer positions; 50 Hz / 120 steps; global nine-class candidates; batch size 256. Released-checkpoint training membership is not fully documented. Different from IoTBench canonical and LODO protocols.",
+      "configuration_source": "2178 windows / 7 target classes / 1 positions; frozen released checkpoint, batch size 256.",
+      "run_source": {
+        "path": "experiments/onehar_20261028/results_official/results.json",
+        "sha256": "6c7d8cf8e1fde4d724dedb5d0f8064b31f46afb6aac1b0fd60cbd6f4f84e1104",
+        "json_pointer": "/results/4"
+      },
+      "official_code_used": true,
+      "official_commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "official_repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "standalone_artifact_found": true,
+      "model_variant": "Released uniHAR.pth; unchanged model structure; strict checkpoint load. No retraining.",
+      "epochs": 0,
+      "trained": false
+    },
+    {
+      "id": "local_onehar_pamap2_released_20261028",
+      "method_id": "onehar",
+      "benchmark_id": "pamap2",
+      "kind": "local",
+      "primary_metric": "accuracy",
+      "primary_score": 0.8910505836575876,
+      "metrics": {
+        "accuracy": 0.8910505836575876
+      },
+      "metric_units": {
+        "accuracy": "fraction"
+      },
+      "protocol_id": "onehar_released_checkpoint",
+      "source_id": "onehar_checkpoint_eval_20261028",
+      "status": "released_checkpoint_evaluated",
+      "display": true,
+      "checked_at": "2026-10-28",
+      "executed_at": "2026-10-28",
+      "units": "Primary score and metrics are fractions.",
+      "saved_protocol_status": "author_released_test",
+      "saved_protocol_note": "Repository-provided test set: 1542 windows, 9 target classes, 3 accelerometer positions; 50 Hz / 120 steps; global nine-class candidates; batch size 256. Released-checkpoint training membership is not fully documented. Different from IoTBench canonical and LODO protocols.",
+      "configuration_source": "1542 windows / 9 target classes / 3 positions; frozen released checkpoint, batch size 256.",
+      "run_source": {
+        "path": "experiments/onehar_20261028/results_official/results.json",
+        "sha256": "6c7d8cf8e1fde4d724dedb5d0f8064b31f46afb6aac1b0fd60cbd6f4f84e1104",
+        "json_pointer": "/results/1"
+      },
+      "official_code_used": true,
+      "official_commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "official_repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "standalone_artifact_found": true,
+      "model_variant": "Released uniHAR.pth; unchanged model structure; strict checkpoint load. No retraining.",
+      "epochs": 0,
+      "trained": false
+    },
+    {
+      "id": "paper_tinyhar_dsads_19c_tinyhar",
+      "method_id": "tinyhar",
+      "benchmark_id": "dsads_19c",
+      "source_id": "tinyhar",
+      "protocol_id": "tiny_loso",
+      "kind": "paper",
+      "metrics": {
+        "f1_macro": 0.8837
+      },
+      "primary_metric": "f1_macro",
+      "primary_score": 0.8837,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "DSADS · 19 classes",
+      "reported_uncertainty": 0.0115,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_tinyhar_skoda_tinyhar",
+      "method_id": "tinyhar",
+      "benchmark_id": "skoda",
+      "source_id": "tinyhar",
+      "protocol_id": "tiny_loso",
+      "kind": "paper",
+      "metrics": {
+        "f1_macro": 0.9882
+      },
+      "primary_metric": "f1_macro",
+      "primary_score": 0.9882,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "SKODA",
+      "reported_uncertainty": 0.0054,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_tinyhar_daphnet_tinyhar",
+      "method_id": "tinyhar",
+      "benchmark_id": "daphnet",
+      "source_id": "tinyhar",
+      "protocol_id": "tiny_loso",
+      "kind": "paper",
+      "metrics": {
+        "f1_macro": 0.6129
+      },
+      "primary_metric": "f1_macro",
+      "primary_score": 0.6129,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Daphnet",
+      "reported_uncertainty": 0.0141,
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_limu_bert_motionsense_6c_limu",
+      "method_id": "limu_bert",
+      "benchmark_id": "motionsense_6c",
+      "source_id": "limu",
+      "protocol_id": "limu_1pct",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.927,
+        "f1_macro": 0.899
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.927,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "MotionSense · 6 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_limu_bert_shoaib_7c_limu",
+      "method_id": "limu_bert",
+      "benchmark_id": "shoaib_7c",
+      "source_id": "limu",
+      "protocol_id": "limu_1pct",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.9,
+        "f1_macro": 0.899
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.9,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Shoaib · 7 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_opportunity_4c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "opportunity_4c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.882,
+        "f1_macro": 0.8909999999999999
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.882,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Opportunity · 4 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_motionsense_6c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "motionsense_6c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.998,
+        "f1_macro": 0.998
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.998,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "MotionSense · 6 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_w_har_7c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "w_har_7c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.9840000000000001,
+        "f1_macro": 0.988
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.9840000000000001,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "w-HAR · 7 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_shoaib_7c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "shoaib_7c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.997,
+        "f1_macro": 0.997
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.997,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Shoaib · 7 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_har70plus_7c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "har70plus_7c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.9690000000000001,
+        "f1_macro": 0.879
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.9690000000000001,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "HAR70+ · 7 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_realworld_har_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "realworld_har",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.84,
+        "f1_macro": 0.812
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.84,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "RealWorld · 8 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_tnda_har_8c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "tnda_har_8c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.996,
+        "f1_macro": 0.996
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.996,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "TNDA-HAR · 8 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_usc_had_12c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "usc_had_12c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.583,
+        "f1_macro": 0.631
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.583,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "USC-HAD · 12 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_mhealth_12c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "mhealth_12c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.97,
+        "f1_macro": 0.973
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.97,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Mhealth · 12 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_harth_12c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "harth_12c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.98,
+        "f1_macro": 0.867
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.98,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Harth · 12 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_ut_complex_13c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "ut_complex_13c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.991,
+        "f1_macro": 0.992
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.991,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "UT-Complex · 13 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_wharf_14c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "wharf_14c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.8270000000000001,
+        "f1_macro": 0.517
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.8270000000000001,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "Wharf · 14 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_wisdm_18c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "wisdm_18c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.813,
+        "f1_macro": 0.809
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.813,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "WISDM · 18 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_dsads_19c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "dsads_19c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.943,
+        "f1_macro": 0.9420000000000001
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.943,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "DSADS · 19 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_utd_mhad_27c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "utd_mhad_27c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.856,
+        "f1_macro": 0.8320000000000001
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.856,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "UTD-MHAD · 27 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_unimts_mmact_35c_unimts",
+      "method_id": "unimts",
+      "benchmark_id": "mmact_35c",
+      "source_id": "unimts",
+      "protocol_id": "unimts_full",
+      "kind": "paper",
+      "metrics": {
+        "accuracy": 0.7709999999999999,
+        "f1_macro": 0.7170000000000001
+      },
+      "primary_metric": "accuracy",
+      "primary_score": 0.7709999999999999,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "accuracy": "fraction",
+        "f1_macro": "fraction"
+      },
+      "dataset_label": "MMAct · 35 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_robusthar_czu_mhad_22c_robust",
+      "method_id": "robusthar",
+      "benchmark_id": "czu_mhad_22c",
+      "source_id": "robust",
+      "protocol_id": "robust_15pct",
+      "kind": "paper",
+      "metrics": {
+        "f1_score": 0.9469,
+        "accuracy": 0.9463
+      },
+      "primary_metric": "f1_score",
+      "primary_score": 0.9469,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_score": "fraction",
+        "accuracy": "fraction"
+      },
+      "dataset_label": "CZU-MHAD · 22 classes",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_deepconvlstm_opportunity_a_deepconv_original",
+      "method_id": "deepconvlstm",
+      "benchmark_id": "opportunity_a",
+      "source_id": "deepconv_original",
+      "protocol_id": "deepconv_original_gesture",
+      "kind": "paper",
+      "metrics": {
+        "f1_weighted": 0.915
+      },
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.915,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_weighted": "fraction"
+      },
+      "dataset_label": "OPPORTUNITY · 17 gestures + Null",
+      "paper_role": "original"
+    },
+    {
+      "id": "paper_deepconvlstm_opportunity_gesture_17c_deepconv_original",
+      "method_id": "deepconvlstm",
+      "benchmark_id": "opportunity_gesture_17c",
+      "source_id": "deepconv_original",
+      "protocol_id": "deepconv_original_gesture_no_null",
+      "kind": "paper",
+      "metrics": {
+        "f1_weighted": 0.866
+      },
+      "primary_metric": "f1_weighted",
+      "primary_score": 0.866,
+      "display": true,
+      "status": "table_checked",
+      "checked_at": "2026-10-30",
+      "metric_units": {
+        "f1_weighted": "fraction"
+      },
+      "dataset_label": "OPPORTUNITY · 17 gestures · no Null",
+      "paper_role": "original"
+    }
+  ],
+  "unavailable": [],
+  "related_evidence_file": "paper_transfer_evidence.json",
+  "totals": {
+    "paper": 43,
+    "local": 20
+  },
+  "selection_policy": "Published values take precedence; measured observations remain in details or their own protocol."
+}

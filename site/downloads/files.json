@@ -1,0 +1,164 @@
+{
+  "files": {
+    "uci_har/LICENSE-NOTICE.txt": {
+      "bytes": 657,
+      "sha256": "9df8efe89ca247264f2460ff7dfdc88e9bb89277003aa033cecdfa6e18ff8775"
+    },
+    "uci_har/SHA256SUMS.txt": {
+      "bytes": 522,
+      "sha256": "e16ff7e175900f4ca2c85f8d481c3d3fcbe4c0bc67e6025e7a5f54caeedba77a"
+    },
+    "uci_har/uci-har-official-20261028.zip": {
+      "bytes": 61005872,
+      "sha256": "c00b803081a5c797cd5e4b83700a9810b38d53d9d84e01917e090e1fdbc81031"
+    },
+    "uci_har/CITATION.bib": {
+      "bytes": 761,
+      "sha256": "2c72dd6c3f20f503c23a3cec63de8a1bad3332bf0436843b77462df0201fcd63"
+    },
+    "uci_har/PROVENANCE.json": {
+      "bytes": 2502,
+      "sha256": "5f8cec12fe06cd8f289534ea35087f8b842356386aaa5b7a0ba1f919a80d05cc"
+    },
+    "uci_har/ATTRIBUTION.txt": {
+      "bytes": 1182,
+      "sha256": "71e4563d95e3c2dc51969cb34be55ed93ee416cdbd0301055d733c6736a280ab"
+    },
+    "uci_har/original/original-01-README.txt": {
+      "bytes": 6304,
+      "sha256": "eaee53f45825f349681a1a1b92a997a0082648f9b5bf93ddb3290caeede4b3a8"
+    },
+    "wisdm/LICENSE-NOTICE.txt": {
+      "bytes": 619,
+      "sha256": "bb86e6eca7198e7602b38266bd39c1b83e22f30c6ab482a456f6be9c07caf4fe"
+    },
+    "wisdm/SHA256SUMS.txt": {
+      "bytes": 513,
+      "sha256": "e3a709d68a40fd6147081d631e8903affa31588997156f45480f02b087d0c05f"
+    },
+    "wisdm/wisdm-ar-v1.1.tar.gz": {
+      "bytes": 11404612,
+      "sha256": "e573791269aab4a629721cf04b6031b7cbf8e14261cd2bc86e65887a2bc592d7"
+    },
+    "wisdm/CITATION.bib": {
+      "bytes": 356,
+      "sha256": "0eafe4b02ccbe8ecbe3382a84da4839f6fd2211947a4fdabb6211666b43baf9a"
+    },
+    "wisdm/PROVENANCE.json": {
+      "bytes": 2454,
+      "sha256": "8418815e45b77f6538dd39fe62debb8adea7be24c50b1e802fe87f8bce2b317a"
+    },
+    "wisdm/ATTRIBUTION.txt": {
+      "bytes": 1205,
+      "sha256": "900a908714482a9cc37966e6231dfd4a3af5fc96c694fcb6de5d044223999dbb"
+    },
+    "wisdm/original/original-01-readme.txt": {
+      "bytes": 2074,
+      "sha256": "3f36b96a7b9ded114c8017654ef46f0d63afb003e4474693ee31e12ed1e6ae51"
+    },
+    "pamap2/LICENSE-NOTICE.txt": {
+      "bytes": 572,
+      "sha256": "3b4bc315adbd9bc7b24775652452bd999b5333dfa85a0f274c0be8c339215136"
+    },
+    "pamap2/SHA256SUMS.txt": {
+      "bytes": 619,
+      "sha256": "92cff4376f3862b7490f14a5087a320fb5e31cb754f2032914cf35780aec8f37"
+    },
+    "pamap2/CITATION.bib": {
+      "bytes": 825,
+      "sha256": "478ee3f80c2f370f80db3e90f4dbd8f276fa7b974fae03bfec7179216158e638"
+    },
+    "pamap2/pamap2-official-20261028.zip": {
+      "bytes": 688226940,
+      "sha256": "76b3580bd5a804121f507717cb498c66a312ef5c774f4a78ac470e6558add352"
+    },
+    "pamap2/PROVENANCE.json": {
+      "bytes": 2795,
+      "sha256": "710d6f2b3c6203ed637a8c1e0b75e114f0bc98fe33554f5c8e6a8d8e8a0dba89"
+    },
+    "pamap2/ATTRIBUTION.txt": {
+      "bytes": 1136,
+      "sha256": "4e91780148e6227dd814056d3889d6a8ca66bf81c5f1542cdb9fb66914b380b9"
+    },
+    "pamap2/original/original-02-readme.pdf": {
+      "bytes": 59070,
+      "sha256": "99a0339f1d754089fc2f7f2c24f5a47888a51dc0646a8b210af60358c00da30d"
+    },
+    "pamap2/original/original-01-readme.pdf": {
+      "bytes": 59070,
+      "sha256": "99a0339f1d754089fc2f7f2c24f5a47888a51dc0646a8b210af60358c00da30d"
+    },
+    "hhar/LICENSE-NOTICE.txt": {
+      "bytes": 532,
+      "sha256": "15b51e42132070e9fd569640d14d4df5c3b34afdc065d4e06ebe301c94ba221f"
+    },
+    "hhar/hhar-official-20261028.zip": {
+      "bytes": 822098071,
+      "sha256": "8c9f8dd5f50074feaad2c5cec5d927a4fc8366324de26079629a3de3aef0e124"
+    },
+    "hhar/SHA256SUMS.txt": {
+      "bytes": 617,
+      "sha256": "464efa38a8d079d3e1bcdae49a47f4c69b64ee62fef0c5f164537ba5d191d0f9"
+    },
+    "hhar/CITATION.bib": {
+      "bytes": 834,
+      "sha256": "81686e970ea963646658d08eb5cc57aa43911d5e882566e59789cfe42a2b8421"
+    },
+    "hhar/PROVENANCE.json": {
+      "bytes": 2743,
+      "sha256": "32a43177ebe3093d9b0140ba5dc387a5a4a8164a981df7073c7a0d8be2697f0b"
+    },
+    "hhar/ATTRIBUTION.txt": {
+      "bytes": 1161,
+      "sha256": "5934ea58693d9ac827454ed24a2c7050db0dbf903aa78ba0bdeb35e392e50e39"
+    },
+    "hhar/original/original-03-readme.txt": {
+      "bytes": 2790,
+      "sha256": "163b7b8b2d1d5cafd4f1f4ef3fdf341e2844e57c2e3c35162934658d202bc93a"
+    },
+    "hhar/original/original-01-readme.txt": {
+      "bytes": 4034,
+      "sha256": "9cc832dc12c610c2d81f36bfe60ff72d50d9e87d7d8a3bde77841a63598151d8"
+    },
+    "opportunity/LICENSE-NOTICE.txt": {
+      "bytes": 546,
+      "sha256": "baca7ada1ddbfb2034f8bd74f68becccfe284c85a50459163fc6d94e8376a89d"
+    },
+    "opportunity/SHA256SUMS.txt": {
+      "bytes": 812,
+      "sha256": "cc3da9dc1f61dc2619a2e6296cf3376e2ff200893dc81d434d0e2e6b429f37f2"
+    },
+    "opportunity/CITATION.bib": {
+      "bytes": 1026,
+      "sha256": "f62466c0a9cf4c0c5efb394c90273beb0fd2345f7311c8b47c600772bb5b4961"
+    },
+    "opportunity/PROVENANCE.json": {
+      "bytes": 3533,
+      "sha256": "4ca86f6159201bfc6168bee2ab19a777b79b62f4ff7030c77f1b51b3eace560b"
+    },
+    "opportunity/opportunity-official-20261028.zip": {
+      "bytes": 306636009,
+      "sha256": "3df913b5e5a987d309596350385087737784c9d4b811389536eb3a9bcaf6f1d0"
+    },
+    "opportunity/ATTRIBUTION.txt": {
+      "bytes": 1192,
+      "sha256": "1cc9b5b7feec85cf26be1fe90f1a2637d47caba895523acfca39471c1ba379da"
+    },
+    "opportunity/original/original-02-README": {
+      "bytes": 799,
+      "sha256": "dd59843aeb1f1950d776d84e8cecd1880011538ac7bb1aba41191f430e50d7f5"
+    },
+    "opportunity/original/original-03-readme.txt": {
+      "bytes": 182,
+      "sha256": "95925cdac43b88bf79fc3e4a609c82f157c42f5ddad07f4a999ebc9896379992"
+    },
+    "opportunity/original/original-01-README": {
+      "bytes": 2321,
+      "sha256": "146e483e98fa19e3e9f556be653b1366fe9ebcc5e5468a99b031e15ffc5751fa"
+    },
+    "opportunity/original/original-04-readme.txt": {
+      "bytes": 979,
+      "sha256": "608bae90a8912f6ce70c809a9a361b747ce57f9d8b187936d547adb5709e58ec"
+    }
+  }
+}

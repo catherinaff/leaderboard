@@ -1,0 +1,33 @@
+{
+  "id": "wisdm",
+  "name": "WISDM",
+  "variant": "Activity Prediction / AR v1.1",
+  "summary": "36 participants · 6 activities · 20 Hz · smartphone accelerometer",
+  "scope": "The AR v1.1 release used by the six-class leaderboard task. This is a different release from Actitracker v2 and the later smartphone/smartwatch dataset.",
+  "creators": "Jennifer R. Kwapisz, Gary M. Weiss, Samuel A. Moore and the WISDM Lab, Fordham University",
+  "license_label": "Original-author redistribution terms",
+  "license_url": "https://www.cis.fordham.edu/wisdm/dataset.php",
+  "license_note": "The authors permit sharing/redistribution and request that the original readme.txt always accompanies the dataset, and that the specified paper is cited when using it. The archive and the standalone original README are preserved. No Creative Commons license is assigned by this mirror.",
+  "citation": "Jennifer R. Kwapisz, Gary M. Weiss and Samuel A. Moore (2010). Activity Recognition using Cell Phone Accelerometers. Fourth International Workshop on Knowledge Discovery from Sensor Data (KDD-10), Washington DC. Citation follows the original dataset README.",
+  "bibtex": "@inproceedings{kwapisz2010wisdm,\n  author = {Kwapisz, Jennifer R. and Weiss, Gary M. and Moore, Samuel A.},\n  title = {Activity Recognition using Cell Phone Accelerometers},\n  booktitle = {Fourth International Workshop on Knowledge Discovery from Sensor Data},\n  year = {2010},\n  url = {https://www.cis.fordham.edu/wisdm/public_files/sensorKDD-2010.pdf}\n}",
+  "doi": null,
+  "source_url": "https://www.cis.fordham.edu/wisdm/dataset.php",
+  "official_archive_url": "https://www.cis.fordham.edu/wisdm/includes/datasets/latest/WISDM_ar_latest.tar.gz",
+  "archive_url": "/downloads/wisdm/wisdm-ar-v1.1.tar.gz",
+  "filename": "wisdm-ar-v1.1.tar.gz",
+  "bytes": 11404612,
+  "sha256": "e573791269aab4a629721cf04b6031b7cbf8e14261cd2bc86e65887a2bc592d7",
+  "archive_modified": false,
+  "mirrored_at": "2026-10-28T05:48:03.770299+00:00",
+  "original_notices": [
+    {
+      "name": "WISDM_ar_v1.1/readme.txt",
+      "url": "/downloads/wisdm/original/original-01-readme.txt",
+      "sha256": "3f36b96a7b9ded114c8017654ef46f0d63afb003e4474693ee31e12ed1e6ae51"
+    }
+  ],
+  "attribution_url": "/downloads/wisdm/ATTRIBUTION.txt",
+  "license_notice_url": "/downloads/wisdm/LICENSE-NOTICE.txt",
+  "citation_url": "/downloads/wisdm/CITATION.bib",
+  "checksums_url": "/downloads/wisdm/SHA256SUMS.txt"
+}

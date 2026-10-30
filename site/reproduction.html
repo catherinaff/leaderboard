@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head>
+  <script src="app-path.js"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IMU/HAR reproduction · IoTBench-HAR</title><link rel="stylesheet" href="styles.css">
+<style>
+.runs-grid{display:grid;gap:1.2rem}.run-method{border:1px solid var(--border,#ddd);border-radius:12px;padding:1.25rem;scroll-margin-top:1rem}.run-method h2{margin:0 0 .5rem}.run-method p{line-height:1.65;margin:.5rem 0;color:var(--text-muted,#555)}.run-method table{width:100%;border-collapse:collapse;min-width:570px}.run-method th,.run-method td{padding:.7rem;text-align:left;border-bottom:1px solid var(--border,#eee)}.run-method th{font-size:.85rem}.table-scroll{overflow:auto}.run-complete{color:#08774e}.run-running{color:#255ca6}.run-error{color:#a43f26}.muted{color:#657080;font-size:.9rem}.run-links{display:flex;gap:1rem;flex-wrap:wrap}#summary{margin:1rem 0}#error{color:#a43f26}.run-method:target{outline:2px solid #4c78a8}main{padding-bottom:3rem}
+</style></head><body><header><h1><a href="./">IoTBench-HAR</a></h1><nav><a href="./">Leaderboard</a><a href="datasets.html">Datasets</a></nav></header>
+<main class="container"><section class="imu-intro"><p class="imu-eyebrow">REPRODUCTION · IMU/HAR ONLY</p><h2>Training &amp; evidence</h2><p>Ten displayed methods, five core datasets. A score is published only after all five seeds and every required subject fold finish.</p></section>
+<p>Fresh reruns use the official UCI-HAR split, WISDM subjects 1–28 / 29–30 / 31–36, PAMAP2 8-fold LOSO, HHAR 9-fold LOSO and OPPORTUNITY ADL gesture 4-fold LOSO. Imputation and normalization use training windows only. Validation selects checkpoints; test predictions are saved after training.</p>
+<p>Only results with <strong>approved paper calibration and matching model/data fingerprints</strong> enter Standard. Other completed runs remain pending review. Paper values, frozen released checkpoints and newly trained models retain separate labels. Method-specific sensor selection and resampling are disclosed below. Missing source details produce a status, never an estimated score.</p>
+<p class="run-links"><a href="data/imu_reproduction_20261028.json">Download live run manifest (JSON)</a><a href="./">Back to leaderboard →</a></p>
+<p id="summary" aria-live="polite">Loading run status…</p><p id="error" role="status"></p><div class="runs-grid" id="runs"></div>
+</main><script src="reproduction.js?v=20261028"></script></body></html>
