@@ -76,3 +76,36 @@ test('all dataset downloads point to official HTTPS sources',()=>{
  }
  assert.match(html,/checksums describe the mirror snapshot/);
 });
+test('both papers stay visible when Cross-dataset inherits the Overall view',async()=>{
+ const app=await boot('/leaderboard','?board=imu&tab=cross-dataset&view=overall');
+ assert.equal(app.get('protocol-select').value,'mosaic-zero-shot');
+ assert.equal(app.get('cross-paper-controls').hidden,false);
+ assert.match(app.get('cross-paper-controls').innerHTML,/One Model to Fit Them All \(oneHAR\)/);
+ app.get('cross-paper-controls').dispatch('click',{target:{closest:()=>({dataset:{crossPaper:'onehar'}})}});
+ assert.equal(app.get('protocol-select').value,'onehar-lodo');
+ assert.match(app.get('result-summary').textContent,/9 ranked models · 5 datasets/);
+ assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
+ assert.match(app.get('leaderboard-wrap').innerHTML,/40\.10/);
+ assert.equal(new URL(app.env.location.href).searchParams.get('aggregate'),'onehar-lodo');
+ app.get('model-search').dispatch('input',{target:{value:'One Model to Fit Them All'}});
+ assert.match(app.get('result-summary').textContent,/1 ranked models/);
+ assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
+});
+test('oneHAR can be selected from an unsupported target and retains all five reported targets',async()=>{
+ const app=await boot('/leaderboard','?board=imu&tab=cross-dataset&dataset=opportunity_4c');
+ assert.match(app.get('protocol-select').innerHTML,/onehar-lodo/);
+ app.get('protocol-select').dispatch('change',{target:{value:'onehar-lodo'}});
+ assert.equal(app.get('dataset-select').value,'uci_har_6c');
+ assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
+ assert.match(app.get('leaderboard-wrap').innerHTML,/53\.10/);
+ const targets=app.get('dataset-select').innerHTML;
+ for(const id of ['uci_har_6c','hhar_6c','pamap2_9c','usc_had_7c','realworld_8c']) assert.ok(targets.includes(id));
+ assert.ok(!targets.includes('opportunity_4c'));
+ app.get('dataset-select').dispatch('change',{target:{value:'hhar_6c'}});
+ assert.equal(app.get('protocol-select').value,'onehar-lodo');
+ assert.match(app.get('leaderboard-wrap').innerHTML,/33\.60/);
+ app.get('view-controls').dispatch('click',{target:{closest:()=>({dataset:{view:'overall'}})}});
+ assert.equal(app.get('protocol-select').value,'onehar-lodo');
+ app.get('model-search').dispatch('input',{target:{value:'One Model to Fit Them All'}});
+ assert.match(app.get('result-summary').textContent,/1 ranked models/);
+});

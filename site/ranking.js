@@ -59,6 +59,17 @@
     history.replaceState({}, '', u);
   }
   function option(value, label) { return `<option value="${esc(value)}">${esc(label)}</option>`; }
+  const matchesSearch = method => `${method.name} ${state.mode === 'cross' ? '' : `${method.venue || ''} ${method.modality || ''}`} ${method.id === 'onehar' ? 'One Model to Fit Them All oneHAR CDNet' : ''}`.toLowerCase().includes(state.search.toLowerCase());
+  function renderCrossPapers() {
+    const controls = $('cross-paper-controls');
+    if (!controls) return;
+    controls.hidden = state.board !== 'imu' || state.mode !== 'cross';
+    if (controls.hidden) return;
+    const selected = state.view === 'overall' ? state.aggregateScope : state.protocol;
+    const active = data.transfer.groups.find(g => g.id === selected)?.method_id;
+    const papers = [...new Map(data.transfer.groups.map(g => [g.method_id, g])).values()];
+    controls.innerHTML = '<span>Paper</span>' + papers.map(g => `<button type="button" data-cross-paper="${esc(g.method_id)}" class="${active === g.method_id ? 'active' : ''}" aria-pressed="${active === g.method_id}">${esc(g.method_id === 'onehar' ? 'One Model to Fit Them All (oneHAR)' : g.method_name)}</button>`).join('');
+  }
   function render() {
     if (!data) return;
     if (state.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported')) state.view = 'ranking';
@@ -82,10 +93,14 @@
     $('metric-field').hidden = false;
     $('protocol-label').textContent = state.view === 'overall' ? 'Score source' : 'Protocol';
     $('sort-results').hidden = false;
-    if (state.view === 'overall') { renderOverall(); syncUrl(); return; }
+    if (state.view === 'overall') { renderOverall(); renderCrossPapers(); syncUrl(); return; }
     // Old released-test links continue to resolve to their distinct measured track.
     if (state.dataset === 'onehar-released') { state.dataset = 'uci_har'; state.protocol = 'onehar_released_checkpoint'; }
-    const ids = [...new Set(rows.map(r => r.dataset))];
+    const cross = state.board === 'imu' && state.mode === 'cross';
+    const crossProtocols = cross ? data.transfer.groups.map(g => [g.id, g.label]) : [];
+    if (cross && state.protocol !== 'all' && !crossProtocols.some(([id]) => id === state.protocol)) state.protocol = 'all';
+    const datasetRows = cross && state.protocol !== 'all' ? rows.filter(r => r.protocol === state.protocol) : rows;
+    const ids = [...new Set(datasetRows.map(r => r.dataset))];
     const defaultId = state.board === 'qa' ? 'quants_binary' : state.mode === 'cross' ? 'uci_har_6c' : 'uci_har';
     if (!ids.includes(state.dataset)) state.dataset = ids.includes(defaultId) ? defaultId : ids[0] || '';
     ids.sort((a, b) => {
@@ -101,7 +116,7 @@
     $('sort-results').hidden = overview;
     if (overview) { renderOverview(); syncUrl(); return; }
     let visible = rows.filter(r => r.dataset === state.dataset);
-    const protocols = [...new Map(visible.map(r => [r.protocol, r.protocolLabel])).entries()];
+    const protocols = cross ? crossProtocols : [...new Map(visible.map(r => [r.protocol, r.protocolLabel])).entries()];
     if (!protocols.some(([id]) => id === state.protocol)) state.protocol = 'all';
     $('protocol-select').innerHTML = option('all', 'All protocols · grouped') + protocols.map(([id, name]) => option(id, name)).join('');
     $('protocol-select').value = state.protocol;
@@ -111,7 +126,7 @@
     $('metric-select').innerHTML = option('primary', 'Reported primary metric') + metrics.map(k => option(k, model.metricName(k))).join('');
     $('metric-select').value = state.metric;
     if (state.metric !== 'primary') visible = visible.map(r => model.forMetric(r, state.metric)).filter(r => r && model.finite(r.value));
-    if (state.search) visible = visible.filter(r => `${r.method.name} ${r.method.venue} ${r.method.modality || ''}`.toLowerCase().includes(state.search.toLowerCase()));
+    if (state.search) visible = visible.filter(r => matchesSearch(r.method));
     shown = visible;
     const groups = model.groupRows(visible, state.order);
     const count = new Set(visible.map(r => r.method.id)).size;
@@ -124,6 +139,7 @@
     }
     $('sort-results').textContent = state.order === 'best' ? 'Score ↓' : 'Score ↑';
     $('leaderboard-wrap').innerHTML = groups.length ? groups.map(groupTable).join('') : '<div class="empty-state"><strong>No matching results.</strong><p>Try another dataset, protocol or model name.</p></div>';
+    renderCrossPapers();
     syncUrl();
   }
   function groupTable(group) {
@@ -136,7 +152,7 @@
   }
   function renderOverview() {
     let entries = model.overviewRows(data.imuRows, CORE_DATASETS, data.registry);
-    if (state.search) entries = entries.filter(r => r.method.name.toLowerCase().includes(state.search.toLowerCase()));
+    if (state.search) entries = entries.filter(r => matchesSearch(r.method));
     shown = entries.flatMap(r => Object.values(r.scores).filter(Boolean));
     $('dataset-heading').textContent = 'Core dataset overview';
     $('result-summary').textContent = `${entries.length} models · 5 datasets · ${shown.filter(r => r.source === 'run').length} measured scores`;
@@ -209,7 +225,7 @@
     catch { $('leaderboard-wrap').innerHTML = '<div class="empty-state"><strong>These scores use different units.</strong><p>Choose a matching metric and evaluation setting to calculate a mean.</p></div>'; $('result-summary').textContent = 'No comparable mean'; return; }
     // Keep the requested two methods in their dataset and full-coverage views.
     if (state.board === 'imu') entries = entries.filter(r => r.complete || !['onehar', 'mosaic'].includes(r.method.id));
-    if (state.search) entries = entries.filter(r => r.method.name.toLowerCase().includes(state.search.toLowerCase()));
+    if (state.search) entries = entries.filter(r => matchesSearch(r.method));
     shown = entries.flatMap(r => Object.values(r.scores));
     const complete = entries.filter(r => r.complete).length;
     const published = entries.some(e => e.averageKind === 'paper');
@@ -265,9 +281,33 @@
     const b = event.target.closest('[data-mode]'); if (!b) return;
     state.mode = b.dataset.mode; state.dataset = ''; state.protocol = 'all'; state.metric = 'primary'; state.aggregateScope = ''; state.basket = 'shared'; render();
   });
-  $('view-controls').addEventListener('click', event => { const b = event.target.closest('[data-view]'); if (b) { state.view = b.dataset.view; render(); } });
-  $('dataset-select').addEventListener('change', event => { state.dataset = event.target.value; state.protocol = 'all'; state.metric = 'primary'; render(); });
-  $('protocol-select').addEventListener('change', event => { if (state.view === 'overall') state.aggregateScope = event.target.value; else state.protocol = event.target.value; state.metric = 'primary'; render(); });
+  $('cross-paper-controls')?.addEventListener('click', event => {
+    const button = event.target.closest('[data-cross-paper]');
+    if (!button) return;
+    const groups = data.transfer.groups.filter(g => g.method_id === button.dataset.crossPaper);
+    const group = groups.find(g => g.category === 'zero_shot_transfer') || groups[0];
+    if (!group) return;
+    state.protocol = group.id;
+    state.aggregateScope = group.id;
+    state.metric = 'primary';
+    state.basket = 'all';
+    render();
+  });
+  $('view-controls').addEventListener('click', event => {
+    const b = event.target.closest('[data-view]'); if (!b) return;
+    if (state.board === 'imu' && state.mode === 'cross') {
+      if (state.view === 'overall') state.protocol = state.aggregateScope;
+      else if (state.protocol !== 'all') state.aggregateScope = state.protocol;
+    }
+    state.view = b.dataset.view; render();
+  });
+  $('dataset-select').addEventListener('change', event => { state.dataset = event.target.value; if (state.board !== 'imu' || state.mode !== 'cross') state.protocol = 'all'; state.metric = 'primary'; render(); });
+  $('protocol-select').addEventListener('change', event => {
+    if (state.view === 'overall') state.aggregateScope = event.target.value;
+    else state.protocol = event.target.value;
+    if (state.board === 'imu' && state.mode === 'cross' && event.target.value !== 'all') state.protocol = state.aggregateScope = event.target.value;
+    state.metric = 'primary'; render();
+  });
   $('basket-select').addEventListener('change', event => { state.basket = event.target.value; render(); });
   $('metric-select').addEventListener('change', event => { state.metric = event.target.value; render(); });
   $('model-search').addEventListener('input', event => { state.search = event.target.value; render(); });

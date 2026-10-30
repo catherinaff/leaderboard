@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Compare IMU activity recognition and sensor question answering with clearly sourced paper and measured results.">
   <title>IoTBench · Sensor Intelligence Leaderboard</title>
-  <link rel="stylesheet" href="ranking.css?v=20261030-clean-view">
+  <link rel="stylesheet" href="ranking.css?v=20261030-cross-papers">
   <script defer src="ranking-model.js?v=20261030-clean-view"></script>
-  <script defer src="ranking.js?v=20261030-clean-view"></script>
+  <script defer src="ranking.js?v=20261030-cross-papers"></script>
 </head>
 <body class="lb-page">
   <header><div class="lb-header">
@@ -25,6 +25,7 @@
       <div class="panel-top"><h2 id="board-title">IMU activity recognition</h2></div>
       <div class="mode-tabs" id="mode-controls" aria-label="Evaluation setting" aria-describedby="mode-description"><button type="button" data-mode="reported" class="active" aria-pressed="true">Paper results</button><button type="button" data-mode="unified" aria-pressed="false">Unified evaluation</button><button type="button" data-mode="cross" aria-pressed="false">Cross-dataset</button></div>
       <p class="mode-description" id="mode-description">Literature reference: published scores take priority. Our completed runs fill gaps; evaluation settings may differ between papers.</p>
+      <nav class="cross-paper-controls" id="cross-paper-controls" aria-label="Cross-dataset paper" hidden></nav>
       <div class="filter-bar">
         <label class="filter-field" id="dataset-field"><span>Dataset</span><select id="dataset-select" aria-label="Dataset"></select></label>
         <label class="filter-field" id="basket-field" hidden><span>Dataset set</span><select id="basket-select" aria-label="Dataset set"></select></label>
