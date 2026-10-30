@@ -78,13 +78,12 @@
     if (state.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported')) state.view = 'ranking';
     $('board-switch').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.board === state.board); b.setAttribute('aria-pressed', String(b.dataset.board === state.board)); });
     $('mode-controls').hidden = true;
-    $('mode-description').hidden = state.board !== 'imu';
-    $('mode-description').textContent = 'MOSAIC (2026) + One Model to Fit Them All (2025): all reported comparison methods and dataset label sets. Scores retain each paper’s evaluation setting.';
     $('last-updated').textContent = state.board === 'imu' ? 'Paper tables checked · 30 Oct 2026' : 'Paper-reported Sensor QA results';
     $('view-controls').hidden = false;
     $('mode-controls').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.mode === state.mode); b.setAttribute('aria-pressed', String(b.dataset.mode === state.mode)); });
     $('view-controls').querySelectorAll('button').forEach(b => { b.hidden = b.dataset.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported'); b.classList.toggle('active', b.dataset.view === state.view); b.setAttribute('aria-pressed', String(b.dataset.view === state.view)); });
-    $('board-title').textContent = state.board === 'qa' ? 'Sensor question answering' : 'IMU activity recognition';
+    $('board-heading').hidden = state.board === 'imu';
+    $('board-title').textContent = state.board === 'qa' ? 'Sensor question answering' : '';
     rows = state.board === 'qa' ? data.qaRows : data.paperScope.observations;
     if (state.mode === 'unified' && state.board === 'imu') rows = rows.filter(r => r.protocol === 'raw-v2');
     $('basket-field').hidden = state.view !== 'overall';
@@ -181,7 +180,6 @@
     state.metric = 'accuracy';
     rows = data.paperScope.observations;
     for (const id of ['mode-controls', 'dataset-field', 'basket-field', 'protocol-field', 'metric-field', 'cross-paper-controls']) $(id).hidden = true;
-    $('mode-description').textContent = 'Methods and benchmarks from MOSAIC (2026) and One Model to Fit Them All (2025). The overall ranking uses the same two label sets for every method.';
     $('dataset-heading').textContent = 'Overall leaderboard · shared datasets';
     const benchmark = model.paperBenchmark(data.transfer, null, state.order);
     referenceEntries = benchmark.entries;

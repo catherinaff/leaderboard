@@ -8,7 +8,7 @@
   <title>IoTBench · Sensor Intelligence Leaderboard</title>
   <link rel="stylesheet" href="ranking.css?v=20261030-paper-scope">
   <script defer src="ranking-model.js?v=20261030-paper-scope"></script>
-  <script defer src="ranking.js?v=20261030-paper-scope"></script>
+  <script defer src="ranking.js?v=20261030-clean-heading"></script>
 </head>
 <body class="lb-page">
   <header><div class="lb-header">
@@ -21,10 +21,9 @@
       <div class="board-switch" id="board-switch" aria-label="Leaderboard type"><button type="button" data-board="imu" class="active" aria-pressed="true">IMU HAR</button><button type="button" data-board="qa" aria-pressed="false">Sensor QA</button></div>
       <div class="view-switch" id="view-controls" aria-label="Result view"><button type="button" data-view="overall" aria-pressed="false">Overall ranking</button><button type="button" data-view="ranking" class="active" aria-pressed="true">Dataset rankings</button></div>
     </div>
-    <section class="board-panel" aria-labelledby="board-title">
-      <div class="panel-top"><h2 id="board-title">IMU activity recognition</h2></div>
+    <section class="board-panel" aria-label="Leaderboard results">
+      <div class="panel-top" id="board-heading" hidden><h2 id="board-title"></h2></div>
       <div id="mode-controls" hidden></div>
-      <p class="mode-description" id="mode-description">Comparison methods and dataset label sets reported in MOSAIC and One Model to Fit Them All.</p>
       <nav class="cross-paper-controls" id="cross-paper-controls" aria-label="Source paper" hidden></nav>
       <div class="filter-bar">
         <label class="filter-field" id="dataset-field"><span>Dataset</span><select id="dataset-select" aria-label="Dataset"></select></label>
