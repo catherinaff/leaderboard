@@ -143,17 +143,6 @@ test('each dataset view retains only source-paper methods, settings and the sele
   assert.match(full.get('result-summary').textContent,/8 models · 1 setting/);
   assert.match(full.get('leaderboard-wrap').innerHTML,/SensorLLM|GPT4TS/);
 });
-test('paper catalog lists 21 exact label sets with valid subpath ranking links and search',async()=>{
-  const app=await boot('/research/leaderboard');
-  vm.runInNewContext(read('paper-catalog.js'),app.env);await new Promise(r=>setImmediate(r));
-  const html=app.get('paper-dataset-catalog').innerHTML;
-  assert.equal((html.match(/data-paper-dataset=/g)||[]).length,21);
-  assert.match(app.get('paper-scope-count').textContent,/19 datasets · 21 label sets · 19 comparison methods/);
-  for(const id of ['pamap2_9c','pamap2_12c','usc_had_7c','usc_had_12c'])assert.ok(html.includes('dataset='+id));
-  app.get('paper-dataset-search').dispatch('input',{target:{value:'PAMAP2'}});
-  assert.equal((app.get('paper-dataset-catalog').innerHTML.match(/data-paper-dataset=/g)||[]).length,2);
-  for(const file of ['tasks.html','datasets.html'])assert.match(read(file),/paper-catalog\.js/);
-});
 test('Sensor QA still renders its separate cited tasks and scores',async()=>{
   for(const search of ['?board=qa&view=overall','?board=qa&view=ranking']){
     const app=await boot('/leaderboard',search);
@@ -169,5 +158,11 @@ test('Pages submissions keep the authorized server upload portal',()=>{
 test('existing download links remain official and distinct from paper-specific class variants',()=>{
  const data=JSON.parse(read('data/datasets.json')),html=read('datasets.html');assert.equal(data.datasets.length,5);
  for(const entry of data.datasets){assert.equal(entry.archive_url,entry.official_archive_url);assert.match(entry.archive_url,/^https:/);assert.ok(html.includes('href="'+entry.official_archive_url+'"'));}
- assert.match(html,/checksums describe the mirror snapshot/);assert.match(html,/MOSAIC reports an 18-class WISDM task/);
+ assert.match(html,/checksums describe the mirror snapshot/);
+});
+
+test('Tasks and Datasets retain their original task cards and download layout',()=>{
+ assert.match(read('tasks.html'),/card-grid/);assert.match(read('tasks.html'),/Loading tasks/);
+ assert.match(read('datasets.html'),/Download the core datasets/);
+ for(const file of ['tasks.html','datasets.html'])assert.doesNotMatch(read(file),/paper-catalog/);
 });

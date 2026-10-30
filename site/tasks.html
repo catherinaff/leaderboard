@@ -1,15 +1,109 @@
-<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Paper Datasets — IoTBench</title><script src="app-path.js"></script>
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="paper-catalog.css?v=20261030">
-<script defer src="ranking-model.js?v=20261030-paper-scope"></script><script defer src="paper-catalog.js?v=20261030"></script>
-</head><body>
-<header><h1><a href="./">IoTBench-HAR</a></h1><nav aria-label="Main navigation"><a href="./">Leaderboard</a><a href="tasks.html" class="active" aria-current="page">Tasks</a><a href="datasets.html">Datasets</a><a href="submit-model.html">Submit Model</a></nav></header>
-<main class="container paper-catalog-page">
-<section class="paper-catalog-intro"><p class="paper-catalog-eyebrow">MOSAIC · 2026 / ONEHAR · 2025</p><h1>Datasets from the two papers.</h1><p>Every reported target label set has its own dataset ranking. Different class definitions stay separate.</p><p id="paper-scope-count" class="paper-scope-count" role="status">Loading paper scope…</p></section>
-<aside class="paper-catalog-note">Overall ranking uses UCI-HAR (6 classes) and RealWorld (8 classes), with equal weights. Other targets remain in the individual dataset rankings. Training settings are identified alongside each result.</aside>
-<label class="paper-catalog-search">Find a dataset<input id="paper-dataset-search" type="search" placeholder="Dataset name or source paper…"></label>
-<section id="paper-dataset-catalog" aria-label="Paper dataset label sets">Loading datasets…</section>
-<p class="paper-catalog-sources">Sources: <a href="https://dl.acm.org/doi/10.1145/3831643" target="_blank" rel="noopener">MOSAIC, Tables 2–4 ↗</a> · <a href="https://dl.acm.org/doi/10.1145/3749509" target="_blank" rel="noopener">One Model to Fit Them All, Tables 2–3 ↗</a> · <a href="data/paper_transfer_evidence.json">Source data &amp; audit</a></p>
-</main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="app-path.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasks — IoTBench-HAR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <h1><a href="./">IoTBench-HAR</a></h1>
+  <nav>
+    <a href="./">Leaderboard</a>
+    <a href="tasks.html" class="active">Tasks</a>
+    <a href="datasets.html">Datasets</a>
+    <a href="submit-model.html">Submit Model</a>
+  </nav>
+</header>
+
+<main class="container" id="root">
+  <p style="padding:2rem;text-align:center;color:#6b7280">Loading tasks...</p>
+</main>
+
+<script>
+(async function () {
+  const root = document.getElementById('root');
+
+  let benchmarks = [];
+  try { benchmarks = await (await fetch('api/benchmarks')).json(); } catch (e) {}
+
+  const standard = benchmarks.filter(b => b.category === 'Standard');
+  const cross = benchmarks.filter(b => b.category === 'Cross-Dataset');
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+  let html = '<div class="tabs" style="margin-bottom:1.5rem"><button class="tab active" data-tab="standard">Standard</button>';
+  if (cross.length > 0) html += '<button class="tab" data-tab="cross">Cross-Dataset</button>';
+  html += '</div>';
+
+  html += '<input id="search" class="form-group" type="search" placeholder="Search tasks..." style="max-width:400px;margin-bottom:1.5rem;padding:.5rem .75rem;border:1px solid var(--border);border-radius:6px;font-size:.9rem" />';
+
+  html += '<div id="cards" class="card-grid"></div>';
+
+  root.innerHTML = html;
+
+  function renderCards(list) {
+    const container = document.getElementById('cards');
+    if (list.length === 0) {
+      container.innerHTML = '<p style="color:#6b7280;padding:2rem">No tasks found.</p>';
+      return;
+    }
+    container.innerHTML = list.map(b => {
+      const p = b.protocol;
+      const isCross = b.category === 'Cross-Dataset';
+      const label = isCross
+        ? `${esc(b.source)} → ${esc(b.target)} · ${b.shared_classes.length} shared classes · ${p.window_size_seconds}s windows`
+        : `${p.type} · ${b.classes.length} classes · ${b.subjects} subjects · ${p.window_size_seconds}s windows`;
+      const meta2 = isCross
+        ? `Primary: <strong>${b.metrics.primary}</strong> &nbsp;|&nbsp; ${esc(b.modality)}`
+        : `Primary: <strong>${b.metrics.primary}</strong> &nbsp;|&nbsp; ${esc(b.modality)}`;
+      const meta3 = isCross
+        ? `Train on ${esc(b.source)}. Test on ${esc(b.target)}.`
+        : `${esc(b.sensor_type)} &nbsp;|&nbsp; ${esc(b.sampling_rate_hz)}Hz &nbsp;|&nbsp; ${b.channels} channels`;
+      const tags = isCross
+        ? b.shared_classes.map(c => `<span class="tag">${esc(c)}</span>`).join('')
+        : b.classes.slice(0, 5).map(c => `<span class="tag">${esc(c)}</span>`).join('') + (b.classes.length > 5 ? `<span class="tag">+${b.classes.length - 5} more</span>` : '');
+      return `<div class="card">
+        <h3><a href="task.html?id=${b.id}">${esc(b.name)}</a></h3>
+        <div class="meta">${esc(label)}</div>
+        <div class="meta">${meta2}</div>
+        <div class="meta">${meta3}</div>
+        <div class="tags">${tags}</div>
+      </div>`;
+    }).join('');
+  }
+
+  let currentList = [...standard];
+  renderCards(currentList);
+
+  // Search
+  document.getElementById('search').addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    const source = document.querySelector('.tab.active')?.dataset?.tab === 'cross' ? cross : standard;
+    if (!q) { renderCards(source); return; }
+    renderCards(source.filter(b =>
+      b.name.toLowerCase().includes(q) ||
+      b.id.includes(q) ||
+      (b.classes || b.shared_classes || []).some(c => c.toLowerCase().includes(q))
+    ));
+  });
+
+  // Tabs
+  root.querySelector('.tabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.tab');
+    if (!tab) return;
+    root.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentList = tab.dataset.tab === 'cross' ? cross : standard;
+    document.getElementById('search').value = '';
+    renderCards(currentList);
+  });
+})();
+</script>
+</body>
+</html>
