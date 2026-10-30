@@ -8,7 +8,7 @@
   <title>IoTBench · Sensor Intelligence Leaderboard</title>
   <link rel="stylesheet" href="ranking.css?v=20261030-paper-scope">
   <script defer src="ranking-model.js?v=20261030-paper-scope"></script>
-  <script defer src="ranking.js?v=20261030-clean-heading"></script>
+  <script defer src="ranking.js?v=20261030-imu-only"></script>
 </head>
 <body class="lb-page">
   <header><div class="lb-header">
@@ -16,13 +16,12 @@
     <nav aria-label="Main navigation"><a class="active" href="leaderboard.html">Leaderboard</a><a href="tasks.html">Tasks</a><a href="datasets.html">Datasets</a><a class="submit-link" href="submit-model.html">Submit Model</a></nav>
   </div></header>
   <main class="lb-shell">
-    <div class="lb-hero"><div><p class="lb-kicker">BENCHMARKING SENSOR INTELLIGENCE</p><h1>Sensor Intelligence Leaderboard</h1><p>Compare activity recognition and sensor question answering.</p></div><button type="button" class="refresh-button" id="refresh" aria-label="Refresh result data">↻ Refresh</button></div>
+    <div class="lb-hero"><div><p class="lb-kicker">BENCHMARKING SENSOR INTELLIGENCE</p><h1>Sensor Intelligence Leaderboard</h1><p>Compare model performance across HAR datasets.</p></div><button type="button" class="refresh-button" id="refresh" aria-label="Refresh result data">↻ Refresh</button></div>
     <div class="board-bar">
-      <div class="board-switch" id="board-switch" aria-label="Leaderboard type"><button type="button" data-board="imu" class="active" aria-pressed="true">IMU HAR</button><button type="button" data-board="qa" aria-pressed="false">Sensor QA</button></div>
+      <div class="board-switch" id="board-switch" aria-label="Leaderboard type"><button type="button" data-board="imu" class="active" aria-pressed="true">IMU HAR</button></div>
       <div class="view-switch" id="view-controls" aria-label="Result view"><button type="button" data-view="overall" aria-pressed="false">Overall ranking</button><button type="button" data-view="ranking" class="active" aria-pressed="true">Dataset rankings</button></div>
     </div>
     <section class="board-panel" aria-label="Leaderboard results">
-      <div class="panel-top" id="board-heading" hidden><h2 id="board-title"></h2></div>
       <div id="mode-controls" hidden></div>
       <nav class="cross-paper-controls" id="cross-paper-controls" aria-label="Source paper" hidden></nav>
       <div class="filter-bar">
@@ -35,7 +34,7 @@
       <div class="results-heading"><div><h3 id="dataset-heading">UCI-HAR</h3><p id="result-summary" role="status" aria-live="polite">Loading results…</p></div><button type="button" id="sort-results" class="sort-button" aria-label="Reverse score sorting">Score ↓</button></div>
       <p class="context-note" id="context-note">Ranked within the same protocol and metric.</p>
       <div id="leaderboard-wrap"><div class="empty-state">Loading leaderboard…</div></div>
-      <div class="panel-bottom"><div class="source-legend"><span class="source-badge source-paper">Paper</span><span>Original table and setting in Details.</span></div><details class="score-policy"><summary>How scores are selected</summary><p>The IMU board includes the methods and target label sets in MOSAIC Tables 2–4 and oneHAR Tables 2–3. Overall Accuracy is recalculated over the same UCI-HAR (6 classes) and RealWorld (8 classes) tasks for every method, with equal weights.</p><p>One complete setting is selected per method using a fixed order: oneHAR supervised comparison, MOSAIC full-shot, MOSAIC few-shot, oneHAR leave-one-dataset-out, then MOSAIC zero-shot. The rule does not select the highest score. Training sources, label budgets and splits can differ; * and the visible setting identify these differences. Dataset rankings retain all original settings. Sensor QA retains its own cited tasks and metrics.</p></details></div>
+      <div class="panel-bottom"><div class="source-legend"><span class="source-badge source-paper">Paper</span><span>Original table and setting in Details.</span></div><details class="score-policy"><summary>How scores are selected</summary><p>The IMU board includes the methods and target label sets in MOSAIC Tables 2–4 and oneHAR Tables 2–3. Overall Accuracy is recalculated over the same UCI-HAR (6 classes) and RealWorld (8 classes) tasks for every method, with equal weights.</p><p>One complete setting is selected per method using a fixed order: oneHAR supervised comparison, MOSAIC full-shot, MOSAIC few-shot, oneHAR leave-one-dataset-out, then MOSAIC zero-shot. The rule does not select the highest score. Training sources, label budgets and splits can differ; * and the visible setting identify these differences. Dataset rankings retain all original settings.</p></details></div>
     </section>
     <footer class="lb-footer"><span id="last-updated">Paper-reported results</span><div class="lb-footer-links"><a href="tasks.html">Tasks ↗</a><a href="data/paper_transfer_evidence.json" target="_blank" rel="noopener">Score sources &amp; audit ↗</a><a href="datasets.html">Download datasets ↗</a></div></footer>
     <aside id="reference-footnote" class="reference-footnote" hidden aria-label="Ranking notes">

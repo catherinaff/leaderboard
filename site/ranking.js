@@ -3,7 +3,7 @@
   const model = globalThis.IoTBenchRanking;
   const $ = id => document.getElementById(id);
   const params = new URLSearchParams(location.search);
-  const state = { board: params.get('board') === 'qa' ? 'qa' : 'imu', mode: params.get('tab') === 'cross-dataset' ? 'cross' : params.get('tab') === 'standard' ? 'unified' : 'reported', dataset: params.get('dataset') || params.get('target') || '', protocol: params.get('protocol') || 'all', metric: params.get('metric') || 'primary', view: params.get('view') === 'overall' ? 'overall' : params.get('view') === 'overview' || params.get('dataset') === 'core' ? 'overview' : 'ranking', aggregateScope: params.get('aggregate') || '', basket: params.get('basket') || 'shared', search: '', order: 'best' };
+  const state = { board: 'imu', mode: params.get('tab') === 'cross-dataset' ? 'cross' : params.get('tab') === 'standard' ? 'unified' : 'reported', dataset: params.get('dataset') || params.get('target') || '', protocol: params.get('protocol') || 'all', metric: params.get('metric') || 'primary', view: params.get('view') === 'overall' ? 'overall' : params.get('view') === 'overview' || params.get('dataset') === 'core' ? 'overview' : 'ranking', aggregateScope: params.get('aggregate') || '', basket: params.get('basket') || 'shared', search: '', order: 'best' };
   if (!params.has('view') && !params.has('dataset') && state.board === 'imu') state.view = 'overall';
   let data = null, rows = [], shown = [], referenceEntries = [];
   const CORE_DATASETS = ['uci_har', 'wisdm', 'pamap2', 'hhar', 'opportunity_a'];
@@ -11,7 +11,7 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const safeUrl = value => { try { const u = new URL(IoTBenchPath(value)); return ['http:', 'https:'].includes(u.protocol) && !u.username && !u.password ? u.href : ''; } catch { return ''; } };
   const link = (url, text) => safeUrl(url) ? `<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener noreferrer">${esc(text)} <span aria-hidden="true">↗</span></a>` : '';
-  const nameOf = id => labels[id] || data?.qa.benchmarks?.find(b => b.id === id)?.name || data?.benchmarks.find(b => b.id === id)?.name || rows.find(r => r.dataset === id)?.datasetLabel || id;
+  const nameOf = id => labels[id] || data?.benchmarks.find(b => b.id === id)?.name || rows.find(r => r.dataset === id)?.datasetLabel || id;
   function score(row) {
     if (!model.finite(row.value)) return '—';
     if (row.unit === 'percent') return `${(row.value * 100).toFixed(2)}<span class="score-unit">%</span>`;
@@ -34,10 +34,9 @@
   async function load() {
     $('refresh').disabled = true;
     try {
-      const [benchmarks, registry, evidence, reproduction, qa, transfer] = await Promise.all([getApi('benchmarks'), getApi('results'), getJson('data/imu_evidence.json'), getJson('data/imu_reproduction_20261028.json', true), getJson('data/sensor_qa_leaderboard.json'), getJson('data/paper_transfer_evidence.json')]);
-      data = { benchmarks, registry, evidence, reproduction: reproduction || { cells: [] }, qa, transfer: transfer || { groups: [] } };
+      const [benchmarks, registry, evidence, reproduction, transfer] = await Promise.all([getApi('benchmarks'), getApi('results'), getJson('data/imu_evidence.json'), getJson('data/imu_reproduction_20261028.json', true), getJson('data/paper_transfer_evidence.json')]);
+      data = { benchmarks, registry, evidence, reproduction: reproduction || { cells: [] }, transfer: transfer || { groups: [] } };
       data.imuRows = [...model.imuObservations(registry, evidence, data.reproduction), ...model.mainPaperObservations(data.transfer)];
-      data.qaRows = model.qaObservations(qa);
       data.crossRows = model.transferObservations(data.transfer);
       data.paperScope = model.paperScope(data.transfer);
       $('last-updated').textContent = data.reproduction.updated_at ? `Runs updated ${new Date(data.reproduction.updated_at).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}` : 'Latest saved results';
@@ -78,13 +77,11 @@
     if (state.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported')) state.view = 'ranking';
     $('board-switch').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.board === state.board); b.setAttribute('aria-pressed', String(b.dataset.board === state.board)); });
     $('mode-controls').hidden = true;
-    $('last-updated').textContent = state.board === 'imu' ? 'Paper tables checked · 30 Oct 2026' : 'Paper-reported Sensor QA results';
+    $('last-updated').textContent = 'Paper tables checked · 30 Oct 2026';
     $('view-controls').hidden = false;
     $('mode-controls').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.mode === state.mode); b.setAttribute('aria-pressed', String(b.dataset.mode === state.mode)); });
     $('view-controls').querySelectorAll('button').forEach(b => { b.hidden = b.dataset.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported'); b.classList.toggle('active', b.dataset.view === state.view); b.setAttribute('aria-pressed', String(b.dataset.view === state.view)); });
-    $('board-heading').hidden = state.board === 'imu';
-    $('board-title').textContent = state.board === 'qa' ? 'Sensor question answering' : '';
-    rows = state.board === 'qa' ? data.qaRows : data.paperScope.observations;
+    rows = data.paperScope.observations;
     if (state.mode === 'unified' && state.board === 'imu') rows = rows.filter(r => r.protocol === 'raw-v2');
     $('basket-field').hidden = state.view !== 'overall';
     $('dataset-field').hidden = false;
@@ -92,7 +89,7 @@
     $('metric-field').hidden = false;
     $('protocol-label').textContent = state.view === 'overall' ? 'Score source' : 'Protocol';
     $('sort-results').hidden = false;
-    if (state.view === 'overall') { if (state.board === 'imu') renderReferenceOverall(); else renderOverall(); renderCrossPapers(); syncUrl(); return; }
+    if (state.view === 'overall') { renderReferenceOverall(); renderCrossPapers(); syncUrl(); return; }
     // Legacy links resolve to the corresponding paper label set.
     const legacyDatasets = { uci_har: 'uci_har_6c', hhar: 'hhar_6c', realworld_har: 'realworld_8c', pamap2: 'pamap2_12c', 'onehar-released': 'uci_har_6c' };
     if (state.board === 'imu' && legacyDatasets[state.dataset]) state.dataset = legacyDatasets[state.dataset];
@@ -307,8 +304,8 @@
     $('result-dialog').showModal();
   }
   $('board-switch').addEventListener('click', event => {
-    const b = event.target.closest('[data-board]'); if (!b) return;
-    state.board = b.dataset.board; state.dataset = ''; state.protocol = 'all'; state.metric = 'primary'; state.aggregateScope = ''; state.basket = 'shared'; state.search = ''; $('model-search').value = ''; render();
+    const b = event.target.closest('[data-board]'); if (!b || b.dataset.board !== 'imu') return;
+    state.board = 'imu'; state.dataset = ''; state.protocol = 'all'; state.metric = 'primary'; state.aggregateScope = ''; state.basket = 'shared'; state.search = ''; $('model-search').value = ''; render();
   });
   $('mode-controls').addEventListener('click', event => {
     const b = event.target.closest('[data-mode]'); if (!b) return;

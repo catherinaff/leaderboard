@@ -1,6 +1,6 @@
 # IoTBench Leaderboard
 
-Sensor intelligence leaderboard for IMU activity recognition and sensor question answering.
+Sensor intelligence leaderboard for IMU activity recognition.
 
 Website: https://catherinaff.github.io/leaderboard/
 
@@ -19,8 +19,7 @@ split differences are visible and marked `*`; matching targets do not imply
 a controlled common-protocol comparison. Other targets and all original
 settings remain in per-dataset rankings. Class variants are never merged.
 
-Sensor QA retains its own cited tasks and metrics. Historical run snapshots
-remain available as evidence files outside the scoped IMU ranking.
+Only the IMU board is currently displayed. Sensor QA data are retained for future restoration. Historical run snapshots remain available as evidence files outside the scoped IMU ranking.
 
 ## Data and hosting
 

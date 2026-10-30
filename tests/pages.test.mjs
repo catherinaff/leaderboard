@@ -48,7 +48,7 @@ test('all scoped rankings and data requests work at root and arbitrary subpaths'
     for(const id of expectedMethods) assert.ok(html.includes('data-method="'+id+'"'),id);
     for(const id of ['robusthar','tinyhar','attend_and_discriminate','deepsense']) assert.ok(!html.includes('data-method="'+id+'"'),id);
     assert.equal((html.match(/data-method=/g)||[]).length,19);
-    assert.equal(app.requests.length,6);
+    assert.equal(app.requests.length,5);
     assert.equal(app.env.IoTBenchPath('/downloads/a.zip'),'https://official.example'+prefix+'/downloads/a.zip');
     assert.equal(app.env.IoTBenchPath('data/a.json'),'https://official.example'+prefix+'/data/a.json');
     assert.equal(app.env.IoTBenchPath('https://paper.example/paper'),'https://paper.example/paper');
@@ -143,13 +143,15 @@ test('each dataset view retains only source-paper methods, settings and the sele
   assert.match(full.get('result-summary').textContent,/8 models · 1 setting/);
   assert.match(full.get('leaderboard-wrap').innerHTML,/SensorLLM|GPT4TS/);
 });
-test('Sensor QA still renders its separate cited tasks and scores',async()=>{
-  for(const search of ['?board=qa&view=overall','?board=qa&view=ranking']){
+test('retired Sensor QA links resolve to IMU without loading QA data',async()=>{
+  for(const search of ['?board=qa&view=overall','?board=qa&view=ranking&dataset=quants_binary']){
     const app=await boot('/leaderboard',search);
     assert.doesNotMatch(app.get('leaderboard-wrap').innerHTML,/Results could not be loaded|No matching results/);
-    assert.match(app.get('leaderboard-wrap').innerHTML,/source-paper|overall-complete/);
-    assert.equal(app.get('reference-footnote').hidden,true);
+    assert.match(app.env.location.href,/board=imu/);
+    assert.match(app.get('leaderboard-wrap').innerHTML,/MOSAIC/);
+    assert.ok(!app.requests.some(p=>p.includes('sensor_qa')));
   }
+  for(const file of ['index.html','leaderboard.html'])assert.doesNotMatch(read(file),/data-board="qa"|Sensor QA|sensor question answering/);
 });
 test('Pages submissions keep the authorized server upload portal',()=>{
  const html=read('submit-model.html');assert.match(html,/http:\/\/10\.130\.151\.16:40677\/submit-model\.html/);
