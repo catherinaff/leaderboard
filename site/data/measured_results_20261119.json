@@ -1,7 +1,7 @@
 {
   "version": "measured-first-20261119-v1",
-  "updated_at": "2026-11-19T11:31:23.914418+00:00",
-  "snapshot_at": "2026-11-19T11:31:23.914418+00:00",
+  "updated_at": "2026-11-19T12:46:28.053878+00:00",
+  "snapshot_at": "2026-11-19T12:46:28.053878+00:00",
   "selection_policy": "Measured results first, independent of their value or paper gap; retain the existing fixed-priority paper result only when no eligible measured aggregate exists.",
   "provisional_policy": "Include every available complete all-subject seed. Exclude unfinished subject sets; mark fewer than five seeds provisional.",
   "overall_metric": "accuracy",
@@ -23778,12 +23778,12 @@
       "status": "provisional_complete_seeds",
       "primary_metric": "accuracy",
       "metrics": {
-        "accuracy": 0.5947458131392171,
-        "f1_macro": 0.5664721239345308,
-        "f1_weighted": 0.5721988162862153,
-        "accuracy_std": 0.004597598138338654,
-        "f1_macro_std": 0.003926114714539519,
-        "f1_weighted_std": 0.005333770536338378
+        "accuracy": 0.5957049579764426,
+        "f1_macro": 0.5660226321684163,
+        "f1_weighted": 0.5719661657584237,
+        "accuracy_std": 0.003991473002788524,
+        "f1_macro_std": 0.003268078466534334,
+        "f1_weighted_std": 0.00436741624140685
       },
       "seed_metrics": {
         "42": {
@@ -23795,11 +23795,17 @@
           "accuracy": 0.5901482150008784,
           "f1_macro": 0.5625460092199913,
           "f1_weighted": 0.566865045749877
+        },
+        "2021": {
+          "accuracy": 0.5976232476508938,
+          "f1_macro": 0.5651236486361871,
+          "f1_weighted": 0.5715008647028406
         }
       },
       "seeds": [
         42,
-        123
+        123,
+        2021
       ],
       "required_seeds": [
         42,
@@ -23809,7 +23815,7 @@
         3407
       ],
       "complete_subjects_per_seed": 14,
-      "completed_folds": 28,
+      "completed_folds": 42,
       "required_folds": 70,
       "verified": true,
       "aggregation": "Equal test-subject weight within every complete seed; equal seed weight; population SD across complete seeds.",
@@ -24200,6 +24206,160 @@
           },
           "result_sha256": "6a67429f74aadaf21d0972c06fdb402a3471052d6bc892b003aaef9caf7895cf",
           "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_123/test_9_val_10/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_10_val_11",
+          "test": {
+            "accuracy": 0.6803953871499177,
+            "f1_macro": 0.6710111325685842,
+            "f1_weighted": 0.6535042517712237
+          },
+          "result_sha256": "7cef1cdd24921a020e574d5634f64dd70af6899d6338e72ba18efe460ab5664c",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_10_val_11/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_11_val_12",
+          "test": {
+            "accuracy": 0.4890880748246298,
+            "f1_macro": 0.45793775510044016,
+            "f1_weighted": 0.43559659962675634
+          },
+          "result_sha256": "47bc73b97c24f7bf7d1ce8a4eb8aea6b823d0d889ae42a467a82bb7426dea5ad",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_11_val_12/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_12_val_13",
+          "test": {
+            "accuracy": 0.6316590563165906,
+            "f1_macro": 0.6470146389868231,
+            "f1_weighted": 0.6201803528000511
+          },
+          "result_sha256": "41ab60bfde7fc8d895b0659d72b859e7a6f904f605b976f9ca97c501b6fa9781",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_12_val_13/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_13_val_14",
+          "test": {
+            "accuracy": 0.4008,
+            "f1_macro": 0.36514702468987753,
+            "f1_weighted": 0.3442721785895237
+          },
+          "result_sha256": "c4b40f87b2aefbb9d5aaf56cad114f9b17b69ddefa03e3ca4e2d04985a859747",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_13_val_14/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_14_val_1",
+          "test": {
+            "accuracy": 0.3882063882063882,
+            "f1_macro": 0.3327262325498528,
+            "f1_weighted": 0.33799041107847216
+          },
+          "result_sha256": "f2b6cda7b779cb59c0678a122142a4455114fa9c0dd9bdf091bb8cc4b4d25882",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_14_val_1/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_1_val_2",
+          "test": {
+            "accuracy": 0.6848516949152542,
+            "f1_macro": 0.6471685289943967,
+            "f1_weighted": 0.6854973583906292
+          },
+          "result_sha256": "034095efcb6ccc305bcaf99b4ea836d6bb9b29e9c6c6b91e4f3775e8dad9e5f1",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_1_val_2/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_2_val_3",
+          "test": {
+            "accuracy": 0.6646562123039808,
+            "f1_macro": 0.5884547725483201,
+            "f1_weighted": 0.6365084554339495
+          },
+          "result_sha256": "c2f40e062365713b49f7f67153f5fbfb3acb7ad5a7776bc30c2ffa2774b8b08b",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_2_val_3/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_3_val_4",
+          "test": {
+            "accuracy": 0.7042471042471042,
+            "f1_macro": 0.6776607358341608,
+            "f1_weighted": 0.7019550564695096
+          },
+          "result_sha256": "617fe728630591eccc096b7da5a35a399217f4496c5817c02636466d4ce36873",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_3_val_4/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_4_val_5",
+          "test": {
+            "accuracy": 0.6740983606557377,
+            "f1_macro": 0.6638158162361724,
+            "f1_weighted": 0.6737817570919696
+          },
+          "result_sha256": "659740487dd5915c725e103ae9c565684e9927751f19159433dc56318e7698e2",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_4_val_5/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_5_val_6",
+          "test": {
+            "accuracy": 0.6594148537134283,
+            "f1_macro": 0.6882834582051447,
+            "f1_weighted": 0.6368268985680581
+          },
+          "result_sha256": "955cc9ba1f8951c9d6437a4651ae7afd00dd36f151d4c40ccc299b4e047d3683",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_5_val_6/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_6_val_7",
+          "test": {
+            "accuracy": 0.6379763469119579,
+            "f1_macro": 0.5633468337765005,
+            "f1_weighted": 0.6093284267907362
+          },
+          "result_sha256": "2655feba3ba097f33a8c4d5b3486009805d9a89fd71a761803678a4dfe6f637b",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_6_val_7/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_7_val_8",
+          "test": {
+            "accuracy": 0.6900858704137393,
+            "f1_macro": 0.6446825688696336,
+            "f1_weighted": 0.686435238004442
+          },
+          "result_sha256": "3cffd6fb44ae919afce74257255a108a7c35c0a55e071d3f51f14b5e3ac88797",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_7_val_8/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_8_val_9",
+          "test": {
+            "accuracy": 0.4458312531203195,
+            "f1_macro": 0.3825175636473483,
+            "f1_weighted": 0.37189869147888166
+          },
+          "result_sha256": "ae3d658aef710210d02c8243351090bd5039bfd26b9fd47d5492a64810762ea4",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_8_val_9/result.json"
+        },
+        {
+          "seed": 2021,
+          "fold": "test_9_val_10",
+          "test": {
+            "accuracy": 0.6154148643334644,
+            "f1_macro": 0.5819640188993654,
+            "f1_weighted": 0.6072364297455642
+          },
+          "result_sha256": "15011c8c275df15d0091d60930200bc2c1a552bf5a144de2a0202196349849ce",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_2021/test_9_val_10/result.json"
         }
       ],
       "dataset_manifest_sha256": "5a3f9089653f8428d07c8e8a20accf159d6136937191f3ba61fb0c73d2ae09ba"
@@ -29702,7 +29862,7 @@
     "complete_supervised": 45,
     "provisional": 9,
     "zero_shot": 4,
-    "verified_fold_records": 2248
+    "verified_fold_records": 2262
   },
   "paid_api_calls": 0,
   "excluded_smoke_and_mock": true,
@@ -29714,7 +29874,7 @@
   },
   "base_snapshot_at": "2026-11-19T04:32:09.002717+00:00",
   "incremental_onehar": {
-    "updated_at": "2026-11-19T11:31:23.914418+00:00",
+    "updated_at": "2026-11-19T12:46:28.053878+00:00",
     "datasets": [
       "uci_har",
       "pamap2",
