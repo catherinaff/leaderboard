@@ -22,3 +22,6 @@
 .paper-reference-table{min-width:1180px}.paper-reference-table th:nth-child(2){width:25%}.paper-reference-table .reference-mean{background:#f4f7ff}.paper-reference-table .reference-source{min-width:155px;max-width:195px;line-height:1.6}.paper-reference-table .overview-score{font-size:14px;font-weight:550;font-variant-numeric:tabular-nums;min-width:68px}.paper-reference-table .model-cell{min-width:220px}.paper-reference-table .details-button{white-space:nowrap}.reference-footnote a{color:var(--accent)}
 @media(max-width:600px){.cross-paper-controls{margin:12px 16px 0;gap:8px}.cross-paper-controls button{font-size:11px;text-align:left}}
 @media (max-width:600px) { .lb-page .mode-description { margin: 12px 16px 0; font-size: 11px; } }
+
+/* Measured-first snapshot and explicit provisional coverage. */
+.source-provisional{background:#fff5e8;color:#8a4a11;border:1px solid #edcfab}.provisional-label{color:#8a4a11!important}.reference-source .cell-metric{margin-top:.4rem}.overview-score .cell-metric{white-space:normal}.reference-footnote p{max-width:1180px}

@@ -27,16 +27,16 @@
     return response.json();
   }
   async function getApi(name) {
-    let response = await fetch(`api/${name}.json`, { cache: 'no-store' });
-    if (!response.ok) response = await fetch(`api/${name}`, { cache: 'no-store' });
+    let response = await fetch(`api/${name}`, { cache: 'no-store' });
+    if (!response.ok) response = await fetch(`api/${name}.json`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load ${name}`);
     return response.json();
   }
   async function load() {
     $('refresh').disabled = true;
     try {
-      const [benchmarks, registry, evidence, reproduction, transfer] = await Promise.all([getApi('benchmarks'), getApi('results'), getJson('data/imu_evidence.json'), getJson('data/imu_reproduction_20261028.json', true), getJson('data/paper_transfer_evidence.json')]);
-      data = { benchmarks, registry, evidence, reproduction: reproduction || { cells: [] }, transfer: transfer || { groups: [] } };
+      const [benchmarks, registry, evidence, reproduction, transfer, measured] = await Promise.all([getApi('benchmarks'), getApi('results'), getJson('data/imu_evidence.json'), getJson('data/imu_reproduction_20261028.json', true), getJson('data/paper_transfer_evidence.json'), getJson('data/measured_results_20261119.json')]);
+      data = { benchmarks, registry, evidence, reproduction: reproduction || { cells: [] }, transfer: transfer || { groups: [] }, measured };
       data.imuRows = [...model.imuObservations(registry, evidence, data.reproduction), ...model.mainPaperObservations(data.transfer)];
       data.crossRows = model.transferObservations(data.transfer);
       data.paperScope = model.paperScope(data.transfer);
@@ -73,6 +73,7 @@
   }
   function render() {
     if (!data) return;
+    if (state.board === 'imu') { renderCurrent(); return; }
     if ($('reference-footnote')) $('reference-footnote').hidden = true;
     if (state.board === 'imu') { state.mode = 'cross'; if (state.view === 'overview') state.view = 'overall'; }
     if (state.view === 'overview' && (state.board !== 'imu' || state.mode !== 'reported')) state.view = 'ranking';
@@ -173,6 +174,48 @@
   }
   const referenceMethodName = method => method.id === 'onehar' ? 'One Model to Fit Them All (oneHAR)' : method.name;
   const classAsterisk = '<sup class="comparison-asterisk" aria-label="Different class versions across papers">*</sup>';
+  function renderCurrent() {
+    if (state.view === 'overview') state.view = 'overall';
+    state.mode = 'current'; state.protocol = 'all'; state.metric = 'primary';
+    const benchmark = model.currentBenchmark(data.transfer, data.measured, state.order, data.registry);
+    referenceEntries = benchmark.entries;
+    rows = benchmark.observations;
+    for (const id of ['mode-controls', 'basket-field', 'protocol-field', 'metric-field', 'cross-paper-controls']) $(id).hidden = true;
+    $('view-controls').hidden = false;
+    $('view-controls').querySelectorAll('button').forEach(b => { b.classList.toggle('active', b.dataset.view === state.view); b.setAttribute('aria-pressed', String(b.dataset.view === state.view)); });
+    $('reference-footnote').hidden = false;
+    $('last-updated').textContent = `Measured results · ${new Date(benchmark.measuredAt).toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+    $('sort-results').hidden = false;
+    const sourceText = row => row.source === 'run' ? row.sourceLabel : 'Paper';
+    const badge = row => `<span class="source-badge ${row.source === 'run' ? 'source-run' : 'source-paper'}${row.provisional ? ' source-provisional' : ''}">${esc(sourceText(row))}*</span>`;
+    const scoreButton = row => `<button class="overview-score" type="button" data-result="${esc(row.id)}">${score(row)}${row.starred || row.classMismatch ? classAsterisk : ''}${model.finite(row.uncertainty) ? `<span class="cell-metric">± ${(row.uncertainty * 100).toFixed(2)}</span>` : ''}<span class="cell-metric ${row.provisional ? 'provisional-label' : ''}">${esc(sourceText(row))}</span></button>`;
+    if (state.view === 'overall') {
+      $('dataset-field').hidden = true;
+      let entries = benchmark.entries.filter(e => !state.search || matchesSearch(e.method));
+      shown = entries.flatMap(e => e.values);
+      $('dataset-heading').textContent = 'Overall leaderboard';
+      $('result-summary').textContent = `${entries.length} ranked models · 4 datasets · measured first`;
+      $('context-note').textContent = 'Accuracy · 25% per dataset. Our completed runs replace paper values; remaining cells retain paper results. * Notes below.';
+      $('sort-results').textContent = state.order === 'best' ? 'Average ↓' : 'Average ↑';
+      $('leaderboard-wrap').innerHTML = `<div class="overview-scroll"><table class="reference-table paper-reference-table"><caption class="sr-only">Equal-weight mean Accuracy across four datasets. Measured results first; paper fallback; starred protocol and seed differences.</caption><thead><tr><th>Rank</th><th>Model</th>${benchmark.columns.map(c => `<th>${esc(c.label)}${c.classMismatch ? classAsterisk : ''}<span class="cell-metric">Accuracy</span></th>`).join('')}<th class="reference-mean">Avg. Accuracy</th><th>Source / setting</th><th>Details</th></tr></thead><tbody>${entries.map(e => `<tr class="reference-row${e.rank === 1 ? ' leading' : ''}" data-method="${esc(e.method.id)}"><td><span class="rank-number">${e.rank}</span></td><th class="model-cell"><span class="model-title">${esc(referenceMethodName(e.method))}</span><span class="model-subtitle">${esc([e.method.venue, e.method.year].filter(Boolean).join(' · '))}</span></th>${e.values.map(r => `<td>${scoreButton(r)}</td>`).join('')}<td class="reference-mean"><span class="main-score">${score({ ...e, value: e.mean })}</span>${classAsterisk}</td><td class="reference-source">${esc(e.sourceLabel)}*<span class="cell-metric">${e.sourceRuns} measured / ${e.sourcePapers} paper</span></td><td><button class="details-button" type="button" data-summary="${esc(e.method.id)}">View datasets ↗</button></td></tr>`).join('')}</tbody></table></div>${!entries.length ? '<div class="empty-state">No matching model.</div>' : ''}`;
+    } else {
+      state.view = 'ranking'; $('dataset-field').hidden = false;
+      const aliases = { uci_har_6c: 'uci_har', realworld_8c: 'realworld', realworld_har: 'realworld', pamap2_9c: 'pamap2', pamap2_12c: 'pamap2', usc_had_7c: 'usc_had', usc_had_12c: 'usc_had' };
+      state.dataset = aliases[state.dataset] || state.dataset;
+      if (!benchmark.columns.some(c => c.id === state.dataset)) state.dataset = 'uci_har';
+      $('dataset-select').innerHTML = benchmark.columns.map(c => option(c.id, c.label)).join(''); $('dataset-select').value = state.dataset;
+      const all = model.sortRows(rows.filter(r => r.dataset === state.dataset));
+      let previous = null, rank = 0; const ranks = new Map();
+      all.forEach((r, index) => { if (previous === null || Math.abs(r.value - previous) > 1e-12) rank = index + 1; ranks.set(r.id, rank); previous = r.value; });
+      shown = model.sortRows(all.filter(r => !state.search || matchesSearch(r.method)), state.order);
+      $('dataset-heading').textContent = benchmark.columns.find(c => c.id === state.dataset).label;
+      $('result-summary').textContent = `${shown.length} ranked models · Accuracy · measured first`;
+      $('context-note').textContent = 'Each model uses its measured result when available. Paper fallbacks, provisional seeds and protocol differences are marked *.';
+      $('sort-results').textContent = state.order === 'best' ? 'Accuracy ↓' : 'Accuracy ↑';
+      $('leaderboard-wrap').innerHTML = `<div class="ranking-scroll"><table class="ranking-table"><thead><tr><th>Rank</th><th>Model</th><th>Accuracy</th><th>Source / setting</th><th>Details</th></tr></thead><tbody>${shown.map(r => `<tr class="result-row${ranks.get(r.id) === 1 ? ' leading' : ''}"><td><span class="rank-number">${ranks.get(r.id)}</span></td><th class="model-cell"><span class="model-title">${esc(referenceMethodName(r.method))}</span><span class="model-subtitle">${esc(r.datasetLabel || '')}</span></th><td class="score-col">${scoreButton(r)}</td><td>${badge(r)}</td><td><button class="details-button" type="button" data-result="${esc(r.id)}">Details ↗</button></td></tr>`).join('')}</tbody></table></div>`;
+    }
+    syncUrl();
+  }
   function renderReferenceOverall() {
     state.aggregateScope = 'paper-four';
     state.basket = 'shared';
@@ -202,7 +245,7 @@
     shown = [...new Map([...shown, ...e.allValues].map(r => [r.id, r])).values()];
     const table = values => `<div class="reference-detail-scroll"><table class="reference-detail-table"><thead><tr><th>Dataset / label set</th><th>Accuracy</th><th>Setting / source</th></tr></thead><tbody>${values.map(r => `<tr><td>${esc(r.datasetLabel || nameOf(r.dataset))}${r.classMismatch ? classAsterisk : ''}</td><td><button class="overview-score" type="button" data-result="${esc(r.id)}">${score(r)} ↗</button></td><td>${esc(r.protocolLabel)}<br>${sourceBadge(r)}</td></tr>`).join('')}</tbody></table></div>`;
     const other = e.allValues.filter(r => !e.labelSets.includes(r.dataset));
-    $('detail-body').innerHTML = `<div class="detail-score"><span class="main-score">${score({ ...e, value: e.mean })}*</span></div><p class="reference-explanation">UCI-HAR, RealWorld, PAMAP2 and USC-HAD each contribute 25%. PAMAP2 uses 9 classes in oneHAR and 12 in MOSAIC; USC-HAD uses 7 and 12 respectively. Different class versions and evaluation settings are marked *.</p>${table(e.values)}${other.length ? `<details class="other-runs"><summary>Other reported datasets (${other.length}) · excluded from the overall mean</summary>${table(other)}</details>` : ''}<p class="reference-explanation">All values come from the two papers. The mean is recalculated over these four datasets, counting each dataset once per model. Click any score for the source table and full setting.</p>${link(e.method.paper, 'Source paper')}`;
+    $('detail-body').innerHTML = `<div class="detail-score"><span class="main-score">${score({ ...e, value: e.mean })}*</span></div><p class="reference-explanation">UCI-HAR, RealWorld, PAMAP2 and USC-HAD each contribute 25%. Completed measured results take precedence; paper values fill remaining cells. Class versions, provisional seed counts, zero-shot and supervised settings differ (*).</p>${table(e.values)}<p class="reference-explanation">${e.sourceRuns} measured results and ${e.sourcePapers} paper results contribute to this mean. Click each score for exact classes, seeds, protocol and evidence.</p>${link(e.method.paper, 'Source paper')}`;
     if (!$('result-dialog').open) $('result-dialog').showModal();
   }
   function renderOverall() {
@@ -290,6 +333,19 @@
   function openResult(id) {
     const r = shown.find(x => x.id === id);
     if (!r) return;
+    if (r.source === 'run' && r.protocol === 'measured-20261119') {
+      const record = r.sourceRecord;
+      $('detail-title').textContent = referenceMethodName(r.method);
+      $('detail-context').textContent = `${r.datasetLabel} · measured Accuracy`;
+      const facts = [['Source', r.sourceLabel], ['Protocol', record.protocol], ['Completed seeds', record.run_kind === 'zero_shot' ? 'One deterministic frozen-model pass; no independent training seeds or SD.' : `${record.seeds.join(', ')} (${record.seeds.length}/5)`], ['Included folds', `${record.completed_folds} / ${record.required_folds}; ${record.complete_subjects_per_seed} test subject(s) per included seed`], ['Aggregation', record.aggregation], ['Variant', record.variant_label || record.recipe?.architecture || 'Original architecture adapted to canonical dataset windows'], ['Paper calibration', record.calibration]];
+      if (record.unused_incomplete_folds) facts.push(['In progress', `${record.unused_incomplete_folds} additional completed folds belong to unfinished seed sets and do not contribute to this displayed value.`]);
+      if (r.provisional) facts.unshift(['* Provisional', 'Every included seed covers every required test subject. More seeds are still running.']);
+      if (record.recipe?.sensor_adapter) facts.push(['Sensor input', record.recipe.sensor_adapter]);
+      if (record.recipe?.compatibility) facts.push(['Adapter note', record.recipe.compatibility]);
+      $('detail-body').innerHTML = `<div class="detail-score">${sourceBadge(r)}<span class="main-score">${score(r)}*</span></div><dl class="result-facts">${facts.map(([label, value]) => `<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${r.paperReference ? `<p class="reference-explanation">Previous paper reference: ${(r.paperReference.value * 100).toFixed(2)}% · ${esc(r.paperReference.protocolLabel)}. The measured score is shown regardless of whether it is higher or lower.</p>` : ''}<div class="detail-links"><a href="data/measured_results_20261119.json" target="_blank" rel="noopener">Verified results &amp; fold evidence ↗</a>${link(r.paperUrl || r.method.paper, 'Source paper')}${link(r.method.code, 'Code')}</div>`;
+      if (!$('result-dialog').open) $('result-dialog').showModal();
+      return;
+    }
     $('detail-title').textContent = r.method.name;
     $('detail-context').textContent = `${nameOf(r.dataset)} · ${r.metricLabel}`;
     const choice = r.choice;
@@ -302,7 +358,7 @@
     const record = r.sourceRecord || {};
     const artifact = record.run_source;
     const otherRuns = choice?.alternatives?.filter(a => a.id !== choice.measured?.id) || [];
-    $('detail-body').innerHTML = `<div class="detail-score">${sourceBadge(r)}<span class="main-score">${score(r)}</span></div><dl class="result-facts"><div><dt>Protocol</dt><dd>${esc(r.protocolLabel)}</dd></div><div><dt>Setting</dt><dd>${esc(r.protocolNote || 'See the cited source for the original evaluation setting.')}</dd></div>${r.sourceTitle ? `<div><dt>Source</dt><dd>${esc(r.sourceTitle)}</dd></div>` : ''}${r.review ? `<div><dt>Review</dt><dd>${esc(r.review)}</dd></div>` : ''}${r.locator ? `<div><dt>Source location</dt><dd>${esc(typeof r.locator === 'string' ? r.locator : JSON.stringify(r.locator))}</dd></div>` : ''}${record.standalone_artifact_found === false ? '<div><dt>Run evidence</dt><dd>Saved registry observation; a standalone run artifact was not located. No independent verification is asserted.</dd></div>' : ''}${artifact ? `<div><dt>Saved artifact</dt><dd><code>${esc(artifact.path)}</code></dd></div>` : ''}${record.completed_folds ? `<div><dt>Complete runs</dt><dd>${esc(record.completed_folds)} / ${esc(record.required_folds)} · ${esc((record.seeds || []).length)} seeds</dd></div>` : ''}</dl>${comparison}${otherRuns.length ? `<details class="other-runs"><summary>Other saved runs (${otherRuns.length})</summary>${otherRuns.map(a => `<p><strong>${esc(data.evidence.protocols?.[a.protocol_id]?.label || a.protocol_id)}</strong><br>${esc(model.metricName(a.primary_metric))} ${(a.primary_score * 100).toFixed(2)}% · ${esc(a.status)}<br>${esc(a.saved_protocol_note || '')}</p>`).join('')}</details>` : ''}<div class="detail-links">${link(r.paperUrl || r.method.paper, 'Source paper')}${link(r.method.code, 'Code')}${r.auditUrl ? link(r.auditUrl, 'OPPORTUNITY audit · 30 Oct') : ''}<a href="${r.protocol === 'raw-v2' ? 'data/imu_reproduction_20261028.json' : state.board === 'qa' ? 'data/sensor_qa_leaderboard.json' : r.paperGroup || state.mode === 'cross' ? 'data/paper_transfer_evidence.json' : 'data/imu_evidence.json'}" target="_blank" rel="noopener">Result data ↗</a></div>`;
+    $('detail-body').innerHTML = `<div class="detail-score">${sourceBadge(r)}<span class="main-score">${score(r)}</span></div><dl class="result-facts"><div><dt>Protocol</dt><dd>${esc(r.protocolLabel)}</dd></div><div><dt>Setting</dt><dd>${esc(r.protocolNote || 'See the cited source for the original evaluation setting.')}</dd></div>${r.sourceTitle ? `<div><dt>Source</dt><dd>${esc(r.sourceTitle)}</dd></div>` : ''}${r.review ? `<div><dt>Review</dt><dd>${esc(r.review)}</dd></div>` : ''}${r.locator ? `<div><dt>Source location</dt><dd>${esc(typeof r.locator === 'string' ? r.locator : JSON.stringify(r.locator))}</dd></div>` : ''}${record.standalone_artifact_found === false ? '<div><dt>Run evidence</dt><dd>Saved registry observation; a standalone run artifact was not located. No independent verification is asserted.</dd></div>' : ''}${artifact ? `<div><dt>Saved artifact</dt><dd><code>${esc(artifact.path)}</code></dd></div>` : ''}${record.completed_folds ? `<div><dt>Complete runs</dt><dd>${esc(record.completed_folds)} / ${esc(record.required_folds)} · ${esc((record.seeds || []).length)} seeds</dd></div>` : ''}</dl>${comparison}${otherRuns.length ? `<details class="other-runs"><summary>Other saved runs (${otherRuns.length})</summary>${otherRuns.map(a => `<p><strong>${esc(data.evidence.protocols?.[a.protocol_id]?.label || a.protocol_id)}</strong><br>${esc(model.metricName(a.primary_metric))} ${(a.primary_score * 100).toFixed(2)}% · ${esc(a.status)}<br>${esc(a.saved_protocol_note || '')}</p>`).join('')}</details>` : ''}<div class="detail-links">${link(r.paperUrl || r.method.paper, 'Source paper')}${link(r.method.code, 'Code')}${r.auditUrl ? link(r.auditUrl, 'OPPORTUNITY audit · 30 Oct') : ''}<a href="${r.protocol === 'raw-v2' ? 'data/imu_reproduction_20261028.json' : state.board === 'qa' ? 'data/sensor_qa_leaderboard.json' : r.paperFallback || r.paperGroup || state.mode === 'cross' ? 'data/paper_transfer_evidence.json' : 'data/imu_evidence.json'}" target="_blank" rel="noopener">Result data ↗</a></div>`;
     $('result-dialog').showModal();
   }
   $('board-switch').addEventListener('click', event => {

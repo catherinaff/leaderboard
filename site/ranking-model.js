@@ -299,5 +299,53 @@
     if (order === 'reverse') entries.sort((a, b) => a.mean - b.mean || a.method.name.localeCompare(b.method.name));
     return { ...scope, datasetIds: ids, columns, entries };
   }
-  root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows, referenceRanking, paperScope, paperBenchmark });
+  function currentBenchmark(papers, measured, order = 'best', registry = []) {
+    const base = paperBenchmark(papers);
+    const methods = methodIndex(registry);
+    const available = new Map();
+    const expectedSubjects = { uci_har: 1, realworld: 15, pamap2: 8, usc_had: 14 };
+    const expectedSeeds = [42, 123, 2021, 2024, 3407];
+    for (const r of measured.records || []) {
+      if (!r.verified || !['complete', 'provisional_complete_seeds', 'complete_zero_shot'].includes(r.status)) continue;
+      if (!finite(r.metrics?.accuracy) || r.metrics.accuracy < 0 || r.metrics.accuracy > 1) continue;
+      if (!r.seeds?.length || new Set(r.seeds).size !== r.seeds.length || !r.seeds.every(s => expectedSeeds.includes(s))) continue;
+      if (r.complete_subjects_per_seed !== expectedSubjects[r.family] || r.completed_folds !== r.complete_subjects_per_seed * r.seeds.length) continue;
+      if (r.status === 'complete' && (r.seeds.length !== 5 || !expectedSeeds.every(s => r.seeds.includes(s)))) continue;
+      if (r.status === 'complete_zero_shot' && (r.run_kind !== 'zero_shot' || r.seeds.length !== 1)) continue;
+      const key = `${r.method}:${r.family}`;
+      if (available.has(key)) throw new Error(`Duplicate measured aggregate: ${key}`);
+      available.set(key, r);
+    }
+    const entries = base.entries.map(entry => {
+      const method = { ...entry.method, ...(methods.get(entry.method.id) || {}) };
+      const values = entry.values.map((paper, i) => {
+        const column = base.columns[i];
+        const record = available.get(`${method.id}:${column.id}`);
+        if (!record) return { ...paper, method, paperDataset: paper.dataset, dataset: column.id, paperFallback: true };
+        const provisional = record.status === 'provisional_complete_seeds';
+        const sourceLabel = record.run_kind === 'zero_shot' ? 'Our run · zero-shot' : `Our run · ${record.seeds.length}/5 seeds${provisional ? ' · provisional' : ''}`;
+        return { id: record.id, method, dataset: column.id, originalDataset: record.dataset,
+          datasetLabel: `${column.id === 'realworld' ? 'RealWorld' : column.id === 'uci_har' ? 'UCI-HAR' : column.id === 'pamap2' ? 'PAMAP2' : 'USC-HAD'} · ${record.num_classes} classes`,
+          comparisonDataset: column.id, classMismatch: column.classMismatch, metric: 'accuracy', metricLabel: 'Accuracy',
+          value: record.metrics.accuracy, metrics: record.metrics, uncertainty: record.metrics.accuracy_std,
+          source: 'run', sourceLabel, provisional, runKind: record.run_kind, direction: 'higher', unit: 'percent',
+          protocol: 'measured-20261119', protocolLabel: sourceLabel, protocolNote: record.protocol,
+          sourceRecord: record, paperUrl: method.paper || paper.paperUrl || '', paperReference: paper,
+          review: record.calibration, variantLabel: record.variant_label, starred: true };
+      });
+      const sourceRuns = values.filter(v => v.source === 'run').length;
+      const provisionalCount = values.filter(v => v.provisional).length;
+      const sourceLabel = !sourceRuns ? 'Paper' : sourceRuns < 4 ? 'Our run + paper' : values.every(v => v.runKind === 'zero_shot') ? 'Our run · zero-shot' : provisionalCount ? 'Our run · provisional' : 'Our run · 5 seeds';
+      return { ...entry, method, values, allValues: values, labelSets: values.map(v => v.dataset),
+        mean: values.reduce((sum, v) => sum + v.value, 0) / base.columns.length,
+        sourceRuns, sourcePapers: values.length - sourceRuns, provisionalCount, sourceLabel,
+        protocolLabel: sourceRuns ? sourceLabel : entry.protocolLabel };
+    });
+    entries.sort((a, b) => b.mean - a.mean || a.method.name.localeCompare(b.method.name));
+    let previous = null, rank = 0;
+    entries.forEach((entry, index) => { if (previous === null || Math.abs(entry.mean - previous) > 1e-12) rank = index + 1; entry.rank = rank; previous = entry.mean; });
+    if (order === 'reverse') entries.reverse();
+    return { ...base, entries, observations: entries.flatMap(e => e.values), measuredAt: measured.snapshot_at || measured.updated_at };
+  }
+  root.IoTBenchRanking = Object.freeze({ CORE, META, metricName, finite, metricValue, eligibleLocal, choosePaperScore, fullRun, forMetric, imuObservations, qaObservations, transferObservations, mainPaperObservations, paperAverages, sortRows, groupRows, overviewRows, sharedDatasets, aggregateRows, referenceRanking, paperScope, paperBenchmark, currentBenchmark });
 })(globalThis);

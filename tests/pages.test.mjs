@@ -38,6 +38,7 @@ async function boot(prefix,search='') {
 
 const expectedMethods=['mosaic','onehar','deepconvlstm','if_convtransformer','onellm','imu2clip','sensorllm','gpt4ts','timellm','units','calf','hargpt','bymyeyes','imugpt','ispl_inception','hart','mobilehart','unimts','limu_bert'];
 const paperData=()=>JSON.parse(read('data/paper_transfer_evidence.json'));
+const measuredData=()=>JSON.parse(read('data/measured_results_20261119.json'));
 
 test('all scoped rankings and data requests work at root and arbitrary subpaths',async()=>{
   for(const prefix of ['', '/leaderboard','/research/leaderboard']) {
@@ -48,13 +49,13 @@ test('all scoped rankings and data requests work at root and arbitrary subpaths'
     for(const id of expectedMethods) assert.ok(html.includes('data-method="'+id+'"'),id);
     for(const id of ['robusthar','tinyhar','attend_and_discriminate','deepsense']) assert.ok(!html.includes('data-method="'+id+'"'),id);
     assert.equal((html.match(/data-method=/g)||[]).length,19);
-    assert.equal(app.requests.length,5);
+    assert.equal(app.requests.length,6);
     assert.equal(app.env.IoTBenchPath('/downloads/a.zip'),'https://official.example'+prefix+'/downloads/a.zip');
     assert.equal(app.env.IoTBenchPath('data/a.json'),'https://official.example'+prefix+'/data/a.json');
     assert.equal(app.env.IoTBenchPath('https://paper.example/paper'),'https://paper.example/paper');
   }
 });
-test('every legacy overall route resolves to the same four-dataset paper ranking',async()=>{
+test('every legacy overall route resolves to the same four-dataset measured-first ranking',async()=>{
   for(const query of ['', '?board=imu&view=overall', '?board=imu&tab=cross-dataset&view=overall&aggregate=onehar-lodo', '?board=imu&view=overall&tab=standard', '?board=imu&view=overview']) {
     const app=await boot('/leaderboard',query);
     assert.match(app.get('result-summary').textContent,/19 ranked models · 4 datasets/);
@@ -70,7 +71,7 @@ test('every legacy overall route resolves to the same four-dataset paper ranking
     assert.equal(app.get('protocol-field').hidden,true);
   }
   assert.match(read('index.html'),/各占 25%/);
-  assert.match(read('index.html'),/训练来源或标注预算/);
+  assert.match(read('index.html'),/监督训练、LODO、zero-shot、划分和标注预算/);
   assert.doesNotMatch(read('index.html'),/各方法按其可用数据集|Paper-reported averages/);
   assert.equal(read('index.html'),read('leaderboard.html'));
 });
@@ -129,26 +130,93 @@ test('reversing display order retains true ranks',async()=>{
   assert.match(html,/<tr class="reference-row" data-method="onellm"><td><span class="rank-number">19<\/span>/);
   assert.match(html,/<tr class="reference-row leading" data-method="onehar"><td><span class="rank-number">1<\/span>/);
 });
-test('overall Details separate the shared targets from other reported targets',async()=>{
+test('overall Details identify the four selected targets and their actual source',async()=>{
   const app=await boot('/leaderboard');
   app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-summary]'?{dataset:{summary:'onehar'}}:null}});
   assert.match(app.get('detail-context').textContent,/4 datasets/);
-  assert.match(app.get('detail-body').innerHTML,/Other reported datasets \(1\) · excluded/);
+  assert.match(app.get('detail-body').innerHTML,/0 measured results and 4 paper results/);
+  assert.equal((app.get('detail-body').innerHTML.match(/data-result=/g)||[]).length,4);
   assert.match(app.get('detail-body').innerHTML,/91\.90/);
   app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:onehar-joint:onehar:uci_har_6c'}})}});
   assert.match(app.get('detail-body').innerHTML,/Table 2 · PDF p\.16/);
   assert.match(app.get('detail-body').innerHTML,/https:\/\/dl\.acm\.org\/doi\/10\.1145\/3749509/);
 });
-test('each dataset view retains only source-paper methods, settings and the selected label set',async()=>{
+test('dataset views use four families and retain starred class variants and measured sources',async()=>{
   const app=await boot('/leaderboard','?board=imu&view=ranking&dataset=pamap2_9c');
-  assert.match(app.get('dataset-select').innerHTML,/pamap2_9c/);assert.match(app.get('dataset-select').innerHTML,/pamap2_12c/);
-  assert.equal((app.get('dataset-select').innerHTML.match(/<option /g)||[]).length,21);
-  assert.match(app.get('dataset-heading').textContent,/PAMAP2 · 9 classes/);
+  assert.equal(app.get('dataset-select').value,'pamap2');
+  assert.equal((app.get('dataset-select').innerHTML.match(/<option /g)||[]).length,4);
+  assert.equal(app.get('dataset-heading').textContent,'PAMAP2');
   assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
-  assert.doesNotMatch(app.get('leaderboard-wrap').innerHTML,/MOSAIC|TinyHAR|RobustHAR/);
+  assert.match(app.get('leaderboard-wrap').innerHTML,/PAMAP2 · 9 classes/);
+  assert.match(app.get('leaderboard-wrap').innerHTML,/PAMAP2 · 12 classes/);
+  assert.match(app.get('leaderboard-wrap').innerHTML,/MOSAIC|Our run/);
+  assert.doesNotMatch(app.get('leaderboard-wrap').innerHTML,/TinyHAR|RobustHAR/);
   const full=await boot('/leaderboard','?view=ranking&dataset=wisdm_18c&protocol=mosaic-full-shot');
-  assert.match(full.get('result-summary').textContent,/8 models · 1 setting/);
+  assert.equal(full.get('dataset-select').value,'uci_har');
+  assert.match(full.get('result-summary').textContent,/19 ranked models · Accuracy · measured first/);
   assert.match(full.get('leaderboard-wrap').innerHTML,/SensorLLM|GPT4TS/);
+});
+
+test('measured overlay uses all verified results regardless of gap and leaves missing runs as paper',async()=>{
+  const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,p=paperData(),d=measuredData();
+  const before=JSON.stringify([p,d]),b=M.currentBenchmark(p,d);
+  assert.equal(b.entries.length,19);
+  assert.equal(b.observations.filter(r=>r.source==='run').length,54);
+  assert.equal(b.observations.filter(r=>r.source==='paper').length,22);
+  assert.equal(b.observations.filter(r=>r.provisional).length,5);
+  assert.equal(d.records.reduce((sum,r)=>sum+r.completed_folds,0),2163);
+  for(const e of b.entries){
+    assert.equal(e.values.length,4);
+    assert.deepEqual([...e.values].map(r=>r.dataset),['uci_har','realworld','pamap2','usc_had']);
+    assert.equal(e.mean,e.values.reduce((sum,r)=>sum+r.value,0)/4);
+  }
+  for(const raw of d.records){
+    const selected=b.observations.find(r=>r.method.id===raw.method&&r.dataset===raw.family);
+    assert.equal(selected.source,'run');
+    assert.equal(selected.value,raw.metrics.accuracy);
+    assert.equal(selected.sourceRecord.id,raw.id);
+  }
+  const sensor=b.entries.find(e=>e.method.id==='sensorllm');
+  assert.equal(sensor.sourceRuns,1);assert.equal(sensor.sourcePapers,3);
+  assert.equal(sensor.values[0].source,'run');
+  assert.equal(sensor.values[0].value,d.records.find(r=>r.method==='sensorllm').metrics.accuracy);
+  assert.notEqual(sensor.values[0].value,sensor.values[0].paperReference.value);
+  assert.ok(b.entries.find(e=>e.method.id==='onehar').values.every(r=>r.paperFallback));
+  const rw=b.observations.find(r=>r.method.id==='if_convtransformer'&&r.dataset==='realworld');
+  assert.notEqual(rw.value,rw.metrics.f1_macro);
+  assert.equal(rw.value,rw.metrics.accuracy);
+  assert.equal(JSON.stringify([p,d]),before);
+});
+
+test('unfinished subject sets, unverified and smoke results cannot replace paper values',async()=>{
+  const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,p=paperData(),data=measuredData();
+  const full=data.records.find(r=>r.method==='calf'&&r.family==='realworld');
+  const paper=M.currentBenchmark(p,{records:[]}).entries.find(e=>e.method.id==='calf').values[1];
+  for(const change of [{completed_folds:29},{complete_subjects_per_seed:14},{verified:false},{status:'smoke'},{seeds:[42,42]},{metrics:{accuracy:1.1}}]){
+    const bad={...structuredClone(full),...change};
+    const selected=M.currentBenchmark(p,{records:[bad]}).entries.find(e=>e.method.id==='calf').values[1];
+    assert.equal(selected.source,'paper');assert.equal(selected.value,paper.value);
+  }
+  assert.throws(()=>M.currentBenchmark(p,{records:[full,full]}),/Duplicate measured aggregate/);
+});
+
+test('provisional results cover all subjects and zero-shot results are one pass without fabricated SD',async()=>{
+  const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,d=measuredData(),b=M.currentBenchmark(paperData(),d);
+  for(const r of b.observations.filter(r=>r.provisional)){
+    assert.equal(r.sourceRecord.complete_subjects_per_seed,15);
+    assert.equal(r.sourceRecord.completed_folds,15*r.sourceRecord.seeds.length);
+    assert.match(r.sourceLabel,/provisional/);
+    assert.equal(r.sourceRecord.seeds.length,r.method.id==='calf'?2:3);
+  }
+  for(const r of b.observations.filter(r=>r.method.id==='onellm')){
+    assert.equal(r.runKind,'zero_shot');assert.equal(r.sourceRecord.seeds.length,1);
+    assert.equal(r.uncertainty,undefined);
+  }
+  app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-result]'?{dataset:{result:'measured-20261119:calf:realworld_har'}}:null}});
+  assert.match(app.get('detail-body').innerHTML,/\* Provisional/);
+  assert.match(app.get('detail-body').innerHTML,/42, 123 \(2\/5\)/);
+  assert.match(app.get('detail-body').innerHTML,/30 \/ 75/);
+  assert.match(app.get('detail-body').innerHTML,/Verified results &amp; fold evidence/);
 });
 test('retired Sensor QA links resolve to IMU without loading QA data',async()=>{
   for(const search of ['?board=qa&view=overall','?board=qa&view=ranking&dataset=quants_binary']){
