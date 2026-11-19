@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Measured-first IMU HAR leaderboard across four datasets, with paper fallbacks and explicit protocol notes.">
   <title>IoTBench · Sensor Intelligence Leaderboard</title>
-  <link rel="stylesheet" href="ranking.css?v=20261119-measured-first">
-  <script defer src="ranking-model.js?v=20261119-measured-first"></script>
-  <script defer src="ranking.js?v=20261119-measured-first"></script>
+  <link rel="stylesheet" href="ranking.css?v=20261119-onehar-updates">
+  <script defer src="ranking-model.js?v=20261119-onehar-updates"></script>
+  <script defer src="ranking.js?v=20261119-onehar-updates"></script>
 </head>
 <body class="lb-page">
   <header><div class="lb-header">
@@ -42,6 +42,7 @@
       <p><strong>* 实测与暂定结果：</strong>UCI-HAR 使用官方测试集；PAMAP2、USC-HAD、RealWorld 分别覆盖 8、14、15 个测试受试者，采用 LOSO 与独立验证受试者。完整监督结果汇总 5 个种子。RealWorld 上 CALF 暂为 2/5 种子，GPT4TS、IMU2CLIP、IMUGPT、UniTS 暂为 3/5；每个计入的种子都已覆盖全部 15 人，其余进行中的折数不进入该均值。± 为完整种子均值之间的总体标准差；暂定结果后续可能变化。</p>
       <p><strong>* 类别与协议：</strong>本次实测为 UCI-HAR 6 类、RealWorld 8 类、PAMAP2 12 类、USC-HAD 12 类。论文保留各自类别版本，其中 oneHAR 的 PAMAP2 / USC-HAD 为 9 / 7 类，MOSAIC 为 12 / 12 类。监督训练、LODO、zero-shot、划分和标注预算也存在差异；实测完成不等于已复现论文原协议。统一使用 Accuracy 排名，未将 RealWorld Macro F1 混入总平均。</p>
       <p><strong>* 模型适配：</strong>TimeLLM 使用作者支持的 GPT-2 分支并新增分类输出；IMU2CLIP 使用可公开获得的社区预训练编码器，其原始预训练来源尚未完全核实；UniTS 使用作者 x64 监督预训练权重；IMUGPT 使用作者文本、动作生成及 IMU 仿真链路，训练集校准后迁移 DeepConvLSTM；SensorLLM 使用独立 MHEALTH 对齐预训练。具体输入、版本和证据见每项 Details。</p>
+      <p><strong>* oneHAR / CDNet 实测：</strong>UCI-HAR、PAMAP2 已完成的实测采用作者 CDNet 的逐数据集监督适配版，保留原始 6 / 12 类和共同划分；CDNet 主体重新初始化训练，使用冻结的 HHAR LIMU-BERT 与 BERT 文本编码器，未使用作者联合训练的 IMU 权重，未包含论文的 LLM 合成、DQA/DPS/PDS 或跨数据集联合训练。采用加速度输入及每样本传感器池化修正。每个种子覆盖全部测试集／8 个受试者后才计入，按当前完整种子平均；种子数与暂定状态见各单元格。其余尚无可用实测汇总的单元格仍保留论文值，混合均值仅供参考。</p>
       <p><strong>* OneLLM / API：</strong>OneLLM 为作者冻结权重在全部受试者上的一次零样本分类评测，非五次独立监督训练，也不同于论文中的监督适配设置。HARGPT、ByMyEyes 仍未付费实跑，保留论文结果；离线接口、冒烟及模拟测试均不计入榜单。</p>
       <p>实测快照：2026-11-19。论文缺项保留来源：<a href="https://dl.acm.org/doi/10.1145/3831643" target="_blank" rel="noopener">MOSAIC，Tables 2–4</a> 与 <a href="https://dl.acm.org/doi/10.1145/3749509" target="_blank" rel="noopener">One Model to Fit Them All，Tables 2–3</a>。<a href="data/measured_results_20261119.json" target="_blank" rel="noopener">下载实测汇总与逐折证据 ↗</a> · <a href="data/paper_transfer_evidence.json" target="_blank" rel="noopener">原论文数据 ↗</a></p>
     </aside>

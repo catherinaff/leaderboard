@@ -188,7 +188,7 @@
     $('sort-results').hidden = false;
     const sourceText = row => row.source === 'run' ? row.sourceLabel : 'Paper';
     const badge = row => `<span class="source-badge ${row.source === 'run' ? 'source-run' : 'source-paper'}${row.provisional ? ' source-provisional' : ''}">${esc(sourceText(row))}*</span>`;
-    const scoreButton = row => `<button class="overview-score" type="button" data-result="${esc(row.id)}">${score(row)}${row.starred || row.classMismatch ? classAsterisk : ''}${model.finite(row.uncertainty) ? `<span class="cell-metric">± ${(row.uncertainty * 100).toFixed(2)}</span>` : ''}<span class="cell-metric ${row.provisional ? 'provisional-label' : ''}">${esc(sourceText(row))}</span></button>`;
+    const scoreButton = row => `<button class="overview-score" type="button" data-result="${esc(row.id)}">${score(row)}${row.starred || row.classMismatch ? classAsterisk : ''}${model.finite(row.uncertainty) ? `<span class="cell-metric">± ${(row.uncertainty * 100).toFixed(2)}</span>` : ''}<span class="cell-metric ${row.provisional ? 'provisional-label' : ''}">${esc(sourceText(row))}</span>${row.method.id === 'onehar' && row.source === 'run' ? '<span class="cell-metric">CDNet adapter*</span>' : ''}</button>`;
     if (state.view === 'overall') {
       $('dataset-field').hidden = true;
       let entries = benchmark.entries.filter(e => !state.search || matchesSearch(e.method));

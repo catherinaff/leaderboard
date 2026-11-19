@@ -44,7 +44,8 @@ test('all scoped rankings and data requests work at root and arbitrary subpaths'
   for(const prefix of ['', '/leaderboard','/research/leaderboard']) {
     const app=await boot(prefix);
     const html=app.get('leaderboard-wrap').innerHTML;
-    assert.match(html,/92\.05/);
+    assert.match(html,/measured-20261119:onehar:uci_har/);
+    assert.match(html,/CDNet adapter\*/);
     assert.match(html,/One Model to Fit Them All \(oneHAR\)/);
     for(const id of expectedMethods) assert.ok(html.includes('data-method="'+id+'"'),id);
     for(const id of ['robusthar','tinyhar','attend_and_discriminate','deepsense']) assert.ok(!html.includes('data-method="'+id+'"'),id);
@@ -63,7 +64,7 @@ test('every legacy overall route resolves to the same four-dataset measured-firs
     assert.match(html,/UCI-HAR · 6 classes/);assert.match(html,/RealWorld · 8 classes/);
     assert.match(html,/68\.43/);assert.match(html,/comparison-asterisk/);
     assert.match(html,/PAMAP2<sup/);assert.match(html,/USC-HAD<sup/);
-    assert.match(html,/pamap2_9c/);assert.match(html,/pamap2_12c/);
+    assert.match(html,/pamap2_12c|measured-20261119:onehar:pamap2/);
     assert.match(html,/usc_had_7c/);assert.match(html,/usc_had_12c/);
     assert.doesNotMatch(html,/Partial coverage|unranked|available-only/);
     assert.equal(app.get('reference-footnote').hidden,false);
@@ -124,20 +125,24 @@ test('selection is independent of score magnitude, retains zeros, and never fill
   assert.ok(!custom.entries.some(e=>e.method.id==='onehar'));
 });
 test('reversing display order retains true ranks',async()=>{
-  const app=await boot('/leaderboard');app.get('sort-results').dispatch('click');
+  const app=await boot('/leaderboard');
+  const before=app.env.IoTBenchRanking.currentBenchmark(paperData(),measuredData());
+  const leading=before.entries.find(e=>e.rank===1).method.id;
+  app.get('sort-results').dispatch('click');
   const html=app.get('leaderboard-wrap').innerHTML;
   assert.ok(html.indexOf('data-method="onellm"')<html.indexOf('data-method="onehar"'));
   assert.match(html,/<tr class="reference-row" data-method="onellm"><td><span class="rank-number">19<\/span>/);
-  assert.match(html,/<tr class="reference-row leading" data-method="onehar"><td><span class="rank-number">1<\/span>/);
+  assert.ok(html.includes(`<tr class="reference-row leading" data-method="${leading}"><td><span class="rank-number">1</span>`));
 });
 test('overall Details identify the four selected targets and their actual source',async()=>{
   const app=await boot('/leaderboard');
   app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-summary]'?{dataset:{summary:'onehar'}}:null}});
   assert.match(app.get('detail-context').textContent,/4 datasets/);
-  assert.match(app.get('detail-body').innerHTML,/0 measured results and 4 paper results/);
+  const runs=measuredData().records.filter(r=>r.method==='onehar').length;
+  assert.ok(app.get('detail-body').innerHTML.includes(`${runs} measured results and ${4-runs} paper results`));
   assert.equal((app.get('detail-body').innerHTML.match(/data-result=/g)||[]).length,4);
-  assert.match(app.get('detail-body').innerHTML,/91\.90/);
-  app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:onehar-joint:onehar:uci_har_6c'}})}});
+  assert.match(app.get('detail-body').innerHTML,/CDNet|Our run/);
+  app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:onehar-joint:onehar:usc_had_7c'}})}});
   assert.match(app.get('detail-body').innerHTML,/Table 2 · PDF p\.16/);
   assert.match(app.get('detail-body').innerHTML,/https:\/\/dl\.acm\.org\/doi\/10\.1145\/3749509/);
 });
@@ -147,7 +152,8 @@ test('dataset views use four families and retain starred class variants and meas
   assert.equal((app.get('dataset-select').innerHTML.match(/<option /g)||[]).length,4);
   assert.equal(app.get('dataset-heading').textContent,'PAMAP2');
   assert.match(app.get('leaderboard-wrap').innerHTML,/oneHAR/);
-  assert.match(app.get('leaderboard-wrap').innerHTML,/PAMAP2 · 9 classes/);
+  if(!measuredData().records.some(r=>r.method==='onehar'&&r.dataset==='pamap2'))
+    assert.match(app.get('leaderboard-wrap').innerHTML,/PAMAP2 · 9 classes/);
   assert.match(app.get('leaderboard-wrap').innerHTML,/PAMAP2 · 12 classes/);
   assert.match(app.get('leaderboard-wrap').innerHTML,/MOSAIC|Our run/);
   assert.doesNotMatch(app.get('leaderboard-wrap').innerHTML,/TinyHAR|RobustHAR/);
@@ -161,10 +167,12 @@ test('measured overlay uses all verified results regardless of gap and leaves mi
   const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,p=paperData(),d=measuredData();
   const before=JSON.stringify([p,d]),b=M.currentBenchmark(p,d);
   assert.equal(b.entries.length,19);
-  assert.equal(b.observations.filter(r=>r.source==='run').length,54);
-  assert.equal(b.observations.filter(r=>r.source==='paper').length,22);
-  assert.equal(b.observations.filter(r=>r.provisional).length,5);
-  assert.equal(d.records.reduce((sum,r)=>sum+r.completed_folds,0),2163);
+  const added=d.records.filter(r=>r.method==='onehar');
+  assert.equal(b.observations.filter(r=>r.source==='run').length,54+added.length);
+  assert.equal(b.observations.filter(r=>r.source==='paper').length,22-added.length);
+  assert.equal(b.observations.filter(r=>r.provisional).length,5+added.filter(r=>r.status==='provisional_complete_seeds').length);
+  assert.equal(d.records.filter(r=>r.method!=='onehar').reduce((sum,r)=>sum+r.completed_folds,0),2163);
+  assert.equal(d.totals.verified_fold_records,d.records.reduce((sum,r)=>sum+r.completed_folds,0));
   for(const e of b.entries){
     assert.equal(e.values.length,4);
     assert.deepEqual([...e.values].map(r=>r.dataset),['uci_har','realworld','pamap2','usc_had']);
@@ -181,7 +189,9 @@ test('measured overlay uses all verified results regardless of gap and leaves mi
   assert.equal(sensor.values[0].source,'run');
   assert.equal(sensor.values[0].value,d.records.find(r=>r.method==='sensorllm').metrics.accuracy);
   assert.notEqual(sensor.values[0].value,sensor.values[0].paperReference.value);
-  assert.ok(b.entries.find(e=>e.method.id==='onehar').values.every(r=>r.paperFallback));
+  const one=b.entries.find(e=>e.method.id==='onehar');
+  assert.ok(one.values.filter(r=>['realworld','usc_had'].includes(r.dataset)).every(r=>r.paperFallback));
+  assert.equal(one.values[0].source,'run');
   const rw=b.observations.find(r=>r.method.id==='if_convtransformer'&&r.dataset==='realworld');
   assert.notEqual(rw.value,rw.metrics.f1_macro);
   assert.equal(rw.value,rw.metrics.accuracy);
@@ -202,7 +212,7 @@ test('unfinished subject sets, unverified and smoke results cannot replace paper
 
 test('provisional results cover all subjects and zero-shot results are one pass without fabricated SD',async()=>{
   const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,d=measuredData(),b=M.currentBenchmark(paperData(),d);
-  for(const r of b.observations.filter(r=>r.provisional)){
+  for(const r of b.observations.filter(r=>r.provisional&&r.method.id!=='onehar')){
     assert.equal(r.sourceRecord.complete_subjects_per_seed,15);
     assert.equal(r.sourceRecord.completed_folds,15*r.sourceRecord.seeds.length);
     assert.match(r.sourceLabel,/provisional/);
@@ -217,6 +227,23 @@ test('provisional results cover all subjects and zero-shot results are one pass 
   assert.match(app.get('detail-body').innerHTML,/42, 123 \(2\/5\)/);
   assert.match(app.get('detail-body').innerHTML,/30 \/ 75/);
   assert.match(app.get('detail-body').innerHTML,/Verified results &amp; fold evidence/);
+});
+
+test('oneHAR additions require complete canonical seed sets and disclose the supervised adapter',async()=>{
+  const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,d=measuredData();
+  const one=M.currentBenchmark(paperData(),d).entries.find(e=>e.method.id==='onehar');
+  for(const r of one.values.filter(v=>v.source==='run')){
+    assert.ok(['uci_har','pamap2'].includes(r.dataset));
+    const expected=r.dataset==='uci_har'?1:8;
+    assert.equal(r.sourceRecord.completed_folds,r.sourceRecord.seeds.length*expected);
+    assert.equal(r.sourceRecord.num_classes,r.dataset==='uci_har'?6:12);
+    assert.match(r.variantLabel,/CDNet supervised adapter/);
+    assert.equal(r.provisional,r.sourceRecord.seeds.length<5);
+  }
+  app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-result]'?{dataset:{result:'measured-20261119:onehar:uci_har'}}:null}});
+  assert.match(app.get('detail-body').innerHTML,/CDNet supervised adapter/);
+  assert.match(app.get('detail-body').innerHTML,/no LLM synthesis/);
+  assert.match(read('index.html'),/oneHAR \/ CDNet 实测/);
 });
 test('retired Sensor QA links resolve to IMU without loading QA data',async()=>{
   for(const search of ['?board=qa&view=overall','?board=qa&view=ranking&dataset=quants_binary']){
