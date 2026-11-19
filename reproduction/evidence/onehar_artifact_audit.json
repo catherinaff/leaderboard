@@ -1,0 +1,190 @@
+{
+  "status": "passed",
+  "verified": [
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/uci_har/seed_42/official/result.json",
+      "result_sha256": "37f7f407ea2ac7779ef67b1f19bbabdda1686f87b25a42f265fcc925836da4f6",
+      "method": "onehar",
+      "dataset": "uci_har",
+      "seed": 42,
+      "fold": "official"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_101_val_102/result.json",
+      "result_sha256": "89a46477257880bc304744b79f005111913be50d2e6cbb19b86abbd93e764ab3",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_101_val_102"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_102_val_103/result.json",
+      "result_sha256": "8859adfef575d39117cc88705ed56ea845eb00b24c8496f1c493a68f61688027",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_102_val_103"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_103_val_104/result.json",
+      "result_sha256": "ecd8149525daa6d063ad4d50fb5ef5afb9e60a5b23ea978810c4220be779efef",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_103_val_104"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_104_val_105/result.json",
+      "result_sha256": "b13a5731f12192cba83b8479db3842b0bae9c7342ab1eff41169e0e18e71b6ea",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_104_val_105"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_105_val_106/result.json",
+      "result_sha256": "f02308ccedd7c867c08fb68e57d5989bb47a15e398a0bc5116f6d20dddca2776",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_105_val_106"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_106_val_107/result.json",
+      "result_sha256": "7e7a46cd377ef716941d8c199c8651574192db5c4dc6d4ecc29fed83a1808b8b",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_106_val_107"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_107_val_108/result.json",
+      "result_sha256": "2bc356374116cd6387c4f910737fdba71f55eebfdd3ef52f2f3354b85d1c1220",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_107_val_108"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/pamap2/seed_42/test_108_val_101/result.json",
+      "result_sha256": "fbaa5d8a6bfd5a385a688302013e6fb568945357a3af6ce4d1fb7da715a03b31",
+      "method": "onehar",
+      "dataset": "pamap2",
+      "seed": 42,
+      "fold": "test_108_val_101"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_10_val_11/result.json",
+      "result_sha256": "edaf1b9e81de12c931158de7f5a36cc6a3e361ca7a24a1720fad98d361cb78b3",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_10_val_11"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_11_val_12/result.json",
+      "result_sha256": "4810d32f5d261c43712ee04361d6ba14805d8dc5fc631ef77a641cbaf081f6e3",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_11_val_12"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_12_val_13/result.json",
+      "result_sha256": "fd14347626907df5e760a5d0813005fe2392a92731a0b71c0390735d5f117b2a",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_12_val_13"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_13_val_14/result.json",
+      "result_sha256": "c94b948afeea81edcc87ad3bf0c472244aa63bb816d55bffa0241a4f3e638fa4",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_13_val_14"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_14_val_1/result.json",
+      "result_sha256": "994f5a54be62d17bdb0c95f426288e4bb37a44ab78d612f33bb111d7b3e3e473",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_14_val_1"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_1_val_2/result.json",
+      "result_sha256": "e3b1a141ded8198d60024f7fe86a2a9c460d4c2dd87e018cb7d8d80d035fedcc",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_1_val_2"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_2_val_3/result.json",
+      "result_sha256": "38d4031788c5872bd6e16fddf09b17b9b5b072e26224ad1b85e3ad54076de744",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_2_val_3"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_3_val_4/result.json",
+      "result_sha256": "d28197f3cfc7a519ccef8742a5941c05910ec0926adb20a680c0c3387a760a43",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_3_val_4"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_4_val_5/result.json",
+      "result_sha256": "8f5eda6521ee18032b52ff1ed3a9d2dd9c8a057fadd2569691382ab1c4b5fec5",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_4_val_5"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_5_val_6/result.json",
+      "result_sha256": "5be2b1d34c23899706fdd11f54c2c195f1ed97435eae2299b45c045c040a8a6c",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_5_val_6"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_6_val_7/result.json",
+      "result_sha256": "77e7ed121bc297a71a7bf505ed5a9ab01767300d123b47a81a95c6a4c4c00825",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_6_val_7"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_7_val_8/result.json",
+      "result_sha256": "ba6479b51870a1737b127a3691cbb13ebd10c1d02acf56c1f13fa94eace41333",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_7_val_8"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_8_val_9/result.json",
+      "result_sha256": "6fad5c92641bfbb0c76b996ba81cd496091339c25366f4676008b375ed41b3e5",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_8_val_9"
+    },
+    {
+      "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_9_val_10/result.json",
+      "result_sha256": "24cf2d5aade45e77f9ab919fe77a1969bb29bff4a90e78c8229c08d602a303d8",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seed": 42,
+      "fold": "test_9_val_10"
+    }
+  ],
+  "folds": 23
+}

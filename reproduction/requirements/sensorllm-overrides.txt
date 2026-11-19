@@ -1,0 +1,10 @@
+# Install with --no-deps in the documented isolated environment.
+transformers==4.45.2
+tokenizers==0.20.3
+peft==0.13.2
+accelerate==1.0.1
+sentencepiece==0.2.0
+tensorboard==2.18.0
+neurokit2==0.2.10
+tiktoken==0.8.0
+openai==1.109.1

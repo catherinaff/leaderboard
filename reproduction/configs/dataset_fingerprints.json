@@ -1,0 +1,199 @@
+{
+  "uci_har": {
+    "dataset": "uci_har",
+    "version": "standard-raw-v2-20261028",
+    "shape": [
+      10299,
+      128,
+      9
+    ],
+    "classes": [
+      "Walking",
+      "Walking Upstairs",
+      "Walking Downstairs",
+      "Sitting",
+      "Standing",
+      "Laying"
+    ],
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "arrays_sha256": {
+      "x": "6a75ce9b2843dea4820ee2aa330e023545c42b89e5c8386a40f49f00e4c2006e",
+      "y": "56b9efc3afd6be6051559966a57fa85a37af6a0a1479cbe6d258e6fed582e519",
+      "subjects": "a049b4247e5b23df0f1cad713d89f5b932dd784fa23a17348e681eabb748a3e3",
+      "recordings": "11a9752ee362823db30e928470642c3c81165f530f7cb31208228f073223c30b",
+      "starts": "8bc16754f74a98033f486ae975ca3354abef3dbd130d5ce95fb651f2b965d346"
+    },
+    "preprocessing_sha256": "95f6a11fa8dcaf38f72f189a36a29ec1ee1ccdf5094722198ae3be936323d80f",
+    "benchmark_sha256": "2dc779e6f4687df909fedc94f2cdb34ab43be28ee9f767f6e8bb2833cfeec0e4",
+    "manifest_sha256": "441df6f6e431b1bf6953c2e855eb383297dc34b9579946c8ad1982742971aec9"
+  },
+  "pamap2": {
+    "dataset": "pamap2",
+    "version": "standard-raw-v2-20261028",
+    "shape": [
+      19524,
+      200,
+      27
+    ],
+    "classes": [
+      "Lying",
+      "Sitting",
+      "Standing",
+      "Walking",
+      "Running",
+      "Cycling",
+      "Nordic Walking",
+      "Ascending Stairs",
+      "Descending Stairs",
+      "Vacuum Cleaning",
+      "Ironing",
+      "Rope Jumping"
+    ],
+    "subjects": [
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108
+    ],
+    "arrays_sha256": {
+      "x": "fea0b2480429eae0557d068ace9fe8fff1e44c3c7ef082c6a53ef211e6299fa8",
+      "y": "030fa9608330bd847c28aa313be65b78d91d06b43886abcbc051e85f8b82376b",
+      "subjects": "7114d824af1074d7583547c85b019d56dae84239ec8753d970dd30fa2343e30b",
+      "recordings": "a888552ab2370649521b1d7962f5300b2ff24586fd3bb8938a53fb144ea4ac5d",
+      "starts": "c124a140bcb0f00e99bf7a14f91cab8eed1544fb730b1e216e05da958b1225cf"
+    },
+    "preprocessing_sha256": "95f6a11fa8dcaf38f72f189a36a29ec1ee1ccdf5094722198ae3be936323d80f",
+    "benchmark_sha256": "37d93f51bd9b27b0b6b0b08e5655f4986cce00e713f079f2d30a0cb706198fb2",
+    "manifest_sha256": "2b9ff80934c9c4b9d50f3a9aac9c5f0116eb83c2482981d2d835e6005bf86bb1"
+  },
+  "usc_had": {
+    "dataset": "usc_had",
+    "version": "continuation-raw-20261106",
+    "shape": [
+      27205,
+      200,
+      6
+    ],
+    "classes": [
+      "Walking Forward",
+      "Walking Left",
+      "Walking Right",
+      "Walking Upstairs",
+      "Walking Downstairs",
+      "Running Forward",
+      "Jumping Up",
+      "Sitting",
+      "Standing",
+      "Sleeping",
+      "Elevator Up",
+      "Elevator Down"
+    ],
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "arrays_sha256": {
+      "x": "670622778238048b31cfa15cf386f59fa8c2fca546e1896fec994cd56c99f3b4",
+      "y": "b52bacfb8f7047891c069e8085c77540282b9fe1a1be961c735221c725074bd2",
+      "subjects": "9e39fedcd08ae39f13078903a676a995bf50cae526718efc028c51c9d8f5e3b9",
+      "recordings": "47d8f5439b83c0231b0dd4fd61f33de1c6cf266b924589a5f9abbb3373e0f65c",
+      "starts": "96f60a91a14ec365b3cfd5110dc934d07a52f63fe037f9eb2bbc3ad7a025cabe"
+    },
+    "preprocessing_sha256": "7a13d477d473ebc643304e33add95adc0f1617b4538219074d957f468d24bb7c",
+    "benchmark_sha256": "82322926c7f16c182696c10a5ef1866a9982dfe3e7e3647d8b8e8b937240ffb4",
+    "manifest_sha256": "5a3f9089653f8428d07c8e8a20accf159d6136937191f3ba61fb0c73d2ae09ba"
+  },
+  "realworld_har": {
+    "dataset": "realworld_har",
+    "version": "continuation-raw-20261106",
+    "shape": [
+      37501,
+      100,
+      42
+    ],
+    "classes": [
+      "Climbing Down",
+      "Climbing Up",
+      "Jumping",
+      "Lying",
+      "Running",
+      "Sitting",
+      "Standing",
+      "Walking"
+    ],
+    "subjects": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "arrays_sha256": {
+      "x": "28b6ade8fae9e534cf7b574b23fdb9ac77b38e7f84d58f7085fb80bef6516888",
+      "y": "a494c8798269fc081bfc561aa71867a087ae61989f659454020f28d8677138ea",
+      "subjects": "667823e70b8fee4263f7ed140a747fc2c7932f6d51d0ce6d4f7ca8feac17df32",
+      "recordings": "a28f26905e6b74b496a2ddf1af1d06e7fdce1f93ba3b050a9f1a33c180be978b",
+      "starts": "6972c11f80835398bdafcf54bb28502edb74947ea622096770012799e3ea8ed4"
+    },
+    "preprocessing_sha256": "d5d760bd337b3a4348370c95dc02f983b2389ff9b4f2615b1a63a1c0d4aa8180",
+    "benchmark_sha256": "2748b6bb974ef91a3596be16dfb2da16a1b667073142a6268868d169c77aeb2b",
+    "manifest_sha256": "bc8f8446bec279b8bbf953c8a6da5a77112116aa055af2e0dd7d2878a9d9538a"
+  }
+}

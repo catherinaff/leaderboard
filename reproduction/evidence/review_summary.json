@@ -1,0 +1,42 @@
+{
+  "checked_at": "2026-11-19T07:04:53.914815+00:00",
+  "official_critical_files_matched": 25,
+  "official_critical_files_mismatched": 0,
+  "recorded_source_hashes_checked": 1099,
+  "runtime_checks_status": "passed",
+  "runtime_check_groups": 4,
+  "paid_api_calls": 0,
+  "exact_paper_protocol_certification": false,
+  "methods": {
+    "deepconvlstm": "paper_port",
+    "if_convtransformer": "author_components",
+    "unimts": "author_components",
+    "limu_bert": "author_components",
+    "hart": "author_components",
+    "mobilehart": "author_components",
+    "ispl_inception": "author_components",
+    "gpt4ts": "author_components",
+    "calf": "author_components",
+    "units": "author_components",
+    "timellm": "task_extension",
+    "imu2clip": "author_components_with_weight_caveat",
+    "imugpt": "pipeline_adapter",
+    "sensorllm": "two_stage_adapter",
+    "onehar": "supervised_adapter",
+    "onellm": "frozen_zero_shot",
+    "hargpt": "interface_only",
+    "bymyeyes": "interface_only",
+    "mosaic": "paper_only",
+    "robusthar": "paper_port",
+    "tinyhar": "author_components",
+    "attend_and_discriminate": "author_components",
+    "deepsense": "paper_port"
+  },
+  "verified_selected_fold_records": 2186,
+  "verified_onehar_fold_records": 23,
+  "selected_measured_groups": 57,
+  "result_audit_files": [
+    "artifact_audit_20261119.json",
+    "onehar_artifact_audit.json"
+  ]
+}

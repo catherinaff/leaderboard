@@ -1,0 +1,40 @@
+{
+  "id": "pamap2",
+  "name": "PAMAP2",
+  "category": "Standard",
+  "dataset": "Physical Activity Monitoring for Aging People 2",
+  "paper": "Reiss & Stricker, 2012",
+  "paper_url": "https://archive.ics.uci.edu/ml/datasets/pamap2+physical+activity+monitoring",
+  "modality": "Multi-IMU",
+  "sensor_type": "3 IMUs (accelerometer + gyroscope + magnetometer) + heart rate",
+  "placement": "Chest, dominant wrist, dominant ankle",
+  "subjects": 8,
+  "classes": [
+    "Lying", "Sitting", "Standing",
+    "Walking", "Running", "Cycling", "Nordic Walking",
+    "Ascending Stairs", "Descending Stairs",
+    "Vacuum Cleaning", "Ironing", "Rope Jumping"
+  ],
+  "sampling_rate_hz": 100,
+  "channels": 27,
+  "channel_description": "3 IMU × 9 channels (3 accel + 3 gyro + 3 mag) = 27. Heart rate optional.",
+  "protocol": {
+    "type": "Leave-One-Subject-Out (LOSO)",
+    "folds": 8,
+    "train_per_fold": 7,
+    "test_per_fold": 1,
+    "window_size_samples": 200,
+    "window_size_seconds": 2.0,
+    "stride_samples": 100,
+    "overlap": "50%",
+    "pre_segmented": false,
+    "note": "Report mean ± std across all 8 LOSO folds. All 8 subjects must be evaluated — testing only subject 6 is invalid.",
+    "excluded_activities": "6 low-count activities are excluded: watching TV, computer work, car driving, folding laundry, house cleaning, playing soccer (only 1 subject performed these)."
+  },
+  "metrics": {
+    "primary": "f1_weighted",
+    "secondary": ["accuracy", "f1_macro"]
+  },
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/pamap2+physical+activity+monitoring",
+  "description": "8 subjects performed 12 activities (Lying, Sitting, Standing, Walking, Running, Cycling, Nordic Walking, Ascending Stairs, Descending Stairs, Vacuum Cleaning, Ironing, Rope Jumping) with three IMUs placed on the chest, dominant wrist, and dominant ankle. Each IMU records 9-axis data at 100Hz. Six activities performed by only one subject are excluded. The task is to segment the stream into 2 second windows with 50% overlap and classify each window into one of the 12 activities. Use Leave-One-Subject-Out cross validation across all 8 subjects. Report mean and standard deviation across the 8 folds. All 8 subjects must be evaluated. Testing only on subject 6 is not valid."
+}

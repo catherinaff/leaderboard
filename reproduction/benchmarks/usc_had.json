@@ -1,0 +1,40 @@
+{
+  "id": "usc_had",
+  "name": "USC-HAD",
+  "category": "Standard",
+  "dataset": "USC Human Activity Dataset",
+  "paper": "Zhang & Sawchuk, 2012",
+  "paper_url": "https://sipi.usc.edu/had/",
+  "modality": "IMU",
+  "sensor_type": "Accelerometer + Gyroscope",
+  "placement": "MotionNode (waist/front-right-hip)",
+  "subjects": 14,
+  "classes": [
+    "Walking Forward", "Walking Left", "Walking Right",
+    "Walking Upstairs", "Walking Downstairs",
+    "Running Forward", "Jumping Up",
+    "Sitting", "Standing", "Sleeping",
+    "Elevator Up", "Elevator Down"
+  ],
+  "sampling_rate_hz": 100,
+  "channels": 6,
+  "channel_description": "3 accelerometer (x, y, z) + 3 gyroscope (x, y, z)",
+  "protocol": {
+    "type": "Leave-One-Subject-Out (LOSO)",
+    "folds": 14,
+    "train_per_fold": 13,
+    "test_per_fold": 1,
+    "window_size_samples": 200,
+    "window_size_seconds": 2.0,
+    "stride_samples": 100,
+    "overlap": "50%",
+    "pre_segmented": false,
+    "note": "Report mean ± std across all 14 LOSO folds."
+  },
+  "metrics": {
+    "primary": "accuracy",
+    "secondary": ["f1_macro", "f1_weighted"]
+  },
+  "dataset_url": "https://sipi.usc.edu/had/",
+  "description": "14 subjects performed 12 activities (Walking Forward, Walking Left, Walking Right, Walking Upstairs, Walking Downstairs, Running Forward, Jumping Up, Sitting, Standing, Sleeping, Elevator Up, Elevator Down) with a hip-mounted MotionNode sensor recording accelerometer and gyroscope data at 100Hz. The task is to segment the stream into 2 second windows with 50% overlap and classify each window into one of the 12 activities. Use Leave-One-Subject-Out cross validation across all 14 subjects. Report mean and standard deviation of the primary metric across the 14 folds."
+}

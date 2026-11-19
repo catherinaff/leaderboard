@@ -1,0 +1,33 @@
+{
+  "unimts": {
+    "files": [
+      {
+        "destination": "experiments/imu_reproduction_20261028/reference/UniMTS.pth",
+        "url": "https://huggingface.co/xiyuanz/UniMTS/resolve/main/checkpoint/UniMTS.pth",
+        "sha256": "a9858c0084d936655240407e30ff9db9adeded6a67dc5650e3f667578e93b220",
+        "aliases": [
+          "experiments/imu_continuation_20261106/reference/UniMTS.pth"
+        ]
+      }
+    ]
+  },
+  "onehar_release": {
+    "files": [
+      {
+        "destination": "experiments/onehar_20261028/artifacts/uniHAR.pth",
+        "url": "https://media.githubusercontent.com/media/ZJU-wqx-2025/uniHAR/e98bc56bbd575a61042d85825f4de85f07c594db/uniHAR.pth",
+        "sha256": "66f2bf6af6497c2a984a4f0b4f1cc9ee5d2549dcf5bf17401638137c0daa51bf"
+      },
+      {
+        "destination": "experiments/onehar_20261028/official/saved/pretrain_base_hhar_20_120/hhar.pt",
+        "url": "https://raw.githubusercontent.com/ZJU-wqx-2025/uniHAR/e98bc56bbd575a61042d85825f4de85f07c594db/saved/pretrain_base_hhar_20_120/hhar.pt",
+        "sha256": "22dab2ba528cd88954395c7f043a006c74fbc38e7d329a64d21e2eb54114b463"
+      },
+      {
+        "destination": "experiments/onehar_20261028/artifacts/vocab.txt",
+        "url": "https://huggingface.co/google-bert/bert-base-uncased/resolve/main/vocab.txt",
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    ]
+  }
+}

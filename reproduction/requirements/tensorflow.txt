@@ -1,0 +1,8 @@
+# Independent environment; do not merge with the Torch/LLM environment.
+tensorflow==2.15.1
+keras==2.15.0
+numpy==1.26.4
+scipy==1.15.3
+scikit-learn==1.7.2
+pandas==2.3.3
+h5py==3.16.0

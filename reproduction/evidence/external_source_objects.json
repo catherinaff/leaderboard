@@ -1,0 +1,8 @@
+{
+  "not_revendored_sha256": [
+    "9ec62f3c8b0d7944b0f80d31de37aaa11d41c711c8d31a29e4108a6aad2b340b",
+    "d7c482699410ba14e48d14ae27fb6b000a10864a76d45e66aa199eaf65048e2e",
+    "c6551252999de591008408dcdf70830d3a4ec6c8ce15058c03aacf4827e5ccc7"
+  ],
+  "resolution": "Fetch pinned HART/iSPL author model files and HART datasets/DATA_UCI.py, then compare recorded SHA256. These original upstream files are not relabelled as our code."
+}

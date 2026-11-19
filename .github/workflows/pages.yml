@@ -20,6 +20,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Check static pages and ranking data
         run: node --test tests/*.test.mjs
+      - name: Check reproduction code and provenance
+        run: python3 -m unittest discover -s reproduction/tests
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

@@ -1,0 +1,24 @@
+{
+  "id": "cross_pamap2_to_uci",
+  "name": "PAMAP2 → UCI-HAR",
+  "category": "Cross-Dataset",
+  "source": "pamap2",
+  "target": "uci_har",
+  "modality": "Multi-IMU → IMU",
+  "description": "Train on PAMAP2 (12 activities, 3 body-worn IMUs, 27 channels, 8 subjects) and evaluate on UCI-HAR (6 activities, waist smartphone, 9 channels, 30 subjects). Only the 6 shared activity classes are evaluated: Walking, Walking Upstairs, Walking Downstairs, Sitting, Standing, and Lying. This pair tests generalization from multiple sensors to a single sensor. The source domain is much larger than the target.",
+  "shared_classes": ["Walking", "Walking Upstairs", "Walking Downstairs", "Sitting", "Standing", "Lying"],
+  "protocol": {
+    "type": "Train on source, test on target",
+    "source_train": "PAMAP2 subjects 1–7 (LOSO folds, each used as source)",
+    "target_test": "UCI-HAR subjects 22–30 (standard fixed test set)",
+    "window_size_samples": 128,
+    "window_size_seconds": 2.56,
+    "stride_samples": 64,
+    "overlap": "50%",
+    "note": "PAMAP2 has 3 IMU positions; pick one (chest recommended) or use all three. UCI-HAR test set is the standard 9 subjects (22–30)."
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy"]
+  }
+}

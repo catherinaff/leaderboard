@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "completed_at": "2026-11-19T07:04:54.842214+00:00",
+  "checks": [
+    {
+      "name": "paper_port_numeric",
+      "passed": true,
+      "log": "paper_port_numeric.log",
+      "tail": "PASS peephole forward/gradients, Lasagne RMSprop, TF1 GRU semantics, GRL and oneHAR loss/selection/quality components.\n"
+    },
+    {
+      "name": "robusthar_equations",
+      "passed": true,
+      "log": "robusthar_equations.log",
+      "tail": "{\n  \"model_sha256\": \"393ebe5e69d62a596899aee0371ab15806b69f39c9b5aaad37d9f7c3651763da\",\n  \"cases\": [\n    {\n      \"dataset\": \"uci_har\",\n      \"passed\": true,\n      \"attention_queries\": \"correlation_B,128,128\",\n      \"keys_values\": \"same_branch_B,T,128\",\n      \"fusion\": \"matrix_dot_product\",\n      \"frozen_encoders_verified\": true\n    },\n    {\n      \"dataset\": \"wisdm\",\n      \"passed\": true,\n      \"attention_queries\": \"correlation_B,128,128\",\n      \"keys_values\": \"same_branch_B,T,128\",\n      \"fusion\": \"matrix_dot_product\",\n      \"frozen_encoders_verified\": true\n    },\n    {\n      \"dataset\": \"pamap2\",\n      \"passed\": true,\n      \"attention_queries\": \"correlation_B,128,128\",\n      \"keys_values\": \"same_branch_B,T,128\",\n      \"fusion\": \"matrix_dot_product\",\n      \"frozen_encoders_verified\": true\n    },\n    {\n      \"dataset\": \"hhar\",\n      \"passed\": true,\n      \"attention_queries\": \"correlation_B,128,128\",\n      \"keys_values\": \"same_branch_B,T,128\",\n      \"fusion\": \"matrix_dot_product\",\n      \"frozen_encoders_verified\": true\n    },\n    {\n      \"dataset\": \"opportunity_a\",\n      \"passed\": true,\n      \"attention_queries\": \"correlation_B,128,128\",\n      \"keys_values\": \"same_branch_B,T,128\",\n      \"fusion\": \"matrix_dot_product\",\n      \"frozen_encoders_verified\": true\n    }\n  ]\n}\n"
+    },
+    {
+      "name": "llm_adapter_contracts_no_paid_calls",
+      "passed": true,
+      "log": "llm_adapter_contracts_no_paid_calls.log",
+      "tail": "/root/pengrf/leadiboard/iotbench_har/experiments/imu_continuation_20261106/vendor/sensorllm/mhealth_stage1.ipynb:cell6:635: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.\n{\n  \"status\": \"passed\",\n  \"checks\": [\n    \"All three disabled combinations stop before SDK/client/network construction\",\n    \"Real SDK with network blocked: payload, response, cache hit and persistent request limit verified locally; zero paid calls\",\n    \"Exact label parsing rejects ambiguous overlapping activity names\",\n    \"OneLLM SDPA matches explicit attention, including unequal cached query/key lengths\",\n    \"OneLLM physical channel selection/rate/window conversion, UCI total_acc order verified\",\n    \"SensorLLM original notebook generates trend/summary QA locally without an API\"\n  ]\n}\n"
+    },
+    {
+      "name": "tf_author_models_forward_backward",
+      "passed": true,
+      "log": "tf_author_models_cpu.log",
+      "tail": "2026-11-19 07:04:40.230769: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n2026-11-19 07:04:40.230895: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n2026-11-19 07:04:40.305699: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n2026-11-19 07:04:48.396578: E external/local_xla/xla/stream_executor/cuda/cuda_driver.cc:274] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected\n[{\"method\": \"hart\", \"passed\": true, \"output_shape\": [2, 6], \"gradient_tensors\": 179}, {\"method\": \"mobilehart\", \"passed\": true, \"output_shape\": [2, 6], \"gradient_tensors\": 316}, {\"method\": \"ispl_inception\", \"passed\": true, \"output_shape\": [2, 6], \"gradient_tensors\": 42}]\n"
+    }
+  ],
+  "benchmark_scores_generated": false,
+  "paid_api_calls": 0
+}

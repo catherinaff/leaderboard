@@ -1,0 +1,24 @@
+{
+  "id": "cross_pamap2_to_opp_a",
+  "name": "PAMAP2 → OPPORTUNITY-A",
+  "category": "Cross-Dataset",
+  "source": "pamap2",
+  "target": "opportunity_a",
+  "modality": "Multi-IMU → Multimodal",
+  "description": "Train on PAMAP2 (12 activities, 3 body-worn IMUs, 27 channels) and evaluate on OPPORTUNITY Track A (17 gesture classes, body IMUs and object sensors, 79 channels). Only the locomotion classes shared between both datasets are evaluated: Stand, Walk, Sit, and Lie. This pair tests generalization from IMU-only to multimodal sensors, and from scripted activity sessions to naturalistic daily routines.",
+  "shared_classes": ["Stand", "Walk", "Sit", "Lie"],
+  "protocol": {
+    "type": "Train on source, test on target",
+    "source_train": "PAMAP2 subjects 1–7 (LOSO folds, each used as source)",
+    "target_test": "OPPORTUNITY subjects 1–4 (each as hold-out, LOSO)",
+    "window_size_samples": 30,
+    "window_size_seconds": 1.0,
+    "stride_samples": 15,
+    "overlap": "50%",
+    "note": "Use only body-worn IMU channels from OPPORTUNITY (skip object sensors if architecture does not support them). Use ADL run only. Report mean ± std across 4 LOSO folds."
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy"]
+  }
+}

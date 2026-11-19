@@ -1,0 +1,35 @@
+{
+  "id": "uci_har",
+  "name": "UCI-HAR",
+  "category": "Standard",
+  "dataset": "UCI Human Activity Recognition Using Smartphones",
+  "paper": "Anguita et al., 2013",
+  "paper_url": "https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones",
+  "modality": "IMU",
+  "sensor_type": "Accelerometer + Gyroscope",
+  "placement": "Waist-mounted smartphone (Samsung Galaxy S2)",
+  "subjects": 30,
+  "classes": ["Walking", "Walking Upstairs", "Walking Downstairs", "Sitting", "Standing", "Laying"],
+  "sampling_rate_hz": 50,
+  "channels": 9,
+  "channel_description": "3 accelerometer (x, y, z) + 3 gyroscope (x, y, z) + 3 total acceleration (x, y, z)",
+  "protocol": {
+    "type": "Fixed subject-wise split",
+    "train_subjects": "1–21",
+    "test_subjects": "22–30",
+    "train_windows": 7352,
+    "test_windows": 2947,
+    "window_size_samples": 128,
+    "window_size_seconds": 2.56,
+    "stride_samples": 64,
+    "overlap": "50%",
+    "pre_segmented": true,
+    "note": "Data is pre-segmented by dataset authors. No custom windowing needed."
+  },
+  "metrics": {
+    "primary": "accuracy",
+    "secondary": ["f1_macro", "f1_weighted"]
+  },
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones",
+  "description": "30 subjects performed 6 activities (Walking, Walking Upstairs, Walking Downstairs, Sitting, Standing, Laying) with a waist-mounted smartphone recording accelerometer and gyroscope data at 50Hz. The dataset is pre-segmented into 2.56 second windows with 50% overlap. The task is to classify each window into one of the 6 activities. Train on subjects 1 to 21. Test on subjects 22 to 30. Subject 14 is a known anomaly and must remain in the training set."
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "file": "experiments/imu_continuation_20261106/fetch_llama3_assets_20261113.py",
+    "before_sha256": "1b27d0ed0dfb06629f33404aa80f736a861794f73b07ed958c519dcb0c498e6c",
+    "after_sha256": "62b80d985833237bfc006bfaa9e14ecdd434c06c44a19c48c47df2e5cd0ec891",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/prepare_calf_basis_20261113.py",
+    "before_sha256": "77d90ae04d37234776db6cf3ce122d18d159a090ec26fdf617ea274d8b4be00d",
+    "after_sha256": "6c36b8176b5a244d5c1d68a624f261e700890da8d4845248f4de339990ccd79d",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/smoke_foundation_datasets_20261113.py",
+    "before_sha256": "d7ac1969801e555c14763ae7f076bad0b8fd05a0cc8e94f070545018af105f17",
+    "after_sha256": "1e36373023822b601dc1c735a97e600b44aa554e2e543d22c0b4b37b5eb08072",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/fetch_gpt2_assets_20261113.py",
+    "before_sha256": "36d2b6fee8ba857eec251cfd0ac8d62dc47b4d59f3075d33dc31bc722f2eb4c5",
+    "after_sha256": "8648cbe846836b8c29dc93c3751075acea4f0777baa30bafe0a7d8a383aa48d7",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/fetch_units_assets_20261113.py",
+    "before_sha256": "035bdc9681520a676871262480f6aeb51502aaec8c01581c8f65bda402659470",
+    "after_sha256": "aa2fb61c48fa20fb5cab28edaf793cd00135ec471f3e41efc2cad9591f78d6f7",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/smoke_imu2clip_datasets_20261113.py",
+    "before_sha256": "7e5cb6aa7f12df8274dec1486da5cf02932d8d5e88a82fd3030cbc040d1b150a",
+    "after_sha256": "d1d8c86dc539eab70d7835431cde487525b6eb2bdccee28799ed8d3c4590edb7",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/tf_smoke_checks.py",
+    "before_sha256": "224b5c9875ec89ddeb895b74d61d1e5b57d107d591ffee45699273a2fd1769aa",
+    "after_sha256": "8dc3763057dcd9770e5585d1dd1677db38b55880710c3902d342c64b314bfe72",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  },
+  {
+    "file": "experiments/imu_continuation_20261106/fetch_onellm_assets_20261113.py",
+    "before_sha256": "3c97edcdb9a53ba6abd799ba608115d0826bfa21e35c35424b4d4d5c9760ac5b",
+    "after_sha256": "e140e90c8486445e87403981bd7b201a2ea27fcb3523128f424ed9f23e8fd9c9",
+    "change": "Replace original machine absolute suite root with __file__ relative path. Model arithmetic is unchanged."
+  }
+]

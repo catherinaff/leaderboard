@@ -1,0 +1,48 @@
+{
+  "id": "realworld_har",
+  "name": "RealWorld-HAR",
+  "category": "Standard",
+  "dataset": "RealWorld HAR Dataset 2016",
+  "paper": "Sztyler & Stuckenschmidt, 2016",
+  "paper_url": "https://www.uni-mannheim.de/dws/research/projects/activity-recognition/dataset/dataset-realworld/",
+  "dataset_url": "https://www.uni-mannheim.de/dws/research/projects/activity-recognition/dataset/dataset-realworld/",
+  "official_csv_base_url": "https://www.uni-mannheim.de/media/Einrichtungen/dws/Files_Research/Projects/sensor/realworld",
+  "full_archive_url": "http://wifo5-14.informatik.uni-mannheim.de/sensor/dataset/realworld2016/realworld2016_dataset.zip",
+  "modality": "IMU",
+  "sensor_type": "Accelerometer + Gyroscope from multiple wearable positions",
+  "placement": "Seven on-body positions: chest, forearm, head, shin, thigh, upper arm, waist",
+  "subjects": 15,
+  "classes": [
+    "Climbing Down",
+    "Climbing Up",
+    "Jumping",
+    "Lying",
+    "Running",
+    "Sitting",
+    "Standing",
+    "Walking"
+  ],
+  "sampling_rate_hz": 50,
+  "channels": 42,
+  "channel_description": "Seven body positions, each with 3-axis accelerometer and 3-axis gyroscope channels. Streams are aligned by timestamp and resampled to 50 Hz.",
+  "protocol": {
+    "type": "Leave-One-Subject-Out (LOSO)",
+    "folds": 15,
+    "train_per_fold": 14,
+    "test_per_fold": 1,
+    "window_size_samples": 100,
+    "window_size_seconds": 2.0,
+    "stride_samples": 50,
+    "overlap": "50%",
+    "sampling_rate_hz": 50,
+    "pre_segmented": false,
+    "positions": ["chest", "forearm", "head", "shin", "thigh", "upperarm", "waist"],
+    "sensors": ["acc", "gyr"],
+    "note": "Use all seven body positions with accelerometer and gyroscope streams only. Align each subject/activity recording by timestamp, resample to 50 Hz, segment into 2 second windows with 50% overlap, and report mean plus standard deviation across all 15 LOSO folds."
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy", "f1_weighted"]
+  },
+  "description": "The RealWorld HAR dataset contains on-body sensor recordings from 15 subjects performing 8 activities: climbing down, climbing up, jumping, lying, running, sitting, standing, and walking. This canonical track uses accelerometer and gyroscope streams from seven body positions, aligned to a common 50 Hz grid. The task is subject-independent activity recognition with Leave-One-Subject-Out evaluation."
+}

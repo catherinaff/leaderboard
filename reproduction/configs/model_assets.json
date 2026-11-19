@@ -1,0 +1,290 @@
+{
+  "gpt2": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/gpt2",
+    "manifest": {
+      "repo": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+      "files": {
+        "config.json": {
+          "size": 665,
+          "sha256": "0daed7749b4f02b8f76240d5444551d7b08712dab4d0adb8239c56ba823bb7b4"
+        },
+        "model.safetensors": {
+          "size": 548105171,
+          "sha256": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707"
+        },
+        "merges.txt": {
+          "size": 456318,
+          "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+        },
+        "vocab.json": {
+          "size": 1042301,
+          "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+        },
+        "tokenizer.json": {
+          "size": 1355256,
+          "sha256": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6"
+        },
+        "tokenizer_config.json": {
+          "size": 26,
+          "sha256": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f"
+        },
+        "generation_config.json": {
+          "size": 124,
+          "sha256": "ed0b32ac72c0f5f44a719abb2d7786ea5146c871f83717b7f2018065954de02b"
+        }
+      }
+    }
+  },
+  "units": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/units",
+    "manifest": {
+      "url": "https://github.com/mims-harvard/UniTS/releases/download/ckpt/units_x64_supervised_checkpoint.pth",
+      "sha256": "24202af9df0fe089663bc01ac98d561068e6d5b2f3a4f89c96341708c2a8e879",
+      "bytes": 13874778
+    }
+  },
+  "imu2clip": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/imu2clip",
+    "manifest": {
+      "repo": "pranay-ar/IMU2CLIP",
+      "revision": "969d0b2984dfc215d856d733cf581c4d5b487756",
+      "provenance": "Community distribution; original author architecture and weight keys require strict validation; not an independently paper-calibrated reproduction.",
+      "files": {
+        "shane_models/i2c_s_i_t_t_ie_mw2_w_2.5_master_imu_encoder.pt": {
+          "size": 3406852,
+          "sha256": "644b1899f538a4068b4a31549876ca66d08427368f1f02af8bc735cc2b34704d"
+        },
+        "shane_models/run_load_imu2clip_encoder.py": {
+          "size": 1757,
+          "sha256": "49de3797ae638cfd9364bbeb35db78d0dff095c582bbc4751fd37741e8c41bbc"
+        }
+      }
+    }
+  },
+  "llama3": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/llama3",
+    "manifest": {
+      "repo": "NousResearch/Meta-Llama-3-8B",
+      "revision": "315b20096dc791d381d514deb5f8bd9c8d6d3061",
+      "official_repo": "meta-llama/Meta-Llama-3-8B",
+      "official_revision": "8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920",
+      "files": {
+        "config.json": {
+          "sha256": "2430cee764b6530ff8673cf9ba8561e1d5a33152d503cd0de909ff5718261441",
+          "size": 654
+        },
+        "generation_config.json": {
+          "sha256": "93caf96e269e32b9ee33ad78b0d76d910408d11a63a8b2c49241030836759311",
+          "size": 177
+        },
+        "model.safetensors.index.json": {
+          "sha256": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+          "size": 23950
+        },
+        "special_tokens_map.json": {
+          "sha256": "462d91939dbc37178aa5a3eae7068d1990ccc92e09f288cc71f42cdf139d69cc",
+          "size": 73
+        },
+        "tokenizer.json": {
+          "sha256": "e134af98b985517b4f068e3755ae90d4e9cd2d45d328325dc503f1c6b2d06cc7",
+          "size": 9085698
+        },
+        "tokenizer_config.json": {
+          "sha256": "690727b4fed286383df1c7ca5e805124cb70c6eb4529f807c7b2e60ff741da7e",
+          "size": 50566
+        },
+        "model-00001-of-00004.safetensors": {
+          "sha256": "f2c144103072514542e327fa8080bd375cb300f2d453fba9ca3aea81d0d4cf33",
+          "size": 4976698672
+        },
+        "model-00002-of-00004.safetensors": {
+          "sha256": "d9eee5f23d94405d90b7e9ff88b9443fee42f8528a658f54214c2aba7530d80c",
+          "size": 4999802720
+        },
+        "model-00003-of-00004.safetensors": {
+          "sha256": "4b8fbc5e113f69768dd8de84661ea20af8a32b734a9976144b4236c447b40ccc",
+          "size": 4915916176
+        },
+        "model-00004-of-00004.safetensors": {
+          "sha256": "5dc34e6bdf2da9e35f0d93b5c333c870f3677dc43dc3a91ea3a8ad28a1fe1acb",
+          "size": 1168138808
+        }
+      }
+    }
+  },
+  "chronos": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/chronos",
+    "manifest": {
+      "repo": "amazon/chronos-t5-large",
+      "revision": "0e46c9c7e2e9f74b53db0617fdfcfe42a413e54a",
+      "files": {
+        "config.json": {
+          "size": 1117,
+          "sha256": "146a4a052dc7867be9582138bb45766c36ee7f8a98a5eea00a67bc681eb4f868"
+        },
+        "model.safetensors": {
+          "size": 2835915592,
+          "sha256": "dad1e592a5ba771788d47fd3868f174eeb07e7ca0c4d6dc5ab77674952f452e1"
+        }
+      }
+    }
+  },
+  "onellm": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/onellm",
+    "manifest": {
+      "repo": "csuhan/OneLLM-7B",
+      "revision": "e8bd281d09b64620759ba6c5273684817dc9a331",
+      "official_repo": "csuhan/OneLLM-7B",
+      "official_revision": "e8bd281d09b64620759ba6c5273684817dc9a331",
+      "files": {
+        "params.json": {
+          "sha256": "abca3ac5d29c564e8bd2bd2672fb2dd83213c58b673d18e8eb64c502ed8401a2",
+          "size": 102
+        },
+        "tokenizer.model": {
+          "sha256": "9e556afd44213b6bd1be2b850ebbbd98f5481437a8021afaf58ee7fb1818d347",
+          "size": 499723
+        },
+        "consolidated.00-of-01.pth": {
+          "sha256": "a90c8e1599a9ab4743f4939709a7aaafefb2e931df1d49aebc8e5f143994f772",
+          "size": 15194779173
+        }
+      }
+    }
+  },
+  "imugpt/SOURCE_ASSETS.json": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/imugpt",
+    "manifest": {
+      "source": "https://codeload.github.com/ZikangLeng/IMUGPT/legacy.zip/329cf78",
+      "archive_sha256": "8633a33f1ec29ad30d601951369a19e04d4a219b266b64aaacf8b43b87f87fd5",
+      "files": {
+        "body_models/smpl/J_regressor_extra.npy": {
+          "size": 496160,
+          "sha256": "cc968ea4f9855571e82f90203280836b01f13ee42a8e1b89d8d580b801242a89"
+        },
+        "body_models/smpl/smplfaces.npy": {
+          "size": 165440,
+          "sha256": "7ee8e99db736acf178a6078ab5710ca942edc3738d34c72f41a35c40b370e045"
+        },
+        "glove/our_vab_data.npy": {
+          "size": 10077728,
+          "sha256": "73ed9b73ee5bc5ab683661c132b9f98fe305672dffdf70ceeac1bc447543d668"
+        },
+        "imusim/imusim/maths/natural_neighbour.c": {
+          "size": 294311,
+          "sha256": "6257d93a49e717d9dcc8693669ab211a26b9f961445fefc9ffb1b4e1c3ffab21"
+        },
+        "imusim/imusim/maths/natural_neighbour.pyx": {
+          "size": 2589,
+          "sha256": "b529a43624fead90e29923ec29d3f2ab23e87bc141fd1fa5b6eec344886e6ab6"
+        },
+        "imusim/imusim/maths/natural_neighbour/delaunay.c": {
+          "size": 55702,
+          "sha256": "3a072c60023d460af21251adce3f7e766aac79bcd3233e202bda6ad67c1ddc61"
+        },
+        "imusim/imusim/maths/natural_neighbour/delaunay.h": {
+          "size": 13590,
+          "sha256": "f846154b2cd762cef3961d865aaad98595a388a0b9e92d2dedee29bd5c809c21"
+        },
+        "imusim/imusim/maths/natural_neighbour/natural.c": {
+          "size": 12668,
+          "sha256": "e780bd52c7e5439a7150b326dea9c4bb1d17c69fd98e2fdc001e4a9ad4b58414"
+        },
+        "imusim/imusim/maths/natural_neighbour/natural.h": {
+          "size": 1847,
+          "sha256": "6806b1b3652f80f5de3b0d4f312682eabefb57593291806cdbe6376b7509545f"
+        },
+        "imusim/imusim/maths/natural_neighbour/predicates.c": {
+          "size": 171537,
+          "sha256": "612be86ebe7d207c621067d96b5643e37287e258984b0aad09f9f7c19131097b"
+        },
+        "imusim/imusim/maths/natural_neighbour/utils.c": {
+          "size": 12151,
+          "sha256": "f4b2a150b039541fb32ae3a477e0135520298e23136d45b86eb2f8069d5bd96d"
+        },
+        "imusim/imusim/maths/natural_neighbour/utils.h": {
+          "size": 5208,
+          "sha256": "70c34b69f2dd80cf8af69b7a2139c90a84df0e4c484d2d48db4c881e1b2b9b51"
+        },
+        "imusim/imusim/maths/quat_splines.c": {
+          "size": 712945,
+          "sha256": "6998eb678315e5d9afd23fde41105c669d9e8038303cc503ed41f13542c68c73"
+        },
+        "imusim/imusim/maths/quat_splines.pyx": {
+          "size": 15297,
+          "sha256": "5bc39cb695839da6533c9285a68c195752326553b4b1776553d90b845eee57c0"
+        },
+        "imusim/imusim/maths/quaternions.c": {
+          "size": 1159463,
+          "sha256": "dc51a3b82d1ae47186c6a6b98fe2099344f65a821d0e503961ad7d43fd305e2c"
+        },
+        "imusim/imusim/maths/quaternions.pxd": {
+          "size": 745,
+          "sha256": "42480b32763becdb68fe6fa928b87164f854065e83c0a0158bcb93170a581361"
+        },
+        "imusim/imusim/maths/quaternions.pyx": {
+          "size": 26987,
+          "sha256": "d63449c7d67c1d3aa0fc6fa31b7d7ecc18ce34a2b790cf58b8e81fc456e873ae"
+        },
+        "imusim/imusim/maths/vectors.c": {
+          "size": 347131,
+          "sha256": "cfc874354c23aed2fe0add4326adb675bd239a16aa66b42fed5f792f521185e7"
+        },
+        "imusim/imusim/maths/vectors.pyx": {
+          "size": 3287,
+          "sha256": "d3c8e9b4e0cf66bd3256a647b3c93f51e70c6e2f7189be7de0387ff627a16cbc"
+        },
+        "imusim/imusim/tests/algorithms/test.bvh": {
+          "size": 99107,
+          "sha256": "cc78cf47c435e61bff3999a24bfec738bbc1e950d91dae18a0ca3d1d3839d48b"
+        },
+        "imusim/imusim/tests/io/16_15.bvh": {
+          "size": 306099,
+          "sha256": "7b2984694e454c13e6d7573fd15c97bf3f0d9a557f6f76e65e8d9db80f8a5135"
+        },
+        "imusim/imusim/tests/system/walk.bvh": {
+          "size": 99107,
+          "sha256": "cc78cf47c435e61bff3999a24bfec738bbc1e950d91dae18a0ca3d1d3839d48b"
+        },
+        "test_xyz_to_bvh.bvh": {
+          "size": 106343,
+          "sha256": "1e0dfd8b8df46b214a432384bafde606861ec947a3beaf1f5b2a05cb499517cd"
+        }
+      },
+      "not_downloaded": [
+        "SMPL body-model files: not required by the author inverse-kinematics route."
+      ]
+    }
+  },
+  "imugpt/MOTION_ASSETS.json": {
+    "destination": "experiments/imu_continuation_20261106/assets_20261113/imugpt",
+    "manifest": {
+      "source": "Author Google Drive file 1LaOvwypF-jM2Axnq5dc-Iuvv3w_G-WDE",
+      "transport": "Local relay, SHA verified after SCP",
+      "archive_sha256": "8be61856e2d60e16879095e73ccc0280a780c76f5686e5606b164538b1987e16",
+      "files": {
+        "VQTransformer_corruption05/net_best_fid.pth": {
+          "size": 913971193,
+          "sha256": "297716615cedec3bbbcd7697938fdcede99b1ca72fdf689d415d1e77af4cf9b7"
+        },
+        "VQTransformer_corruption05/run.log": {
+          "size": 128226,
+          "sha256": "a022cbf9a515d7df9470d80861b8d91180f540ddad659483b7fae27bff1bd2f4"
+        },
+        "VQVAE/net_best_fid.pth": {
+          "size": 78826058,
+          "sha256": "54874cf49ce978a1cd4a9a579e8ebbe8ffb4e4aeda2d84d746653a8a6da991e1"
+        },
+        "VQVAE/net_last.pth": {
+          "size": 78826058,
+          "sha256": "656c69d6741377e476d77cc213a9570578fab1b064b3c77ec3f4df15a1bad62a"
+        },
+        "VQVAE/run.log": {
+          "size": 256001,
+          "sha256": "9259efd9684df43fe907c65fe3e6aa974a365413a00ee6a72417cd56696d2829"
+        }
+      }
+    }
+  }
+}

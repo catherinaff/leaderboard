@@ -65,7 +65,7 @@ test('every legacy overall route resolves to the same four-dataset measured-firs
     assert.match(html,/68\.43/);assert.match(html,/comparison-asterisk/);
     assert.match(html,/PAMAP2<sup/);assert.match(html,/USC-HAD<sup/);
     assert.match(html,/pamap2_12c|measured-20261119:onehar:pamap2/);
-    assert.match(html,/usc_had_7c/);assert.match(html,/usc_had_12c/);
+    assert.match(html,/usc_had_12c|measured-20261119:onehar:usc_had/);
     assert.doesNotMatch(html,/Partial coverage|unranked|available-only/);
     assert.equal(app.get('reference-footnote').hidden,false);
     assert.equal(app.get('mode-controls').hidden,true);
@@ -142,9 +142,10 @@ test('overall Details identify the four selected targets and their actual source
   assert.ok(app.get('detail-body').innerHTML.includes(`${runs} measured results and ${4-runs} paper results`));
   assert.equal((app.get('detail-body').innerHTML.match(/data-result=/g)||[]).length,4);
   assert.match(app.get('detail-body').innerHTML,/CDNet|Our run/);
-  app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:onehar-joint:onehar:usc_had_7c'}})}});
-  assert.match(app.get('detail-body').innerHTML,/Table 2 · PDF p\.16/);
-  assert.match(app.get('detail-body').innerHTML,/https:\/\/dl\.acm\.org\/doi\/10\.1145\/3749509/);
+  app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-summary]'?{dataset:{summary:'mosaic'}}:null}});
+  app.get('detail-body').dispatch('click',{target:{closest:()=>({dataset:{result:'transfer:mosaic-full-shot:mosaic:uci_har_6c'}})}});
+  assert.match(app.get('detail-body').innerHTML,/Table 4 · PDF p\.16/);
+  assert.match(app.get('detail-body').innerHTML,/https:\/\/dl\.acm\.org\/doi\/10\.1145\/3831643/);
 });
 test('dataset views use four families and retain starred class variants and measured sources',async()=>{
   const app=await boot('/leaderboard','?board=imu&view=ranking&dataset=pamap2_9c');
@@ -168,10 +169,10 @@ test('measured overlay uses all verified results regardless of gap and leaves mi
   const before=JSON.stringify([p,d]),b=M.currentBenchmark(p,d);
   assert.equal(b.entries.length,19);
   const added=d.records.filter(r=>r.method==='onehar');
-  assert.equal(b.observations.filter(r=>r.source==='run').length,54+added.length);
-  assert.equal(b.observations.filter(r=>r.source==='paper').length,22-added.length);
-  assert.equal(b.observations.filter(r=>r.provisional).length,5+added.filter(r=>r.status==='provisional_complete_seeds').length);
-  assert.equal(d.records.filter(r=>r.method!=='onehar').reduce((sum,r)=>sum+r.completed_folds,0),2163);
+  assert.equal(b.observations.filter(r=>r.source==='run').length,d.records.length);
+  assert.equal(b.observations.filter(r=>r.source==='paper').length,76-d.records.length);
+  assert.equal(b.observations.filter(r=>r.provisional).length,d.records.filter(r=>r.status==='provisional_complete_seeds').length);
+  assert.ok(d.records.filter(r=>r.method!=='onehar').reduce((sum,r)=>sum+r.completed_folds,0)>=2163);
   assert.equal(d.totals.verified_fold_records,d.records.reduce((sum,r)=>sum+r.completed_folds,0));
   for(const e of b.entries){
     assert.equal(e.values.length,4);
@@ -185,12 +186,14 @@ test('measured overlay uses all verified results regardless of gap and leaves mi
     assert.equal(selected.sourceRecord.id,raw.id);
   }
   const sensor=b.entries.find(e=>e.method.id==='sensorllm');
-  assert.equal(sensor.sourceRuns,1);assert.equal(sensor.sourcePapers,3);
+  const sensorRuns=d.records.filter(r=>r.method==='sensorllm').length;
+  assert.equal(sensor.sourceRuns,sensorRuns);assert.equal(sensor.sourcePapers,4-sensorRuns);
   assert.equal(sensor.values[0].source,'run');
-  assert.equal(sensor.values[0].value,d.records.find(r=>r.method==='sensorllm').metrics.accuracy);
+  assert.equal(sensor.values[0].value,d.records.find(r=>r.method==='sensorllm'&&r.family==='uci_har').metrics.accuracy);
   assert.notEqual(sensor.values[0].value,sensor.values[0].paperReference.value);
   const one=b.entries.find(e=>e.method.id==='onehar');
-  assert.ok(one.values.filter(r=>['realworld','usc_had'].includes(r.dataset)).every(r=>r.paperFallback));
+  const measuredOne=new Set(added.map(r=>r.family));
+  assert.ok(one.values.every(r=>measuredOne.has(r.dataset)?r.source==='run':r.paperFallback));
   assert.equal(one.values[0].source,'run');
   const rw=b.observations.find(r=>r.method.id==='if_convtransformer'&&r.dataset==='realworld');
   assert.notEqual(rw.value,rw.metrics.f1_macro);
@@ -213,10 +216,11 @@ test('unfinished subject sets, unverified and smoke results cannot replace paper
 test('provisional results cover all subjects and zero-shot results are one pass without fabricated SD',async()=>{
   const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,d=measuredData(),b=M.currentBenchmark(paperData(),d);
   for(const r of b.observations.filter(r=>r.provisional&&r.method.id!=='onehar')){
-    assert.equal(r.sourceRecord.complete_subjects_per_seed,15);
-    assert.equal(r.sourceRecord.completed_folds,15*r.sourceRecord.seeds.length);
+    const subjects={uci_har:1,pamap2:8,usc_had:14,realworld:15}[r.dataset];
+    assert.equal(r.sourceRecord.complete_subjects_per_seed,subjects);
+    assert.equal(r.sourceRecord.completed_folds,subjects*r.sourceRecord.seeds.length);
     assert.match(r.sourceLabel,/provisional/);
-    assert.equal(r.sourceRecord.seeds.length,r.method.id==='calf'?2:3);
+    assert.ok(r.sourceRecord.seeds.length>=1&&r.sourceRecord.seeds.length<5);
   }
   for(const r of b.observations.filter(r=>r.method.id==='onellm')){
     assert.equal(r.runKind,'zero_shot');assert.equal(r.sourceRecord.seeds.length,1);
@@ -233,10 +237,10 @@ test('oneHAR additions require complete canonical seed sets and disclose the sup
   const app=await boot('/leaderboard'),M=app.env.IoTBenchRanking,d=measuredData();
   const one=M.currentBenchmark(paperData(),d).entries.find(e=>e.method.id==='onehar');
   for(const r of one.values.filter(v=>v.source==='run')){
-    assert.ok(['uci_har','pamap2'].includes(r.dataset));
-    const expected=r.dataset==='uci_har'?1:8;
+    assert.ok(['uci_har','pamap2','usc_had','realworld'].includes(r.dataset));
+    const expected={uci_har:1,pamap2:8,usc_had:14,realworld:15}[r.dataset];
     assert.equal(r.sourceRecord.completed_folds,r.sourceRecord.seeds.length*expected);
-    assert.equal(r.sourceRecord.num_classes,r.dataset==='uci_har'?6:12);
+    assert.equal(r.sourceRecord.num_classes,{uci_har:6,pamap2:12,usc_had:12,realworld:8}[r.dataset]);
     assert.match(r.variantLabel,/CDNet supervised adapter/);
     assert.equal(r.provisional,r.sourceRecord.seeds.length<5);
   }

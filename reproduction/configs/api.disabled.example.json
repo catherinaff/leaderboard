@@ -1,0 +1,16 @@
+{
+  "hargpt": {
+    "allow_paid_calls": false,
+    "model": null,
+    "max_calls": 0,
+    "budget_usd": 0,
+    "api_key_env": "OPENAI_API_KEY"
+  },
+  "bymyeyes": {
+    "allow_paid_calls": false,
+    "model": null,
+    "max_calls": 0,
+    "budget_usd": 0,
+    "api_key_env": "OPENAI_API_KEY"
+  }
+}

@@ -1,0 +1,4 @@
+# Preserve exact archived bytes and historical calibration formatting.
+reproduction/evidence/executed_source_objects/* -whitespace
+reproduction/legacy/calibration/run_deepsense_hhar_tf1_official.py -whitespace
+reproduction/experiments/run_uci_har_baselines.py -whitespace

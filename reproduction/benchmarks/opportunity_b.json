@@ -1,0 +1,34 @@
+{
+  "id": "opportunity_b",
+  "name": "OPPORTUNITY — Locomotion",
+  "category": "Standard",
+  "dataset": "OPPORTUNITY Activity Recognition",
+  "paper": "Roggen et al., 2010",
+  "paper_url": "https://archive.ics.uci.edu/ml/datasets/opportunity+activity+recognition",
+  "modality": "Multimodal",
+  "sensor_type": "Body-worn IMUs + object sensors + ambient sensors",
+  "placement": "7 IMUs (body) + 12 object sensors (on daily objects) + ambient sensors",
+  "subjects": 4,
+  "classes": ["Stand", "Walk", "Sit", "Lie"],
+  "sampling_rate_hz": 30,
+  "channels": 113,
+  "channel_description": "113 OPPORTUNITY challenge sensor channels after removing quaternion/orientation and unused columns. Use ADL runs only (not Drill runs). Null/unannotated labels are excluded from canonical evaluation.",
+  "protocol": {
+    "type": "Leave-One-Subject-Out (LOSO)",
+    "folds": 4,
+    "train_per_fold": 3,
+    "test_per_fold": 1,
+    "window_size_samples": 30,
+    "window_size_seconds": 1.0,
+    "stride_samples": 15,
+    "overlap": "50%",
+    "pre_segmented": false,
+    "note": "Use ADL run only. Report mean ± std across all 4 LOSO folds."
+  },
+  "metrics": {
+    "primary": "accuracy",
+    "secondary": ["f1_macro", "f1_weighted"]
+  },
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/opportunity+activity+recognition",
+  "description": "Same sensor setup as Track A. Track B targets 4 evaluated locomotion classes (Stand, Walk, Sit, Lie). Null/unannotated periods are excluded before windowing and evaluation. The task is to segment the stream into 1 second windows with 50% overlap and classify each window into one of the 4 evaluated classes. Use ADL runs only. Use Leave-One-Subject-Out cross validation across all 4 subjects. Report mean and standard deviation across the 4 folds."
+}

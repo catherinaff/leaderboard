@@ -1,0 +1,32 @@
+[
+  {
+    "method": "onehar",
+    "dataset": "pamap2",
+    "before_seeds": [],
+    "seeds": [
+      42
+    ],
+    "accuracy": 0.6956280376013221,
+    "status": "provisional_complete_seeds"
+  },
+  {
+    "method": "onehar",
+    "dataset": "uci_har",
+    "before_seeds": [],
+    "seeds": [
+      42
+    ],
+    "accuracy": 0.8245673566338649,
+    "status": "provisional_complete_seeds"
+  },
+  {
+    "method": "onehar",
+    "dataset": "usc_had",
+    "before_seeds": [],
+    "seeds": [
+      42
+    ],
+    "accuracy": 0.5993434112775557,
+    "status": "provisional_complete_seeds"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "id": "hhar",
+  "name": "HHAR",
+  "category": "Standard",
+  "dataset": "Heterogeneity Human Activity Recognition (HHAR)",
+  "paper": "Stisen et al., SenSys 2015",
+  "paper_url": "https://dl.acm.org/doi/10.1145/2809694.2809718",
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/Heterogeneity+Activity+Recognition",
+  "modality": "IMU",
+  "sensor_type": "Accelerometer + Gyroscope (multiple smartphone and smartwatch models)",
+  "placement": "Waist (smartphone) — standard track. Other positions available for cross-device evaluation.",
+  "subjects": 9,
+  "classes": ["Biking", "Sitting", "Standing", "Walking", "Upstairs", "Downstairs"],
+  "sampling_rate_hz": "varies by device (50–200Hz)",
+  "channels": 6,
+  "channel_description": "3 accelerometer (x, y, z) + 3 gyroscope (x, y, z). Varies by device model.",
+  "protocol": {
+    "type": "Leave-One-Subject-Out (LOSO)",
+    "folds": 9,
+    "train_per_fold": 8,
+    "test_per_fold": 1,
+    "window_size_samples": 100,
+    "window_size_seconds": 2.0,
+    "stride_samples": 50,
+    "overlap": "50%",
+    "sampling_rate_hz": 50,
+    "pre_segmented": false,
+    "device": "Use smartphone (waist/pocket) data only for the standard track. Multi-device evaluation is a separate cross-device track.",
+    "note": "Resample all device data to 50 Hz before windowing. Report mean ± std across all 9 LOSO folds."
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy", "f1_weighted"]
+  },
+  "description": "9 subjects performed 6 activities (Biking, Sitting, Standing, Walking, Upstairs, Downstairs) using multiple smartphone and smartwatch models recording accelerometer and gyroscope data at varying rates (50–200Hz). The task is to resample all recordings to 50Hz, segment into 2 second windows with 50% overlap, and classify each window into one of the 6 activities. Use Leave-One-Subject-Out cross validation across all 9 subjects. Report mean and standard deviation across the 9 folds. Only smartphone (waist/pocket) data is used for the standard track. HHAR is distinct from UCI-HAR in that it captures device heterogeneity — different phone models produce different signal characteristics for the same activity."
+}

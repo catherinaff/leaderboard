@@ -1,0 +1,142 @@
+[
+  {
+    "file": "legacy/calibration/run_unimts_official.py",
+    "sha256": "e81ea185839123e8c1bfa408c07903bc4d8038ce5e4a0c0ebde1ad802cdca233",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_tinyhar_paper_official.py",
+    "sha256": "6cdec03641cbf80fff25c2b8bf46c6977b7297bc5acff31c19c26fb855aab1f4",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_tpn_original_paper_protocol.py",
+    "sha256": "ffffcce8c011cfdd91a6e1e0da28ef0c1912b0676e6445e27ee0fb8ed8b20c63",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_tpn_limu_lowlabel_official.py",
+    "sha256": "9e1e75e0e14c6f2ff20ec901bbe2672d40d94af9dae64afe09f5ab63e0052781",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_attention_model_author_checkpoint.py",
+    "sha256": "2baf1ba04c869d0e5102ddf72da6067e1774699679d6aea233752314a3ee8199",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/deepsense_tf1_plot_stub.py",
+    "sha256": "63ba62bc52a4af9485e65923835a00192c066f4918fdf3a6cb17fe673758b1f7",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_adamasknet_official.py",
+    "sha256": "bc0410828accad69a662e0ac151be6b1b0f6e74670416fa5287bda125fc62bb1",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_p2lhap_paper_reimpl.py",
+    "sha256": "612e5e3036acb17d52ce6285d8fdb8b59361e80cd3cff82c910e7e0fda26717c",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_deepsense_limu_lowlabel_official.py",
+    "sha256": "b4cf70709d022f064607a55b743bc5e174e4399702ca3ac866ec3ff4b5d97fb0",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/inspect_limu_arrays.py",
+    "sha256": "1582f2ba56baa1877a998d9b9fa0e1c33bd0842626be2133f035dac52fabd5b9",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_deepconvlstm_opportunity_paper.py",
+    "sha256": "5ae1f7aa17bf27bbf2fa5ca194a24503a5dae7410e2c2005d3b29d9549d731f2",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_attention_model_paper_reimpl.py",
+    "sha256": "eccc251074dfed05a74192931d07bc810879cc3990c3d285d097aceca3fe1c82",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_blstm_s_paper_reimpl.py",
+    "sha256": "c444f610ffdea554269b46be02938ee868b3e4c241d8f780cbf1b26e78e91a55",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_limu_bert_paper_official.py",
+    "sha256": "a4cea570adcb8ce624684e47db86a365fa42ab34ca09aaa2372b2610a4e88b54",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/prepare_sensorllm_mhealth_official.py",
+    "sha256": "18547118126264b7cef09ecf9f54a045310a80aee36faa278e4761b4227bec24",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/preprocess_deepsense_hhar_official.py",
+    "sha256": "0f97412f6022946f2ce32c4b6baa7e63711d4f1500dcffe4a6f2f63adaf0c1e7",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_robusthar_paper_reimpl.py",
+    "sha256": "7571d45bbbe6c98358b1e83f028dd216eada4a9f51333e768a1f2ea252586eb7",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/recover_limu_bert_extension_result.py",
+    "sha256": "e5a27bc18e9428d18e5d48f92ecb27bcd0b63a9fe7d51666c696b4ae97e04db6",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_r_gru_limu_lowlabel_official.py",
+    "sha256": "2541545bfad2e34dcfd58d9a3f77ecc8da9f0314897faaa54e8663028a894b1d",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_if_convtransformer_paper_protocol.py",
+    "sha256": "1a31d062296d86ceb48aa6499c60ed41c43e6d62bb103e9c083dd496ea934a50",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_dense_labeling_paper_protocol.py",
+    "sha256": "73ffd8f940be2159db92ccf763ab12ffb77e4982f5aa25513bffec2f2a04eefa",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/retired/run_blstm_s_opportunity_paper_sample.py",
+    "sha256": "8bb164fa59571a55f02b402ad768fa108b01ccf990b97c07f1ce8bb43d731982",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_tasked_paper_reimpl.py",
+    "sha256": "f94e49f1f850ff6f117c2ecff702e4ea6706284878512d0793d1bb16791454f6",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_dcnn_limu_lowlabel_official.py",
+    "sha256": "40cc996f5134a8c05084775a8f2154ce95c5993c6a3764149fac3f366afe7198",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_deepsense_hhar_tf1_official.py",
+    "sha256": "ed9bf6030bb64b88339c8fe74a37ac176804b8d1d5f507d5d1e06e219f75b1f8",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/retired/run_sensorllm_paper_proxy.py",
+    "sha256": "849cc50a6aff73d7f163a310cfab5fd9091c9567af7f650d54c0e8e1899565c5",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/run_llasa_official_eval.py",
+    "sha256": "87ad74d794fea7e11b2a73bd623e461ffe1ac5c0063f8cbadc84877b560412c9",
+    "ranking_admissible": false
+  },
+  {
+    "file": "legacy/calibration/patch_hart_old_liteformer.py",
+    "sha256": "4f5736cce3c9a4636b21967e2057f1d38be54de9e960d09cc5c30604d63c9b13",
+    "ranking_admissible": false
+  }
+]

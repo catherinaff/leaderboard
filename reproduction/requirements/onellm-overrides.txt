@@ -1,0 +1,9 @@
+# Author OneLLM/T2M dependencies in the isolated recorded runtime.
+fairscale==0.4.13
+open_clip_torch==2.24.0
+timm==0.9.16
+torchvision==0.24.0
+sentencepiece==0.2.0
+ftfy
+regex
+gdown==5.2.0

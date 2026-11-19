@@ -1,0 +1,14 @@
+{
+  "base_commit": "c017c07177cf46e26c394f08edef304159c59b97",
+  "changes": [
+    {
+      "method": "onehar",
+      "dataset": "usc_had",
+      "seeds": [
+        42
+      ],
+      "previous_seeds": [],
+      "accuracy": 0.5993434112775557
+    }
+  ]
+}

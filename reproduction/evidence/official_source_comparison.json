@@ -1,0 +1,233 @@
+{
+  "checked_at": "2026-11-19T07:04:53.914815+00:00",
+  "matched": 25,
+  "mismatched": 0,
+  "unavailable": 0,
+  "sources": [
+    {
+      "repo": "https://github.com/AdelaideAuto-IDLab/Attend-And-Discriminate",
+      "commit": "fd090e71fb16f14f6849062412a0f119f484dfb0",
+      "file": "models.py",
+      "sha256": "7cd29cb4df4c46f91ca80f270d3facdfa9ab359adf68d52571555f2a74900599",
+      "url": "https://raw.githubusercontent.com/AdelaideAuto-IDLab/Attend-And-Discriminate/fd090e71fb16f14f6849062412a0f119f484dfb0/models.py",
+      "fetched_sha256": "7cd29cb4df4c46f91ca80f270d3facdfa9ab359adf68d52571555f2a74900599",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/STRCWearlab/DeepConvLSTM",
+      "commit": "ea25e34da3a48b151a97bd3502802db547523b7f",
+      "file": "DeepConvLSTM.ipynb",
+      "sha256": "dcbce134a1f95f4d2223dbc057663da0893d481cfb7c958379e6f476ac26b50f",
+      "url": "https://raw.githubusercontent.com/STRCWearlab/DeepConvLSTM/ea25e34da3a48b151a97bd3502802db547523b7f/DeepConvLSTM.ipynb",
+      "fetched_sha256": "dcbce134a1f95f4d2223dbc057663da0893d481cfb7c958379e6f476ac26b50f",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/yscacaca/DeepSense",
+      "commit": "1979ba414d3cfd0a84a5247e2713540e8c225ec7",
+      "file": "deepSense_HHAR_tf.py",
+      "sha256": "43e5af39a2d8e515b64f484bc366f069543265663d999444a89e67146f16ca9c",
+      "url": "https://raw.githubusercontent.com/yscacaca/DeepSense/1979ba414d3cfd0a84a5247e2713540e8c225ec7/deepSense_HHAR_tf.py",
+      "fetched_sha256": "43e5af39a2d8e515b64f484bc366f069543265663d999444a89e67146f16ca9c",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022",
+      "commit": "577fa56ae74978276030372d84b17ee0f1d000ce",
+      "file": "src/classifiers/If_ConvTransformer_torch.py",
+      "sha256": "45b91b7425a26b9bda20e997f36bddb38f8158904bd1ba14aca51fc31a18c33e",
+      "url": "https://raw.githubusercontent.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022/577fa56ae74978276030372d84b17ee0f1d000ce/src/classifiers/If_ConvTransformer_torch.py",
+      "fetched_sha256": "45b91b7425a26b9bda20e997f36bddb38f8158904bd1ba14aca51fc31a18c33e",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022",
+      "commit": "577fa56ae74978276030372d84b17ee0f1d000ce",
+      "file": "src/classifiers/If_ConvTransformer_W_torch.py",
+      "sha256": "3cf885dd68cfd5544412ba1c107a1a605ab580dfbc3421a180cfa4b4862d1d39",
+      "url": "https://raw.githubusercontent.com/crocodilegogogo/IF-ConvTransformer-UbiComp2022/577fa56ae74978276030372d84b17ee0f1d000ce/src/classifiers/If_ConvTransformer_W_torch.py",
+      "fetched_sha256": "3cf885dd68cfd5544412ba1c107a1a605ab580dfbc3421a180cfa4b4862d1d39",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/teco-kit/ISWC22-HAR",
+      "commit": "b84b89d09f6914fe93e82cde423e294042da2741",
+      "file": "models/TinyHAR.py",
+      "sha256": "1fa19eed5314ae1270b9ee71d6c02ff88829704997d636046eabffd5651cc4ca",
+      "url": "https://raw.githubusercontent.com/teco-kit/ISWC22-HAR/b84b89d09f6914fe93e82cde423e294042da2741/models/TinyHAR.py",
+      "fetched_sha256": "1fa19eed5314ae1270b9ee71d6c02ff88829704997d636046eabffd5651cc4ca",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/dapowan/LIMU-BERT-Public",
+      "commit": "decffee7ecb4e2e5d7244b1a759cb80b752dc6c2",
+      "file": "models.py",
+      "sha256": "0e81bc1055019335e4f743adb3f842fd6931b0f9543a58f395823511c83a55a9",
+      "url": "https://raw.githubusercontent.com/dapowan/LIMU-BERT-Public/decffee7ecb4e2e5d7244b1a759cb80b752dc6c2/models.py",
+      "fetched_sha256": "0e81bc1055019335e4f743adb3f842fd6931b0f9543a58f395823511c83a55a9",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/dapowan/LIMU-BERT-Public",
+      "commit": "decffee7ecb4e2e5d7244b1a759cb80b752dc6c2",
+      "file": "classifier.py",
+      "sha256": "2fd66168cea382efd74b8d071220dbe5cf90b56c3f5778325bdfa712ef6376ad",
+      "url": "https://raw.githubusercontent.com/dapowan/LIMU-BERT-Public/decffee7ecb4e2e5d7244b1a759cb80b752dc6c2/classifier.py",
+      "fetched_sha256": "2fd66168cea382efd74b8d071220dbe5cf90b56c3f5778325bdfa712ef6376ad",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/xiyuanzh/unimts",
+      "commit": "656fcdab7eee17d5b4158acf98fa348f74ce29a6",
+      "file": "model.py",
+      "sha256": "3a389e01deac50628939c78165ed3b8939e66b87a5d0a5baf67e0ac4f6ec7554",
+      "url": "https://raw.githubusercontent.com/xiyuanzh/unimts/656fcdab7eee17d5b4158acf98fa348f74ce29a6/model.py",
+      "fetched_sha256": "3a389e01deac50628939c78165ed3b8939e66b87a5d0a5baf67e0ac4f6ec7554",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/xiyuanzh/unimts",
+      "commit": "656fcdab7eee17d5b4158acf98fa348f74ce29a6",
+      "file": "finetune.py",
+      "sha256": "872c9b659241c462eabd86c4d2126fbf0707f6469b4c490367c01494c2652c33",
+      "url": "https://raw.githubusercontent.com/xiyuanzh/unimts/656fcdab7eee17d5b4158acf98fa348f74ce29a6/finetune.py",
+      "fetched_sha256": "872c9b659241c462eabd86c4d2126fbf0707f6469b4c490367c01494c2652c33",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/Hank0626/CALF",
+      "commit": "50e7270",
+      "file": "models/CALF.py",
+      "sha256": "772a1f77e93dbc7117065ebec0e849d1519e9317376d4da083c56e3f375d365f",
+      "url": "https://raw.githubusercontent.com/Hank0626/CALF/50e7270/models/CALF.py",
+      "fetched_sha256": "772a1f77e93dbc7117065ebec0e849d1519e9317376d4da083c56e3f375d365f",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/Hank0626/CALF",
+      "commit": "50e7270",
+      "file": "utils/cmLoss.py",
+      "sha256": "df9dfb74b29a67012ca5f118738d71da1ba1b54433fd62ecc0ff2ba2cc6ca95a",
+      "url": "https://raw.githubusercontent.com/Hank0626/CALF/50e7270/utils/cmLoss.py",
+      "fetched_sha256": "df9dfb74b29a67012ca5f118738d71da1ba1b54433fd62ecc0ff2ba2cc6ca95a",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/DAMO-DI-ML/NeurIPS2023-One-Fits-All",
+      "commit": "9f3875d",
+      "file": "Classification/src/models/gpt4ts.py",
+      "sha256": "5c67dd0a454ec0bda9375660a2f1f4ce22224280c0387ff1207b8985513b5eba",
+      "url": "https://raw.githubusercontent.com/DAMO-DI-ML/NeurIPS2023-One-Fits-All/9f3875d/Classification/src/models/gpt4ts.py",
+      "fetched_sha256": "5c67dd0a454ec0bda9375660a2f1f4ce22224280c0387ff1207b8985513b5eba",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/facebookresearch/imu2clip",
+      "commit": "6353031",
+      "file": "lib/imu_models.py",
+      "sha256": "b6f4aa3885ac52d75c3357c6d3c4f1ccedcb2d1cf55cc759f7bea9c77fa171d8",
+      "url": "https://raw.githubusercontent.com/facebookresearch/imu2clip/6353031/lib/imu_models.py",
+      "fetched_sha256": "b6f4aa3885ac52d75c3357c6d3c4f1ccedcb2d1cf55cc759f7bea9c77fa171d8",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/facebookresearch/imu2clip",
+      "commit": "6353031",
+      "file": "lib/classification_head.py",
+      "sha256": "b38bfb366383d79867a7a32156dd9e73429391ab8761ff954b8a914b6edf7e2e",
+      "url": "https://raw.githubusercontent.com/facebookresearch/imu2clip/6353031/lib/classification_head.py",
+      "fetched_sha256": "b38bfb366383d79867a7a32156dd9e73429391ab8761ff954b8a914b6edf7e2e",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/ZikangLeng/IMUGPT",
+      "commit": "329cf78",
+      "file": "check_calibration/ProbabilityIntegralTransfer.py",
+      "sha256": "d12c76dc6aaaa6f838513bc00ae4b5238196b9001fcf2a2733db02b8d517b774",
+      "url": "https://raw.githubusercontent.com/ZikangLeng/IMUGPT/329cf78/check_calibration/ProbabilityIntegralTransfer.py",
+      "fetched_sha256": "d12c76dc6aaaa6f838513bc00ae4b5238196b9001fcf2a2733db02b8d517b774",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/csuhan/OneLLM",
+      "commit": "8587a47",
+      "file": "model/LLM/onellm.py",
+      "sha256": "7b033b1f3a5b39c3a95202038d1b8830b9b86c67f6ae889c1c3247a9e91c43c1",
+      "url": "https://raw.githubusercontent.com/csuhan/OneLLM/8587a47/model/LLM/onellm.py",
+      "fetched_sha256": "7b033b1f3a5b39c3a95202038d1b8830b9b86c67f6ae889c1c3247a9e91c43c1",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/CRUISEResearchGroup/SensorLLM",
+      "commit": "ddd17fe",
+      "file": "sensorllm/model/stage2_sensorllm.py",
+      "sha256": "bc8a18870862f782c6ca01621f0203a230c8a39a8b8f07738f0520d7cdbf758f",
+      "url": "https://raw.githubusercontent.com/CRUISEResearchGroup/SensorLLM/ddd17fe/sensorllm/model/stage2_sensorllm.py",
+      "fetched_sha256": "bc8a18870862f782c6ca01621f0203a230c8a39a8b8f07738f0520d7cdbf758f",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/KimMeen/Time-LLM",
+      "commit": "b13e881",
+      "file": "models/TimeLLM.py",
+      "sha256": "961315c27d04c9e1aba249003696157170b4bb57e50afbb3de241920715dbbdb",
+      "url": "https://raw.githubusercontent.com/KimMeen/Time-LLM/b13e881/models/TimeLLM.py",
+      "fetched_sha256": "961315c27d04c9e1aba249003696157170b4bb57e50afbb3de241920715dbbdb",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/mims-harvard/UniTS",
+      "commit": "0e02814",
+      "file": "models/UniTS.py",
+      "sha256": "3af3eaa3b5fc93d25e8c173e8c873db9da8762810efd82fe56012944366d92d1",
+      "url": "https://raw.githubusercontent.com/mims-harvard/UniTS/0e02814/models/UniTS.py",
+      "fetched_sha256": "3af3eaa3b5fc93d25e8c173e8c873db9da8762810efd82fe56012944366d92d1",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/getalp/Lightweight-Transformer-Models-For-HAR-on-Mobile-Devices",
+      "commit": "0b8b39bbf615c252b9a79a8b121b0665e071dcd4",
+      "file": "model.py",
+      "sha256": "9ec62f3c8b0d7944b0f80d31de37aaa11d41c711c8d31a29e4108a6aad2b340b",
+      "url": "https://raw.githubusercontent.com/getalp/Lightweight-Transformer-Models-For-HAR-on-Mobile-Devices/0b8b39bbf615c252b9a79a8b121b0665e071dcd4/model.py",
+      "fetched_sha256": "9ec62f3c8b0d7944b0f80d31de37aaa11d41c711c8d31a29e4108a6aad2b340b",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/rmutegeki/iSPLInception",
+      "commit": "ca45393b8ff1cf1b57151893e7ffd65bdb1ecfb3",
+      "file": "models.py",
+      "sha256": "d7c482699410ba14e48d14ae27fb6b000a10864a76d45e66aa199eaf65048e2e",
+      "url": "https://raw.githubusercontent.com/rmutegeki/iSPLInception/ca45393b8ff1cf1b57151893e7ffd65bdb1ecfb3/models.py",
+      "fetched_sha256": "d7c482699410ba14e48d14ae27fb6b000a10864a76d45e66aa199eaf65048e2e",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "file": "HARmodel.py",
+      "sha256": "0c20449cc47de78f38be06c3da4d2c9a51770c30ecb01a36817cbfbee68b43f0",
+      "url": "https://raw.githubusercontent.com/ZJU-wqx-2025/uniHAR/e98bc56bbd575a61042d85825f4de85f07c594db/HARmodel.py",
+      "fetched_sha256": "0c20449cc47de78f38be06c3da4d2c9a51770c30ecb01a36817cbfbee68b43f0",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "file": "VITmodel.py",
+      "sha256": "98e432b0a01129348be61ce117599a2b7d2d1f633526d217a74979646adca10d",
+      "url": "https://raw.githubusercontent.com/ZJU-wqx-2025/uniHAR/e98bc56bbd575a61042d85825f4de85f07c594db/VITmodel.py",
+      "fetched_sha256": "98e432b0a01129348be61ce117599a2b7d2d1f633526d217a74979646adca10d",
+      "status": "matched"
+    },
+    {
+      "repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+      "commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+      "file": "test.py",
+      "sha256": "28ca13917af4503ba25366f91835bf597489c3d42f2f223791d38041ec499820",
+      "url": "https://raw.githubusercontent.com/ZJU-wqx-2025/uniHAR/e98bc56bbd575a61042d85825f4de85f07c594db/test.py",
+      "fetched_sha256": "28ca13917af4503ba25366f91835bf597489c3d42f2f223791d38041ec499820",
+      "status": "matched"
+    }
+  ]
+}

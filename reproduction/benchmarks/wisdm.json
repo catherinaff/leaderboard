@@ -1,0 +1,33 @@
+{
+  "id": "wisdm",
+  "name": "WISDM",
+  "category": "Standard",
+  "dataset": "Wireless Sensor Data Mining (WISDM) Actitracker",
+  "paper": "Kwapisz, Weiss & Moore, 2011",
+  "paper_url": "https://www.cis.fordham.edu/wisdm/dataset.php",
+  "modality": "IMU",
+  "sensor_type": "Accelerometer",
+  "placement": "Smartphone in pocket (various Android devices)",
+  "subjects": 36,
+  "classes": ["Walking", "Jogging", "Upstairs", "Downstairs", "Sitting", "Standing"],
+  "sampling_rate_hz": 20,
+  "channels": 3,
+  "channel_description": "3 accelerometer (x, y, z)",
+  "protocol": {
+    "type": "Fixed subject-wise split",
+    "train_subjects": "1–30",
+    "test_subjects": "31–36",
+    "window_size_samples": 200,
+    "window_size_seconds": 10.0,
+    "stride_samples": 100,
+    "overlap": "50%",
+    "pre_segmented": false,
+    "note": "Raw time-series data. Methods must implement sliding window segmentation with the specified window size and stride."
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy", "f1_weighted"]
+  },
+  "dataset_url": "https://www.cis.fordham.edu/wisdm/dataset.php",
+  "description": "36 subjects performed 6 activities (Walking, Jogging, Upstairs, Downstairs, Sitting, Standing) with a smartphone accelerometer in their pocket recording at 20Hz. The data is provided as a continuous raw stream. The task is to segment the stream into 10 second windows with 50% overlap and classify each window into one of the 6 activities. Train on subjects 1 to 30. Test on subjects 31 to 36. Class imbalance is significant. Walking and Jogging have many more samples than stationary activities."
+}

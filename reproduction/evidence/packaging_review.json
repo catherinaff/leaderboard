@@ -1,0 +1,13 @@
+{
+  "source_fetch_smoke": {
+    "source": "ISWC22-HAR",
+    "commit": "b84b89d09f6914fe93e82cde423e294042da2741",
+    "fresh_pinned_fetch_and_idempotent_rerun": "passed"
+  },
+  "changed_file_secret_scan": "passed",
+  "changed_files_over_10MiB": 0,
+  "web_tests_passed": 16,
+  "reproduction_tests_passed": 10,
+  "snapshot_groups": 57,
+  "snapshot_verified_fold_records": 2186
+}

@@ -1,7 +1,7 @@
 {
   "version": "measured-first-20261119-v1",
-  "updated_at": "2026-11-19T05:32:04.356959+00:00",
-  "snapshot_at": "2026-11-19T05:32:04.356959+00:00",
+  "updated_at": "2026-11-19T06:58:57.440217+00:00",
+  "snapshot_at": "2026-11-19T06:58:57.440217+00:00",
   "selection_policy": "Measured results first, independent of their value or paper gap; retain the existing fixed-priority paper result only when no eligible measured aggregate exists.",
   "provisional_policy": "Include every available complete all-subject seed. Exclude unfinished subject sets; mark fewer than five seeds provisional.",
   "overall_metric": "accuracy",
@@ -23057,6 +23057,279 @@
       "dataset_manifest_sha256": "441df6f6e431b1bf6953c2e855eb383297dc34b9579946c8ad1982742971aec9"
     },
     {
+      "id": "measured-20261119:onehar:usc_had",
+      "method": "onehar",
+      "dataset": "usc_had",
+      "family": "usc_had",
+      "num_classes": 12,
+      "run_kind": "supervised",
+      "status": "provisional_complete_seeds",
+      "primary_metric": "accuracy",
+      "metrics": {
+        "accuracy": 0.5993434112775557,
+        "f1_macro": 0.5703982386490704,
+        "f1_weighted": 0.5775325868225537
+      },
+      "seed_metrics": {
+        "42": {
+          "accuracy": 0.5993434112775557,
+          "f1_macro": 0.5703982386490704,
+          "f1_weighted": 0.5775325868225537
+        }
+      },
+      "seeds": [
+        42
+      ],
+      "required_seeds": [
+        42,
+        123,
+        2021,
+        2024,
+        3407
+      ],
+      "complete_subjects_per_seed": 14,
+      "completed_folds": 14,
+      "required_folds": 70,
+      "verified": true,
+      "aggregation": "Equal test-subject weight within every complete seed; equal seed weight; population SD across complete seeds.",
+      "protocol": "Same canonical UCI official test / all-subject LOSO frozen splits and train-only median/z-score as the other methods.",
+      "calibration": "Unified-dataset supervised CDNet variant, not a complete reproduction of the paper joint-training/LLM augmentation protocol.",
+      "variant_label": "CDNet supervised adapter; no LLM synthesis, DQA/DPS/PDS or cross-dataset joint training",
+      "recipe": {
+        "optimizer": "Adam",
+        "lr": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 256,
+        "max_epochs": 80,
+        "loss": "cross_entropy on normalized IMU/text cosine logits, temperature=.07",
+        "architecture": "author CDNet: frozen HHAR LIMU-BERT + three axis ViTs + BiGRU18/72 + Conv2d projection768 + frozen BERT class text",
+        "implementation_type": "author_architecture_with_disclosed_supervised_adapter",
+        "official_repo": "https://github.com/ZJU-wqx-2025/uniHAR",
+        "official_commit": "e98bc56bbd575a61042d85825f4de85f07c594db",
+        "variant_label": "CDNet supervised adapter; no LLM synthesis, DQA/DPS/PDS or cross-dataset joint training",
+        "model_sha256": "e4c3dae6431ed231858bc170c6478fbf2d37734aac0a6212ef17ce7e2e074273",
+        "input": "B,T,C",
+        "channel_indices": [
+          [
+            0,
+            1,
+            2
+          ]
+        ],
+        "sensor_adapter": "All canonical windows and native class labels retained; author acceleration-only sensor input; full window linearly resampled to 120 steps; no test-fitted normalization. UCI total acceleration indices6:9; PAMAP all3 positions; RealWorld all7 positions; USC hip.",
+        "compatibility": "Batch-independent sensor-weight normalization corrects author batch-axis denominator. RealWorld positional capacity extended from5 to7 sensors. Detached LIMU branch cached exactly; parity audited for each fold.",
+        "calibration": "Unified-dataset supervised CDNet variant, not a complete reproduction of the paper joint-training/LLM augmentation protocol.",
+        "initialization": "CDNet, ViTs, BiGRUs and IMU projection newly initialized; released uniHAR IMU/projection weights NOT loaded. Author HHAR-only LIMU encoder and frozen BERT text weights retained.",
+        "text": {
+          "labels": [
+            "Walking Forward",
+            "Walking Left",
+            "Walking Right",
+            "Walking Upstairs",
+            "Walking Downstairs",
+            "Running Forward",
+            "Jumping Up",
+            "Sitting",
+            "Standing",
+            "Sleeping",
+            "Elevator Up",
+            "Elevator Down"
+          ],
+          "vectors_sha256": "53a35c6f4a56e28e18f46699f5ed906603936d26bbe9f37390690877cba3010d",
+          "checkpoint_sha256": "66f2bf6af6497c2a984a4f0b4f1cc9ee5d2549dcf5bf17401638137c0daa51bf",
+          "loaded_prefix": "label_encoder.bert only"
+        },
+        "pretraining": {
+          "LIMU_source": "author saved/pretrain_base_hhar_20_120/hhar.pt",
+          "sha256": "22dab2ba528cd88954395c7f043a006c74fbc38e7d329a64d21e2eb54114b463"
+        },
+        "source_sha256": {
+          "official/HARmodel.py": "0c20449cc47de78f38be06c3da4d2c9a51770c30ecb01a36817cbfbee68b43f0",
+          "official/VITmodel.py": "98e432b0a01129348be61ce117599a2b7d2d1f633526d217a74979646adca10d",
+          "official/models.py": "8adec6cabbd075751d2e0b043aee067d5cc1799a830fe80937b6ee24634a6a06",
+          "official/utils.py": "7cf30547a1f5eecbf22c3d0c38599af095f48b57ed9d7374d52fe33a63fcb662",
+          "runtime/test.py": "954fc18bfe1d5ad28c60f5e4a56b87e811a0bd5065060d057a8926c95bf4634c"
+        },
+        "cache_audit": {
+          "cached_vs_patched_author_max_abs": 0.0,
+          "batch_independence_max_abs": 1.862645149230957e-07,
+          "author_pool_axis_fix": true,
+          "uncached_source_sha256": "0c20449cc47de78f38be06c3da4d2c9a51770c30ecb01a36817cbfbee68b43f0"
+        },
+        "paid_api_calls": 0,
+        "sdpa_backend": "default",
+        "patience": 25,
+        "min_delta": 0.0005,
+        "monitor": "accuracy",
+        "scheduler": "ReduceLROnPlateau factor=.5 patience=8 min_lr=1e-6",
+        "gradient_clip": 1.0,
+        "scaler_fit": "train_windows_only",
+        "validation_subjects": [
+          11
+        ],
+        "test_subjects": [
+          10
+        ]
+      },
+      "fold_results": [
+        {
+          "seed": 42,
+          "fold": "test_10_val_11",
+          "test": {
+            "accuracy": 0.7162273476112027,
+            "f1_macro": 0.7075946964323392,
+            "f1_weighted": 0.710891675946506
+          },
+          "result_sha256": "edaf1b9e81de12c931158de7f5a36cc6a3e361ca7a24a1720fad98d361cb78b3",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_10_val_11/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_11_val_12",
+          "test": {
+            "accuracy": 0.5397505845674201,
+            "f1_macro": 0.5144785846811152,
+            "f1_weighted": 0.4879304244431822
+          },
+          "result_sha256": "4810d32f5d261c43712ee04361d6ba14805d8dc5fc631ef77a641cbaf081f6e3",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_11_val_12/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_12_val_13",
+          "test": {
+            "accuracy": 0.6267123287671232,
+            "f1_macro": 0.6395960915862029,
+            "f1_weighted": 0.6139414321437943
+          },
+          "result_sha256": "fd14347626907df5e760a5d0813005fe2392a92731a0b71c0390735d5f117b2a",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_12_val_13/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_13_val_14",
+          "test": {
+            "accuracy": 0.3808,
+            "f1_macro": 0.3838799831795727,
+            "f1_weighted": 0.3630390711375328
+          },
+          "result_sha256": "c94b948afeea81edcc87ad3bf0c472244aa63bb816d55bffa0241a4f3e638fa4",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_13_val_14/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_14_val_1",
+          "test": {
+            "accuracy": 0.3891891891891892,
+            "f1_macro": 0.3509237216541063,
+            "f1_weighted": 0.34199425842313935
+          },
+          "result_sha256": "994f5a54be62d17bdb0c95f426288e4bb37a44ab78d612f33bb111d7b3e3e473",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_14_val_1/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_1_val_2",
+          "test": {
+            "accuracy": 0.683792372881356,
+            "f1_macro": 0.6490561084211982,
+            "f1_weighted": 0.6867635610073248
+          },
+          "result_sha256": "e3b1a141ded8198d60024f7fe86a2a9c460d4c2dd87e018cb7d8d80d035fedcc",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_1_val_2/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_2_val_3",
+          "test": {
+            "accuracy": 0.649577804583836,
+            "f1_macro": 0.5542533695799451,
+            "f1_weighted": 0.6130078679885259
+          },
+          "result_sha256": "38d4031788c5872bd6e16fddf09b17b9b5b072e26224ad1b85e3ad54076de744",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_2_val_3/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_3_val_4",
+          "test": {
+            "accuracy": 0.6972972972972973,
+            "f1_macro": 0.6576933959426615,
+            "f1_weighted": 0.6926248011370506
+          },
+          "result_sha256": "d28197f3cfc7a519ccef8742a5941c05910ec0926adb20a680c0c3387a760a43",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_3_val_4/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_4_val_5",
+          "test": {
+            "accuracy": 0.6688524590163935,
+            "f1_macro": 0.6367037627829423,
+            "f1_weighted": 0.665773967706867
+          },
+          "result_sha256": "8f5eda6521ee18032b52ff1ed3a9d2dd9c8a057fadd2569691382ab1c4b5fec5",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_4_val_5/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_5_val_6",
+          "test": {
+            "accuracy": 0.6121530382595649,
+            "f1_macro": 0.6377358034529887,
+            "f1_weighted": 0.5775646727213853
+          },
+          "result_sha256": "5be2b1d34c23899706fdd11f54c2c195f1ed97435eae2299b45c045c040a8a6c",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_5_val_6/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_6_val_7",
+          "test": {
+            "accuracy": 0.7325886990801577,
+            "f1_macro": 0.6902756875810403,
+            "f1_weighted": 0.7345923319575614
+          },
+          "result_sha256": "77e7ed121bc297a71a7bf505ed5a9ab01767300d123b47a81a95c6a4c4c00825",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_6_val_7/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_7_val_8",
+          "test": {
+            "accuracy": 0.6440281030444965,
+            "f1_macro": 0.6010791151324203,
+            "f1_weighted": 0.6084799608941377
+          },
+          "result_sha256": "ba6479b51870a1737b127a3691cbb13ebd10c1d02acf56c1f13fa94eace41333",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_7_val_8/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_8_val_9",
+          "test": {
+            "accuracy": 0.4328507239141288,
+            "f1_macro": 0.3704467496633492,
+            "f1_weighted": 0.3766406535786176
+          },
+          "result_sha256": "6fad5c92641bfbb0c76b996ba81cd496091339c25366f4676008b375ed41b3e5",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_8_val_9/result.json"
+        },
+        {
+          "seed": 42,
+          "fold": "test_9_val_10",
+          "test": {
+            "accuracy": 0.6169878096736139,
+            "f1_macro": 0.5918582709971038,
+            "f1_weighted": 0.6122115364301263
+          },
+          "result_sha256": "24cf2d5aade45e77f9ab919fe77a1969bb29bff4a90e78c8229c08d602a303d8",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/usc_had/seed_42/test_9_val_10/result.json"
+        }
+      ],
+      "dataset_manifest_sha256": "5a3f9089653f8428d07c8e8a20accf159d6136937191f3ba61fb0c73d2ae09ba"
+    },
+    {
       "id": "measured-20261119:onellm:pamap2",
       "method": "onellm",
       "dataset": "pamap2",
@@ -28549,12 +28822,12 @@
     }
   ],
   "totals": {
-    "records": 56,
+    "records": 57,
     "methods": 16,
     "complete_supervised": 45,
-    "provisional": 7,
+    "provisional": 8,
     "zero_shot": 4,
-    "verified_fold_records": 2172
+    "verified_fold_records": 2186
   },
   "paid_api_calls": 0,
   "excluded_smoke_and_mock": true,
@@ -28566,10 +28839,12 @@
   },
   "base_snapshot_at": "2026-11-19T04:32:09.002717+00:00",
   "incremental_onehar": {
-    "updated_at": "2026-11-19T05:32:04.356959+00:00",
+    "updated_at": "2026-11-19T06:58:57.440217+00:00",
     "datasets": [
       "uci_har",
-      "pamap2"
+      "pamap2",
+      "usc_had",
+      "realworld_har"
     ],
     "policy": "Complete all-subject seeds only; source and adapter notes retained."
   }

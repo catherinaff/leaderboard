@@ -1,0 +1,17 @@
+{
+  "benchmarks": [
+    {"id": "uci_har", "file": "uci_har.json"},
+    {"id": "wisdm", "file": "wisdm.json"},
+    {"id": "usc_had", "file": "usc_had.json"},
+    {"id": "pamap2", "file": "pamap2.json"},
+    {"id": "opportunity_a", "file": "opportunity_a.json"},
+    {"id": "opportunity_b", "file": "opportunity_b.json"},
+    {"id": "hhar", "file": "hhar.json"},
+    {"id": "realworld_har", "file": "realworld_har.json"},
+    {"id": "cross_uci_to_pamap2", "file": "cross_uci_to_pamap2.json"},
+    {"id": "cross_pamap2_to_uci", "file": "cross_pamap2_to_uci.json"},
+    {"id": "cross_pamap2_to_opp_a", "file": "cross_pamap2_to_opp_a.json"},
+    {"id": "cross_uci_to_hhar", "file": "cross_uci_to_hhar.json"},
+    {"id": "cross_hhar_to_uci", "file": "cross_hhar_to_uci.json"}
+  ]
+}
