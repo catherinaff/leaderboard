@@ -1,7 +1,7 @@
 {
   "version": "measured-first-20261119-v1",
-  "updated_at": "2026-11-19T08:05:58.848907+00:00",
-  "snapshot_at": "2026-11-19T08:05:58.848907+00:00",
+  "updated_at": "2026-11-19T08:08:05.331417+00:00",
+  "snapshot_at": "2026-11-19T08:08:05.331417+00:00",
   "selection_policy": "Measured results first, independent of their value or paper gap; retain the existing fixed-priority paper result only when no eligible measured aggregate exists.",
   "provisional_policy": "Include every available complete all-subject seed. Exclude unfinished subject sets; mark fewer than five seeds provisional.",
   "overall_metric": "accuracy",
@@ -23224,19 +23224,28 @@
       "status": "provisional_complete_seeds",
       "primary_metric": "accuracy",
       "metrics": {
-        "accuracy": 0.8245673566338649,
-        "f1_macro": 0.8219297486077561,
-        "f1_weighted": 0.8214737718842544
+        "accuracy": 0.8213437393959959,
+        "f1_macro": 0.8198579446943091,
+        "f1_weighted": 0.818984161427134,
+        "accuracy_std": 0.0032236172378690142,
+        "f1_macro_std": 0.0020718039134471344,
+        "f1_weighted_std": 0.002489610457120317
       },
       "seed_metrics": {
         "42": {
           "accuracy": 0.8245673566338649,
           "f1_macro": 0.8219297486077561,
           "f1_weighted": 0.8214737718842544
+        },
+        "123": {
+          "accuracy": 0.8181201221581269,
+          "f1_macro": 0.8177861407808619,
+          "f1_weighted": 0.8164945509700138
         }
       },
       "seeds": [
-        42
+        42,
+        123
       ],
       "required_seeds": [
         42,
@@ -23246,11 +23255,11 @@
         3407
       ],
       "complete_subjects_per_seed": 1,
-      "completed_folds": 1,
+      "completed_folds": 2,
       "required_folds": 5,
       "verified": true,
       "aggregation": "Equal test-subject weight within every complete seed; equal seed weight; population SD across complete seeds.",
-      "protocol": "Same canonical UCI official test / PAMAP all8-subject LOSO frozen splits and train-only median/z-score as the other methods.",
+      "protocol": "Same canonical UCI official test / all-subject LOSO frozen splits and train-only median/z-score as the other methods.",
       "calibration": "Unified-dataset supervised CDNet variant, not a complete reproduction of the paper joint-training/LLM augmentation protocol.",
       "variant_label": "CDNet supervised adapter; no LLM synthesis, DQA/DPS/PDS or cross-dataset joint training",
       "recipe": {
@@ -23362,6 +23371,17 @@
           },
           "result_sha256": "37f7f407ea2ac7779ef67b1f19bbabdda1686f87b25a42f265fcc925836da4f6",
           "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/uci_har/seed_42/official/result.json"
+        },
+        {
+          "seed": 123,
+          "fold": "official",
+          "test": {
+            "accuracy": 0.8181201221581269,
+            "f1_macro": 0.8177861407808619,
+            "f1_weighted": 0.8164945509700138
+          },
+          "result_sha256": "0d85d4ad2a896db018f983118551e15efafaaefbf7f137ce07014a9c5b8fcfdc",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/uci_har/seed_123/official/result.json"
         }
       ],
       "dataset_manifest_sha256": "441df6f6e431b1bf6953c2e855eb383297dc34b9579946c8ad1982742971aec9"
@@ -29137,7 +29157,7 @@
     "complete_supervised": 45,
     "provisional": 9,
     "zero_shot": 4,
-    "verified_fold_records": 2201
+    "verified_fold_records": 2202
   },
   "paid_api_calls": 0,
   "excluded_smoke_and_mock": true,
@@ -29149,7 +29169,7 @@
   },
   "base_snapshot_at": "2026-11-19T04:32:09.002717+00:00",
   "incremental_onehar": {
-    "updated_at": "2026-11-19T08:05:58.848907+00:00",
+    "updated_at": "2026-11-19T08:08:05.331417+00:00",
     "datasets": [
       "uci_har",
       "pamap2",
