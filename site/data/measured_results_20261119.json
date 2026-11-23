@@ -1,7 +1,7 @@
 {
   "version": "measured-first-20261119-v1",
-  "updated_at": "2026-11-23T04:29:30.046425+00:00",
-  "snapshot_at": "2026-11-23T04:29:30.046425+00:00",
+  "updated_at": "2026-11-23T04:32:55.197414+00:00",
+  "snapshot_at": "2026-11-23T04:32:55.197414+00:00",
   "selection_policy": "Measured results first, independent of their value or paper gap; retain the existing fixed-priority paper result only when no eligible measured aggregate exists.",
   "provisional_policy": "Include every available complete all-subject seed. Exclude unfinished subject sets; mark fewer than five seeds provisional.",
   "overall_metric": "accuracy",
@@ -23760,12 +23760,12 @@
       "status": "provisional_complete_seeds",
       "primary_metric": "accuracy",
       "metrics": {
-        "accuracy": 0.8234362628661916,
-        "f1_macro": 0.8230041663906058,
-        "f1_weighted": 0.8217556703211807,
-        "accuracy_std": 0.003960443705465816,
-        "f1_macro_std": 0.004760147360640638,
-        "f1_weighted_std": 0.004415272349284993
+        "accuracy": 0.827790973871734,
+        "f1_macro": 0.8276084844667988,
+        "f1_weighted": 0.8262328440954263,
+        "accuracy_std": 0.008285792634594365,
+        "f1_macro_std": 0.00897738753822814,
+        "f1_weighted_std": 0.008646168368309042
       },
       "seed_metrics": {
         "42": {
@@ -23782,12 +23782,18 @@
           "accuracy": 0.827621309806583,
           "f1_macro": 0.8292966097831994,
           "f1_weighted": 0.8272986881092739
+        },
+        "2024": {
+          "accuracy": 0.8408551068883611,
+          "f1_macro": 0.8414214386953779,
+          "f1_weighted": 0.839664365418163
         }
       },
       "seeds": [
         42,
         123,
-        2021
+        2021,
+        2024
       ],
       "required_seeds": [
         42,
@@ -23797,7 +23803,7 @@
         3407
       ],
       "complete_subjects_per_seed": 1,
-      "completed_folds": 3,
+      "completed_folds": 4,
       "required_folds": 5,
       "verified": true,
       "aggregation": "Equal test-subject weight within every complete seed; equal seed weight; population SD across complete seeds.",
@@ -23935,6 +23941,17 @@
           },
           "result_sha256": "6df784c8b7f295cd7701f3a17c807df5bc80d7fc368a49f10a9eda69410752ee",
           "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/uci_har/seed_2021/official/result.json"
+        },
+        {
+          "seed": 2024,
+          "fold": "official",
+          "test": {
+            "accuracy": 0.8408551068883611,
+            "f1_macro": 0.8414214386953779,
+            "f1_weighted": 0.839664365418163
+          },
+          "result_sha256": "20deb8e2a6e4812c00f9cf228fe4510bf6fccad3d1d801e726c44ad202084560",
+          "path": "/root/pengrf/leadiboard/iotbench_har/experiments/onehar_canonical_20261119/runs/onehar/uci_har/seed_2024/official/result.json"
         }
       ],
       "dataset_manifest_sha256": "441df6f6e431b1bf6953c2e855eb383297dc34b9579946c8ad1982742971aec9"
@@ -30033,7 +30050,7 @@
     "complete_supervised": 45,
     "provisional": 9,
     "zero_shot": 4,
-    "verified_fold_records": 2277
+    "verified_fold_records": 2278
   },
   "paid_api_calls": 0,
   "excluded_smoke_and_mock": true,
@@ -30045,7 +30062,7 @@
   },
   "base_snapshot_at": "2026-11-19T04:32:09.002717+00:00",
   "incremental_onehar": {
-    "updated_at": "2026-11-23T04:29:30.046425+00:00",
+    "updated_at": "2026-11-23T04:32:55.197414+00:00",
     "datasets": [
       "uci_har",
       "pamap2",
