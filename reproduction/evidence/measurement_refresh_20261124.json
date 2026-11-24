@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-24T03:47:34.765493+00:00",
+  "snapshot_at": "2026-11-24T03:45:30.160291+00:00",
+  "totals": {
+    "records": 59,
+    "methods": 16,
+    "complete_supervised": 53,
+    "provisional": 2,
+    "zero_shot": 4,
+    "verified_fold_records": 2517
+  },
+  "audit": {
+    "status": "passed",
+    "predictions_and_metrics_recomputed": true,
+    "weights_splits_sources_sha_verified_for_supervised": true,
+    "original_dataset_arrays_sha_verified": true,
+    "last_verified_at": "2026-11-24T03:47:34.765493+00:00",
+    "implementation_review": "Source matching and operation checks are distinct from exact paper-protocol reproduction. See reproduction/docs/IMPLEMENTATION_REVIEW.md.",
+    "refresh_evidence": "https://github.com/catherinaff/leaderboard/blob/main/reproduction/evidence/measurement_refresh_20261124.json"
+  },
+  "measurement_json_sha256": "d3093dcc03cb0509b5cdca7cd30c727b8ac653eea6020f0641a8ec457a011b7d",
+  "combined_artifact_audit_sha256": "70924fa0913ddc776e577d313dee71be9f1afc19baa5d014fdd8344a57d07efb",
+  "previous_snapshot_at": "2026-11-23T11:25:03.154870+00:00",
+  "changes": [
+    {
+      "method": "calf",
+      "dataset": "realworld_har",
+      "previous_seeds": [
+        42,
+        123
+      ],
+      "seeds": [
+        42,
+        123,
+        2021,
+        2024
+      ],
+      "accuracy": 0.7627338312272522,
+      "status": "provisional_complete_seeds"
+    },
+    {
+      "method": "gpt4ts",
+      "dataset": "realworld_har",
+      "previous_seeds": [
+        42,
+        123,
+        2021
+      ],
+      "seeds": [
+        42,
+        123,
+        2021,
+        2024,
+        3407
+      ],
+      "accuracy": 0.6600087693085338,
+      "status": "complete"
+    },
+    {
+      "method": "imu2clip",
+      "dataset": "realworld_har",
+      "previous_seeds": [
+        42,
+        123,
+        2021
+      ],
+      "seeds": [
+        42,
+        123,
+        2021,
+        2024,
+        3407
+      ],
+      "accuracy": 0.6610688571468056,
+      "status": "complete"
+    },
+    {
+      "method": "imugpt",
+      "dataset": "realworld_har",
+      "previous_seeds": [
+        42,
+        123,
+        2021
+      ],
+      "seeds": [
+        42,
+        123,
+        2021,
+        2024,
+        3407
+      ],
+      "accuracy": 0.7523716537900736,
+      "status": "complete"
+    },
+    {
+      "method": "timellm",
+      "dataset": "usc_had",
+      "previous_seeds": [],
+      "seeds": [
+        42
+      ],
+      "accuracy": 0.6636272475075298,
+      "status": "provisional_complete_seeds"
+    },
+    {
+      "method": "units",
+      "dataset": "realworld_har",
+      "previous_seeds": [
+        42,
+        123,
+        2021
+      ],
+      "seeds": [
+        42,
+        123,
+        2021,
+        2024,
+        3407
+      ],
+      "accuracy": 0.8382257574240384,
+      "status": "complete"
+    }
+  ],
+  "combined_artifact_audit_file": "artifact_audit_20261124.json"
+}

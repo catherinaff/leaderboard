@@ -1,8 +1,10 @@
 # IoTBench 榜单与复现实验代码
 
-[在线榜单](https://catherinaff.github.io/leaderboard/) · [完整运行说明](reproduction/README.md) · [已完成实测表](reproduction/docs/COMPLETED_RESULTS.md) · [逐方法实现审查](reproduction/docs/IMPLEMENTATION_REVIEW.md)
+[在线榜单](https://catherinaff.github.io/leaderboard/) · [完整运行说明](reproduction/README.md) · [已完成实测表](reproduction/docs/COMPLETED_RESULTS_20261124.md) · [逐方法实现审查](reproduction/docs/IMPLEMENTATION_REVIEW.md)
 
 当前榜单使用 UCI-HAR（6类）、PAMAP2（12类）、USC-HAD（12类）、RealWorld（8类）。总榜对四项 Accuracy 等权平均；实测优先，缺项保留论文值。每个计入的种子都必须覆盖全部测试集／受试者，未满五种子标为暂定。
+
+最近一次结果核验为 **2026-11-24**：59 组实测，其中53组完成五种子、2组暂定、4组零样本，共2,517条核验通过的折记录。历史快照和审查证据继续保留。
 
 `reproduction/` 提供当前19种方法的代码／接口／未运行状态说明，以及4种历史方法的实现。MOSAIC目前只有论文数据；HARGPT和ByMyEyes只接好接口，没有付费实跑。oneHAR、TimeLLM、SensorLLM等的适配差异均单独说明，不能将全部适配实验统称为严格论文复现。
 

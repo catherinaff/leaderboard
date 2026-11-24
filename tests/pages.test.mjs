@@ -227,10 +227,13 @@ test('provisional results cover all subjects and zero-shot results are one pass 
     assert.equal(r.uncertainty,undefined);
   }
   app.get('leaderboard-wrap').dispatch('click',{target:{closest:s=>s==='[data-result]'?{dataset:{result:'measured-20261119:calf:realworld_har'}}:null}});
-  assert.match(app.get('detail-body').innerHTML,/\* Provisional/);
-  assert.match(app.get('detail-body').innerHTML,/42, 123 \(2\/5\)/);
-  assert.match(app.get('detail-body').innerHTML,/30 \/ 75/);
-  assert.match(app.get('detail-body').innerHTML,/Verified results &amp; fold evidence/);
+  const calf=d.records.find(r=>r.method==='calf'&&r.dataset==='realworld_har');
+  const detail=app.get('detail-body').innerHTML;
+  if(calf.status==='provisional_complete_seeds') assert.match(detail,/\* Provisional/);
+  else assert.doesNotMatch(detail,/\* Provisional/);
+  assert.ok(detail.includes(`${calf.seeds.join(', ')} (${calf.seeds.length}/5)`));
+  assert.ok(detail.includes(`${calf.completed_folds} / ${calf.required_folds}`));
+  assert.match(detail,/Verified results &amp; fold evidence/);
 });
 
 test('oneHAR additions require complete canonical seed sets and disclose the supervised adapter',async()=>{

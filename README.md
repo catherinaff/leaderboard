@@ -1,10 +1,12 @@
 # IoTBench Leaderboard and HAR Reproduction Code
 
-[Leaderboard](https://catherinaff.github.io/leaderboard/) · [中文说明](README.zh-CN.md) · [Run instructions](reproduction/README.md) · [Completed measurements](reproduction/docs/COMPLETED_RESULTS.md) · [Implementation review](reproduction/docs/IMPLEMENTATION_REVIEW.md)
+[Leaderboard](https://catherinaff.github.io/leaderboard/) · [中文说明](README.zh-CN.md) · [Run instructions](reproduction/README.md) · [Completed measurements](reproduction/docs/COMPLETED_RESULTS_20261124.md) · [Implementation review](reproduction/docs/IMPLEMENTATION_REVIEW.md)
 
 This repository contains the static leaderboard and the code used for our HAR measurements. `reproduction/` covers all 19 methods in the current comparison scope and 4 additional historical methods. Paper-only entries and API interfaces are explicitly marked; they are not fabricated implementations or measured scores.
 
 The main page ranks four dataset Accuracy values with equal 25% weight. Verified measured results replace paper values regardless of the gap; missing cells retain the fixed-priority paper reference. Every included supervised seed must cover all required test subjects. Fewer than 5 complete seeds are **provisional**. Asterisks disclose label versions, supervision, pretrained assets and implementation adaptations. A common dataset split does not make all training settings identical.
+
+Latest verification: **2026-11-24**, 59 measured method/dataset groups (53 complete supervised, 2 provisional and 4 zero-shot), covering 2,517 verified fold records. Earlier evidence is retained; the live results may advance beyond a dated code-review snapshot.
 
 ## Datasets actually used
 
